@@ -23,7 +23,7 @@
     <TextView
         android:id="@+id/tv_1"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="33dp"
         android:layout_marginTop="16dp"
         android:text="Đăng nhập để có thể truy cập vào trình quản lý chi tiêu của bạn"
         app:layout_constraintEnd_toEndOf="@+id/tv_start"
@@ -35,13 +35,12 @@
         android:id="@+id/tv_2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="48dp"
         android:text="Chưa có tài khoản?"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/btn_login"
         app:layout_constraintTop_toBottomOf="@+id/btn_login"
-        app:layout_constraintVertical_bias="0.777" />
+        app:layout_constraintVertical_bias="0.778" />
 
     <TextView
         android:id="@+id/tv_signup"
@@ -52,16 +51,16 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/tv_2"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.066"
+        app:layout_constraintHorizontal_bias="0.073"
         app:layout_constraintStart_toEndOf="@+id/tv_2"
         app:layout_constraintTop_toTopOf="@+id/tv_2"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="1.0" />
 
     <CheckBox
         android:id="@+id/ck_rememberacc"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="16dp"
         android:text="Nhớ tài khoản"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -73,7 +72,7 @@
         android:id="@+id/btn_login"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="16dp"
         android:text="Đăng nhập"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -83,40 +82,34 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/textInputLayout"
-        android:layout_width="300dp"
-        android:layout_height="60dp"
-        android:layout_marginTop="20dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
         app:layout_constraintEnd_toEndOf="@+id/tv_1"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/tv_1"
         app:layout_constraintTop_toBottomOf="@+id/tv_1">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/txUsername"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:hint="Tài khoản"
-            android:lineSpacingExtra="16sp"
-            android:textSize="16sp" />
+            android:layout_height="wrap_content"
+            android:hint="Tài khoản" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/textInputLayout2"
-        android:layout_width="300dp"
-        android:layout_height="60dp"
-        android:layout_marginTop="20dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="23dp"
         app:layout_constraintEnd_toEndOf="@+id/textInputLayout"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/textInputLayout"
         app:layout_constraintTop_toBottomOf="@+id/textInputLayout">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/txPwd"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:hint="Mật khẩu"
-            android:lineSpacingExtra="16sp"
-            android:textSize="16sp" />
+            android:layout_height="wrap_content"
+            android:hint="Mật khẩu" />
     </com.google.android.material.textfield.TextInputLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
