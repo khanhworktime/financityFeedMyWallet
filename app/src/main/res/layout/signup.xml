@@ -7,7 +7,7 @@
 
     <TextView
         android:id="@+id/tv_signup"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="48dp"
         android:layout_marginTop="48dp"
@@ -22,8 +22,8 @@
 
     <TextView
         android:id="@+id/tv_3"
-        android:layout_width="213dp"
-        android:layout_height="38dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:text="Đăng kí ngay để chủ động quản lý ví tiền của bạn"
         app:layout_constraintEnd_toEndOf="@+id/tv_signup"
