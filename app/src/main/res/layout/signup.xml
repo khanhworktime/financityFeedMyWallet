@@ -5,77 +5,134 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/txt_mk2"
-        android:layout_width="192dp"
-        android:layout_height="48dp"
-        android:layout_marginTop="16dp"
-        android:hint="Mật khẩu"
-        android:lineSpacingExtra="16sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.146"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txt_email" />
-
-    <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/txt_mk3"
-        android:layout_width="192dp"
-        android:layout_height="48dp"
-        android:layout_marginTop="16dp"
-        android:hint="Nhập lại mật khẩu"
-        android:lineSpacingExtra="16sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.146"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txt_mk2" />
-
     <TextView
         android:id="@+id/tv_signup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="48dp"
         android:layout_marginTop="48dp"
+        android:layout_marginEnd="48dp"
         android:text="Đăng kí"
         android:textSize="34sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.108"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/txt_username_signup"
-        android:layout_width="191dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="40dp"
-        android:hint="Tài khoản"
-        android:minHeight="48dp"
-        android:textSize="16sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_3" />
+    <TextView
+        android:id="@+id/tv_3"
+        android:layout_width="213dp"
+        android:layout_height="38dp"
+        android:layout_marginTop="10dp"
+        android:text="Đăng kí ngay để chủ động quản lý ví tiền của bạn"
+        app:layout_constraintEnd_toEndOf="@+id/tv_signup"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/tv_signup"
+        app:layout_constraintTop_toBottomOf="@+id/tv_signup" />
 
-    <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/txt_email"
-        android:layout_width="191dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="16dp"
-        android:hint="Email"
-        android:minHeight="48dp"
-        android:textSize="16sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txt_username_signup" />
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/ip1"
+        android:layout_width="300dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="20dp"
+        app:layout_constraintEnd_toEndOf="@+id/tv_3"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/tv_3"
+        app:layout_constraintTop_toBottomOf="@+id/tv_3">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/txt_username_signup"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:hint="Tài khoản"
+            android:lineSpacingExtra="16sp"
+            android:minHeight="48dp"
+            android:textSize="16sp" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/ip2"
+        android:layout_width="300dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="10dp"
+        app:layout_constraintEnd_toEndOf="@+id/ip1"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/ip1"
+        app:layout_constraintTop_toBottomOf="@+id/ip1">
+
+        <EditText
+            android:id="@+id/txt_email"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="0"
+            android:ems="10"
+            android:hint="Email"
+            android:inputType="textEmailAddress"
+            android:lineSpacingExtra="16sp"
+            tools:ignore="SpeakableTextPresentCheck,SpeakableTextPresentCheck" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/ip3"
+        android:layout_width="300dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="10dp"
+        app:layout_constraintEnd_toEndOf="@+id/ip2"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/ip2"
+        app:layout_constraintTop_toBottomOf="@+id/ip2">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/txt_pass"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:hint="Mật khẩu"
+            android:lineSpacingExtra="16sp" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/ip4"
+        android:layout_width="300dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="10dp"
+        app:layout_constraintEnd_toEndOf="@+id/ip3"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/ip3"
+        app:layout_constraintTop_toBottomOf="@+id/ip3">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/txt_repass"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:hint="Nhập lại mật khẩu"
+            android:lineSpacingExtra="16sp" />
+    </com.google.android.material.textfield.TextInputLayout>
 
     <Button
         android:id="@+id/btn_signup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="20dp"
         android:text="Đăng kí"
         android:textSize="16sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txt_mk3" />
+        app:layout_constraintEnd_toEndOf="@+id/ip4"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/ip4"
+        app:layout_constraintTop_toBottomOf="@+id/ip4" />
+
+    <TextView
+        android:id="@+id/tv_4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginBottom="64dp"
+        android:text="Đã có tài khoản?"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/btn_signup"
+        app:layout_constraintTop_toBottomOf="@+id/btn_signup"
+        app:layout_constraintVertical_bias="1.0" />
 
     <TextView
         android:id="@+id/tv_login"
@@ -88,31 +145,9 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.209"
+        app:layout_constraintHorizontal_bias="0.347"
         app:layout_constraintStart_toEndOf="@+id/tv_4"
         app:layout_constraintTop_toBottomOf="@+id/btn_login"
         app:layout_constraintVertical_bias="1.0" />
 
-    <TextView
-        android:id="@+id/tv_4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginBottom="64dp"
-        android:text="Đã có tài khoản?"
-        android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_login"
-        app:layout_constraintVertical_bias="0.778" />
-
-    <TextView
-        android:id="@+id/tv_3"
-        android:layout_width="213dp"
-        android:layout_height="38dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="20dp"
-        android:text="Đăng kí ngay để chủ động quản lý ví tiền của bạn"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_signup" />
 </androidx.constraintlayout.widget.ConstraintLayout>
