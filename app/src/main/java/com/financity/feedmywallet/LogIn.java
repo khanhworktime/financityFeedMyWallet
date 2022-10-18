@@ -33,8 +33,9 @@ public class LogIn extends AppCompatActivity {
         btn_login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(getApplicationContext(), MyWallet.class);
+                Intent i = new Intent(getApplicationContext(), CreateNewWallet.class);
                 startActivity(i);
+                finish();
             }
         });
     }

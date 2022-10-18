@@ -158,6 +158,7 @@
         android:layout_marginEnd="20dp"
         android:layout_marginBottom="50dp"
         android:adjustViewBounds="false"
+        android:alpha="0.45"
         android:background="#FFFFFF"
         android:backgroundTint="#FFFFFF"
         android:cropToPadding="false"

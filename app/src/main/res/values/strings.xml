@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Feed My Wallet</string>
+    <string name="action_settings">action</string>
 </resources>
