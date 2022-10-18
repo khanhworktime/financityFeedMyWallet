@@ -4,18 +4,21 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.Toast;
 
 public class CreateNewWallet extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
     String currencyUnits[] = {"Vietnamese Dong ₫", "US Dollar $", "Euro €", "British Pound £", "Japanese Yen ¥", "Chinese Yuan Renminbi ¥", "South Korean Won ₩"};
+    Button btn_create;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +32,17 @@ public class CreateNewWallet extends AppCompatActivity implements AdapterView.On
         cr.setDropDownViewResource(com.google.android.material.R.layout.support_simple_spinner_dropdown_item);
 
         spin.setAdapter(cr);
+
+        btn_create = findViewById(R.id.btn_create);
+
+        btn_create.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(getApplicationContext(), Homepage.class);
+                startActivity(i);
+                finish();
+            }
+        });
     }
 
     @Override
