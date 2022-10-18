@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="t_ng_s_d_kh_d_ng">Tổng số dư khả dụng</string>
+    <string name="moneyHolder">VND 2,000,000</string>
+    <string name="account">account</string>
+</resources>

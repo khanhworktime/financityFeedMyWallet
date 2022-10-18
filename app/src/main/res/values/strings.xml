@@ -43,4 +43,7 @@
         libero vel nunc consequat, quis tincidunt nisl eleifend. Cras bibendum enim a justo luctus
         vestibulum. Fusce dictum libero quis erat maximus, vitae volutpat diam dignissim.
     </string>
+    <string name="t_ng_s_d_kh_d_ng">Tổng số dư khả dụng</string>
+    <string name="moneyHolder">VND 2,000,000</string>
+    <string name="account">account</string>
 </resources>
