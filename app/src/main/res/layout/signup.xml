@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:foregroundTintMode="src_over">
 
     <TextView
         android:id="@+id/tv_signup"
@@ -33,7 +34,7 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/ip1"
-        android:layout_width="300dp"
+        android:layout_width="312dp"
         android:layout_height="60dp"
         android:layout_marginTop="20dp"
         app:layout_constraintEnd_toEndOf="@+id/tv_3"
@@ -53,7 +54,7 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/ip2"
-        android:layout_width="300dp"
+        android:layout_width="312dp"
         android:layout_height="60dp"
         android:layout_marginTop="10dp"
         app:layout_constraintEnd_toEndOf="@+id/ip1"
@@ -75,7 +76,7 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/ip3"
-        android:layout_width="300dp"
+        android:layout_width="312dp"
         android:layout_height="60dp"
         android:layout_marginTop="10dp"
         app:layout_constraintEnd_toEndOf="@+id/ip2"
@@ -89,11 +90,12 @@
             android:layout_height="match_parent"
             android:hint="Mật khẩu"
             android:lineSpacingExtra="16sp" />
+
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/ip4"
-        android:layout_width="300dp"
+        android:layout_width="312dp"
         android:layout_height="60dp"
         android:layout_marginTop="10dp"
         app:layout_constraintEnd_toEndOf="@+id/ip3"
@@ -113,7 +115,7 @@
         android:id="@+id/btn_signup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:text="Đăng kí"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="@+id/ip4"
@@ -125,29 +127,45 @@
         android:id="@+id/tv_4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
+        android:layout_marginTop="10dp"
         android:layout_marginBottom="64dp"
         android:text="Đã có tài khoản?"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="@+id/btn_signup"
         app:layout_constraintTop_toBottomOf="@+id/btn_signup"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/tv_login"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
         android:layout_marginEnd="108dp"
-        android:layout_marginBottom="64dp"
         android:text="Đăng nhập ngay"
         android:textSize="16sp"
         android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/tv_4"
+        app:layout_constraintTop_toBottomOf="@+id/btn_signup" />
+
+    <ImageView
+        android:id="@+id/iv_logo"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="50dp"
+        android:adjustViewBounds="false"
+        android:background="#FFFFFF"
+        android:backgroundTint="#FFFFFF"
+        android:cropToPadding="false"
+        android:tintMode="src_over"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.347"
-        app:layout_constraintStart_toEndOf="@+id/tv_4"
-        app:layout_constraintTop_toBottomOf="@+id/btn_login"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/tv_4"
+        app:srcCompat="@drawable/logo" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
