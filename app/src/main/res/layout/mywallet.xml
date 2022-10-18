@@ -38,7 +38,8 @@
         app:layout_constraintHorizontal_bias="0.03"
         app:layout_constraintStart_toStartOf="@+id/tv_hello"
         app:layout_constraintTop_toBottomOf="@+id/tv_hello"
-        app:srcCompat="@drawable/empty_wallet" />
+        app:srcCompat="@drawable/empty_wallet"
+        tools:ignore="ImageContrastCheck" />
 
     <TextView
         android:id="@+id/tv_6"
