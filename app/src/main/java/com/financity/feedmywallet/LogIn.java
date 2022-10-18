@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 public class LogIn extends AppCompatActivity {
 
+    Button btn_login;
     TextView to_signup;
 
     @Override
@@ -23,6 +24,16 @@ public class LogIn extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(getApplicationContext(), SignUp.class);
+                startActivity(i);
+            }
+        });
+
+        btn_login = findViewById(R.id.btn_login);
+
+        btn_login.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(getApplicationContext(), MyWallet.class);
                 startActivity(i);
             }
         });
