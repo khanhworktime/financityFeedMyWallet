@@ -3,4 +3,7 @@
     <string name="t_ng_s_d_kh_d_ng">Tổng số dư khả dụng</string>
     <string name="moneyHolder">VND 2,000,000</string>
     <string name="account">account</string>
+    <string name="start">Bắt đầu</string>
+    <string name="not_account_yet">Chưa có tài khoản?</string>
+    <string name="ng_nh_p_c_th_truy_c_p_v_o_tr_nh_qu_n_l_chi_ti_u_c_a_b_n">Đăng nhập để có thể truy cập vào trình quản lý chi tiêu của bạn</string>
 </resources>
