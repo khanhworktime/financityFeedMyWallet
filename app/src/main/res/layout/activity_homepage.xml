@@ -32,17 +32,14 @@
         app:layout_constraintStart_toStartOf="@+id/textView"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/imageButton2"
-        style="@style/Widget.Material3.Button.IconButton"
-        android:layout_width="61dp"
-        android:layout_height="63dp"
-        android:layout_marginTop="16dp"
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardWallet"
+        android:layout_width="409dp"
+        android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
-        android:contentDescription="@string/account"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_account"
-        tools:ignore="ImageContrastCheck" />
+        app:layout_constraintStart_toStartOf="@+id/txTotalCredit"
+        app:layout_constraintTop_toBottomOf="@+id/txTotalCredit" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

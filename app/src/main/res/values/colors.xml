@@ -9,5 +9,4 @@
     <color name="white">#FFFFFFFF</color>
     <color name="statusBarColor">#000000FF</color>
     <color name="navigationBarColor">#000000FF</color>
-    <color name="dark_blue">#113D5C</color>
 </resources>
