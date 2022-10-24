@@ -1,4 +1,4 @@
-package com.financity.feedmywallet;
+package com.financity.feedmywallet.WalletCard;
 
 import android.text.Editable;
 
@@ -6,9 +6,9 @@ import java.math.BigDecimal;
 import java.util.Currency;
 
 public class Wallet {
-    String name;
-    String currency;
-    Integer balance;
+    String name = "";
+    String currency = "";
+    Integer balance = 0;
 
     public Wallet(String name, String currency, Integer balance) {
         this.name = name;

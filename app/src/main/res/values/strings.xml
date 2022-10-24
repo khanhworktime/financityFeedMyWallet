@@ -3,6 +3,10 @@
     <string name="action_settings">action</string>
     <!-- Strings used for fragments for navigation -->
     <string name="next">Next</string>
+    <string name="home">Home</string>
+    <string name="budget">Budget</string>
+    <string name="report">Report</string>
+    <string name="setting">Setting</string>
 
     <string name="t_ng_s_d_kh_d_ng">Tổng số dư khả dụng</string>
     <string name="moneyHolder">VND 2,000,000</string>

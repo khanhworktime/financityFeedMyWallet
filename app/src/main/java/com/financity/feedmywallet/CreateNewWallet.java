@@ -1,5 +1,8 @@
 package com.financity.feedmywallet;
 
+
+import static com.financity.feedmywallet.Homepage.wallet;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -12,6 +15,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputEditText;
 
@@ -39,8 +43,8 @@ public class CreateNewWallet extends AppCompatActivity implements AdapterView.On
         btn_create = findViewById(R.id.btn_create);
 
         btn_create.setOnClickListener(view -> {
-            Homepage.wallets.add(new Wallet(Objects.requireNonNull(txName.getText()).toString(), currencyUnit.getText().toString(), Integer.getInteger(String.valueOf(txInitBalance.getText()))));
-
+//            wallet.setName(Objects.requireNonNull(txName.getText()).toString());
+//            wallet.setBalance(Integer.parseInt(Objects.requireNonNull(txInitBalance.getText()).toString()));
             Intent i = new Intent(getApplicationContext(), Homepage.class);
             startActivity(i);
             finish();
@@ -59,18 +63,8 @@ public class CreateNewWallet extends AppCompatActivity implements AdapterView.On
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_main, menu);
+        getMenuInflater().inflate(R.menu.bottom_nav_menu, menu);
         return super.onCreateOptionsMenu(menu);
     }
 
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        int id = item.getItemId();
-
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
 }
