@@ -47,6 +47,16 @@
     <string name="t_ng_s_d_kh_d_ng">Tổng số dư khả dụng</string>
     <string name="moneyHolder">VND 2,000,000</string>
     <string name="account">account</string>
+
+    <string name="slider_1_title">Phân tích chi tiêu</string>
+    <string name="slider_1_desc">Bạn đã chi tiêu những gì trong tháng qua, trong tuần qua? Đâu là khoản chi lớn nhất? Sử dụng chức năng phân tích chi tiêu để biết rõ hơn</string>
+
+    <string name="slider_2_title">Lập dự đoán chi tiêu</string>
+    <string name="slider_2_desc">Luôn tiêu hết tiền trước khi nhận khoản tiếp theo? Hãy tạo mới một khoản dự đoán chi tiêu, và để Feed My Wallet gợi ý chi tiêu cho bạn</string>
+
+    <string name="slider_3_title">Rà soát chi tiêu</string>
+    <string name="slider_3_desc">Tạo thói quen rà soát chi tiêu là một phần cần thiết để bước đầu nắm vững nguồn tài chính của bạn.</string>
+
     <string name="start">Bắt đầu</string>
     <string name="signup_noew">Đăng kí ngay</string>
     <string name="not_account_yet">Chưa có tài khoản?</string>
