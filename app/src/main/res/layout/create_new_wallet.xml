@@ -9,7 +9,7 @@
         android:id="@+id/tv_7"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="32dp"
         android:text="Tạo mới ví"
         android:textSize="24sp"
         android:textStyle="bold"
@@ -56,25 +56,29 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/ip8"
-        android:layout_width="312dp"
-        android:layout_height="60dp"
+        style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
+        android:dropDownHeight="100dp"
         app:layout_constraintEnd_toEndOf="@+id/ip7"
         app:layout_constraintStart_toStartOf="@+id/ip7"
         app:layout_constraintTop_toBottomOf="@+id/ip7">
 
-        <Spinner
-            android:id="@+id/spin"
+        <AutoCompleteTextView
+            android:id="@+id/currencyUnit"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="1"
-            android:contentDescription="@string/action_settings" />
+            android:hint="Chọn đơn vị tiền tệ"
+            android:inputType="none" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/ip9"
         android:layout_width="312dp"
         android:layout_height="60dp"
+        android:layout_marginTop="16dp"
         app:layout_constraintEnd_toEndOf="@+id/ip8"
         app:layout_constraintStart_toStartOf="@+id/ip8"
         app:layout_constraintTop_toBottomOf="@+id/ip8">
@@ -86,15 +90,16 @@
             android:hint="Lượng tiền khởi tạo" />
     </com.google.android.material.textfield.TextInputLayout>
 
+
     <Button
         android:id="@+id/btn_create"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="48dp"
+        android:layout_marginTop="28dp"
         android:text="Tạo mới"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="@+id/ip9"
-        app:layout_constraintHorizontal_bias="0.512"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/ip9"
         app:layout_constraintTop_toBottomOf="@+id/ip9" />
 

@@ -3,7 +3,6 @@ package com.financity.feedmywallet;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -11,27 +10,24 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
-import android.widget.Spinner;
-import android.widget.Toast;
 
 public class CreateNewWallet extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
-    String currencyUnits[] = {"Vietnamese Dong ₫", "US Dollar $", "Euro €", "British Pound £", "Japanese Yen ¥", "Chinese Yuan Renminbi ¥", "South Korean Won ₩"};
+    String[] currencyUnits = {"Vietnamese Dong ₫", "US Dollar $", "Euro €", "British Pound £", "Japanese Yen ¥", "Chinese Yuan Renminbi ¥", "South Korean Won ₩"};
     Button btn_create;
+    AutoCompleteTextView currencyUnit;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.createnewwallet);
+        setContentView(R.layout.create_new_wallet);
 
-        Spinner spin = findViewById(R.id.spin);
-        spin.setOnItemSelectedListener(this);
+        currencyUnit = findViewById(R.id.currencyUnit);
 
-        ArrayAdapter cr = new ArrayAdapter(this, com.google.android.material.R.layout.support_simple_spinner_dropdown_item, currencyUnits);
-        cr.setDropDownViewResource(com.google.android.material.R.layout.support_simple_spinner_dropdown_item);
-
-        spin.setAdapter(cr);
+        ArrayAdapter<String> currencyAdapter = new ArrayAdapter<String>(this,R.layout.list_item, currencyUnits);
+        currencyUnit.setAdapter(currencyAdapter);
 
         btn_create = findViewById(R.id.btn_create);
 
@@ -47,7 +43,7 @@ public class CreateNewWallet extends AppCompatActivity implements AdapterView.On
 
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-        Toast.makeText(getApplicationContext(), currencyUnits[i], Toast.LENGTH_LONG).show();
+
     }
 
     @Override
