@@ -22,7 +22,6 @@ public class Slider_1 extends AppCompatActivity {
             public void onClick(View view) {
                 Intent i = new Intent(getApplicationContext(), Slider_2.class);
                 startActivity(i);
-                finish();
             }
         });
     }
