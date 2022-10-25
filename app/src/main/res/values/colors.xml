@@ -9,4 +9,5 @@
     <color name="white">#FFFFFFFF</color>
     <color name="statusBarColor">#000000FF</color>
     <color name="navigationBarColor">#000000FF</color>
+    <color name="dark_card">#332D41</color>
 </resources>

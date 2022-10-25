@@ -36,7 +36,8 @@
         app:layout_constraintEnd_toEndOf="@+id/tv_8"
         app:layout_constraintStart_toStartOf="@+id/tv_8"
         app:layout_constraintTop_toBottomOf="@+id/tv_8"
-        app:srcCompat="@drawable/img_wallet" />
+        app:srcCompat="@drawable/img_wallet"
+        tools:ignore="ImageContrastCheck" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/ip7"
@@ -51,7 +52,8 @@
             android:id="@+id/txName"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:hint="Tên ví" />
+            android:hint="Tên ví"
+            android:textColorHint="#546E7A" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -71,7 +73,8 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:hint="Chọn đơn vị tiền tệ"
-            android:inputType="none" />
+            android:inputType="none"
+            android:textColorHint="#546E7A" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -87,7 +90,8 @@
             android:id="@+id/txInitBalance"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Lượng tiền khởi tạo" />
+            android:hint="Lượng tiền khởi tạo"
+            android:textColorHint="#546E7A" />
     </com.google.android.material.textfield.TextInputLayout>
 
 

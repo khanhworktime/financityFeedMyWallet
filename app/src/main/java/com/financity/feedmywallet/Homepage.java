@@ -15,7 +15,7 @@ import com.google.android.material.navigation.NavigationBarView;
 
 public class Homepage extends AppCompatActivity {
 
-    public static Wallet wallet;
+    public static Wallet wallet = new Wallet();;
     RecyclerView cardWallet;
     WalletAdapter walletAdapter;
     NavigationBarView navigationBar;
@@ -25,12 +25,12 @@ public class Homepage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_homepage);
         
-//        walletAdapter = new WalletAdapter(wallet);
-//
-//        cardWallet = (RecyclerView) findViewById(R.id.rvCardWallet);
-//
-//        cardWallet.setAdapter(walletAdapter);
-//        cardWallet.setLayoutManager(new LinearLayoutManager(Homepage.this, LinearLayoutManager.VERTICAL, false));
+        walletAdapter = new WalletAdapter(wallet);
+
+        cardWallet =  findViewById(R.id.rvCardWallet);
+
+        cardWallet.setAdapter(walletAdapter);
+        cardWallet.setLayoutManager(new LinearLayoutManager(Homepage.this, LinearLayoutManager.VERTICAL, false));
 
         navigationBar = (NavigationBarView) findViewById(R.id.navigationBar);
         navigationBar.setOnItemSelectedListener(item -> {

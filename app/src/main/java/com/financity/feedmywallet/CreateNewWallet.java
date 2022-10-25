@@ -3,19 +3,16 @@ package com.financity.feedmywallet;
 
 import static com.financity.feedmywallet.Homepage.wallet;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
-import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputEditText;
 
@@ -43,8 +40,8 @@ public class CreateNewWallet extends AppCompatActivity implements AdapterView.On
         btn_create = findViewById(R.id.btn_create);
 
         btn_create.setOnClickListener(view -> {
-//            wallet.setName(Objects.requireNonNull(txName.getText()).toString());
-//            wallet.setBalance(Integer.parseInt(Objects.requireNonNull(txInitBalance.getText()).toString()));
+            wallet.setName(txName.getText().toString());
+            wallet.setBalance(Integer.parseInt(txInitBalance.getText().toString()));
             Intent i = new Intent(getApplicationContext(), Homepage.class);
             startActivity(i);
             finish();

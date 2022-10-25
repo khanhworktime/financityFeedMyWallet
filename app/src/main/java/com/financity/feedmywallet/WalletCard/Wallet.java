@@ -6,9 +6,15 @@ import java.math.BigDecimal;
 import java.util.Currency;
 
 public class Wallet {
-    String name = "";
-    String currency = "";
-    Integer balance = 0;
+    String name;
+    String currency;
+    Integer balance;
+
+    public Wallet() {
+        name = "";
+        currency = "VND";
+        balance = 0;
+    }
 
     public Wallet(String name, String currency, Integer balance) {
         this.name = name;
