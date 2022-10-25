@@ -38,7 +38,8 @@ public class WalletAdapter extends RecyclerView.Adapter<WalletAdapter.WalletVH> 
     @Override
     public void onBindViewHolder(@NonNull WalletVH holder, int position) {
         String name = wallets.get(position).getName();
-        String walletBalance = "VND".concat(wallets.get(position).getBalance().toString());
+        String currency = wallets.get(position).getCurrency();
+        String walletBalance = currency.concat(" " + wallets.get(position).getBalance().toString());
 
         holder.txWalletName.setText(name);
         holder.txBalance.setText(walletBalance);

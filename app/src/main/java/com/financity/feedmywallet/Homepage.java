@@ -30,7 +30,7 @@ public class Homepage extends AppCompatActivity {
         cardWallet =  findViewById(R.id.rvCardWallet);
 
         cardWallet.setAdapter(walletAdapter);
-        cardWallet.setLayoutManager(new LinearLayoutManager(Homepage.this, LinearLayoutManager.VERTICAL, false));
+        cardWallet.setLayoutManager(new LinearLayoutManager(Homepage.this, LinearLayoutManager.HORIZONTAL, false));
 
         navigationBar = (NavigationBarView) findViewById(R.id.navigationBar);
         navigationBar.setOnItemSelectedListener(item -> {

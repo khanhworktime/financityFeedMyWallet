@@ -90,6 +90,8 @@
             android:id="@+id/txInitBalance"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:digits="0123456789"
+            android:inputType="number"
             android:hint="Lượng tiền khởi tạo"
             android:textColorHint="#546E7A" />
     </com.google.android.material.textfield.TextInputLayout>

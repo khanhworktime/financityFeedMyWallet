@@ -5,8 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:backgroundTint="@color/dark_card"
-    android:paddingHorizontal="16dp"
-    android:paddingVertical="16dp">
+    app:cardCornerRadius="12dp"
+    android:clipToPadding="true">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
