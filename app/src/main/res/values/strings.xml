@@ -20,5 +20,16 @@
 
     <string name="slider_3_title">Rà soát chi tiêu</string>
     <string name="slider_3_desc">Tạo thói quen rà soát chi tiêu là một phần cần thiết để bước đầu nắm vững nguồn tài chính của bạn.</string>
+    <string name="download">Thêm nhanh một giao dịch mới</string>
+    <string name="downloadIcon">download</string>
+    <string name="addNewTrans">addNewTrans</string>
+    <string name="t_o_m_i_m_t_giao_d_ch">Tạo mới một giao dịch</string>
+    <string name="thu_chi_th_ng">Thu chi Tháng</string>
+    <string name="thu_nh_p">Thu nhập</string>
+    <string name="defaultIncome">+3.000.000</string>
+    <string name="percentage">65%</string>
+    <string name="s_d_ng">Sử dụng</string>
+    <string name="defaultOutcome">-2.500.000</string>
+    <string name="defaultPercentageOutcome">35%</string>
 
 </resources>
