@@ -32,5 +32,14 @@
     <string name="defaultOutcome">-2.500.000</string>
     <string name="defaultPercentageOutcome">35%</string>
     <string name="vnd">VND</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="emptywallet">emptyWallet</string>
+    <string name="b_n_ch_a_t_budget_n_o_c">Bạn chưa đặt Budget nào cả !</string>
+    <string name="extended_fab_content_desc">add new budget</string>
+    <string name="extended_fab_label">Thêm budget</string>
+    <string name="vi_t_nam_ng_vnd">Việt Nam Đồng VND</string>
+    <string name="dollar_m_usd">Dollar Mỹ USD</string>
+    <string name="y_n_nh_t">Yên Nhật</string>
 
 </resources>

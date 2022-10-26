@@ -6,6 +6,5 @@
     android:padding="16dp"
     android:ellipsize="end"
     android:maxLines="1"
-    android:background="@color/white"
     android:textAppearance="?attr/textAppearanceBodyLarge"
     />

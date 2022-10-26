@@ -1,7 +1,7 @@
 package com.financity.feedmywallet;
 
 
-import static com.financity.feedmywallet.Homepage.wallet;
+import static com.financity.feedmywallet.App.wallet;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -13,14 +13,14 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputEditText;
 
-import java.util.Objects;
-
-public class CreateNewWallet extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
+public class CreateNewWallet extends AppCompatActivity implements AdapterView.OnItemClickListener {
 
     String[] currencyUnits = {"Vietnamese Dong ₫", "US Dollar $", "Euro €", "British Pound £", "Japanese Yen ¥", "Chinese Yuan Renminbi ¥", "South Korean Won ₩"};
+    String[] currencyLables = {"₫", "$", "€", "£", "¥", "¥", "₩"};
     Button btn_create;
     AutoCompleteTextView currencyUnit;
     TextInputEditText txName, txInitBalance;
@@ -36,26 +36,24 @@ public class CreateNewWallet extends AppCompatActivity implements AdapterView.On
 
         ArrayAdapter<String> currencyAdapter = new ArrayAdapter<>(this,R.layout.list_item, currencyUnits);
         currencyUnit.setAdapter(currencyAdapter);
+        currencyUnit.setOnItemClickListener(this);
 
         btn_create = findViewById(R.id.btn_create);
 
         btn_create.setOnClickListener(view -> {
             wallet.setName(txName.getText().toString());
             wallet.setBalance(Integer.parseInt(txInitBalance.getText().toString()));
-            Intent i = new Intent(getApplicationContext(), Homepage.class);
+            Intent i = new Intent(getApplicationContext(), App.class);
             startActivity(i);
             finish();
         });
     }
 
-    @Override
-    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-
-    }
-
-    @Override
-    public void onNothingSelected(AdapterView<?> adapterView) {
-
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id)
+    {
+        // fetch the user selected value
+        String item = currencyLables[position];
+        wallet.setCurrency(item);
     }
 
     @Override
