@@ -48,6 +48,23 @@
         app:layout_constraintStart_toStartOf="@+id/txWalletCurrency"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
 
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/accountIcon"
+        style="?attr/materialIconButtonStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:contentDescription="@string/action_settings"
+        app:icon="@drawable/ic_account"
+        app:iconPadding='0dp'
+        app:iconSize="24dp"
+        app:iconTint="?attr/colorOnSurface"
+        app:layout_constraintBottom_toBottomOf="@+id/txTotalCredit2"
+        app:layout_constraintEnd_toEndOf="@+id/rvCardWallet"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/txTotalCredit2"
+        app:layout_constraintTop_toTopOf="@+id/textView" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvCardWallet"
         android:layout_width="0dp"
