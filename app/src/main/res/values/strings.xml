@@ -9,7 +9,7 @@
     <string name="setting">Setting</string>
 
     <string name="t_ng_s_d_kh_d_ng">Tổng số dư khả dụng</string>
-    <string name="moneyHolder">VND 2,000,000</string>
+    <string name="moneyHolder">2,000,000</string>
     <string name="account">account</string>
 
     <string name="slider_1_title">Phân tích chi tiêu</string>
@@ -31,5 +31,6 @@
     <string name="s_d_ng">Sử dụng</string>
     <string name="defaultOutcome">-2.500.000</string>
     <string name="defaultPercentageOutcome">35%</string>
+    <string name="vnd">VND</string>
 
 </resources>
