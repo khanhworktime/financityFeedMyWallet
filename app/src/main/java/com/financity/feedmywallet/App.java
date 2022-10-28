@@ -7,6 +7,7 @@ import androidx.fragment.app.FragmentTransaction;
 import android.os.Bundle;
 
 import com.financity.feedmywallet.WalletCard.Wallet;
+import com.financity.feedmywallet.budget.Budget;
 import com.financity.feedmywallet.fragment.EmptyBudgetFragment;
 import com.financity.feedmywallet.fragment.HomepageFragment;
 import com.google.android.material.navigation.NavigationBarView;
@@ -23,7 +24,7 @@ public class App extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_homepage);
+        setContentView(R.layout.activity_app);
         HomepageFragment homepageFragment = new HomepageFragment();
         EmptyBudgetFragment emptyBudgetFragment = new EmptyBudgetFragment();
 
@@ -33,6 +34,7 @@ public class App extends AppCompatActivity {
         ft.get().add(R.id.pageFrame, homepageFragment)
                 .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
         ft.get().commit();
+
         navigationBar = findViewById(R.id.navigationBar);
         navigationBar.setOnItemSelectedListener(item -> {
             switch (item.getItemId()) {

@@ -3,12 +3,16 @@ package com.financity.feedmywallet.fragment;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.financity.feedmywallet.R;
+import com.financity.feedmywallet.budget.BudgetBottomSheet;
+import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -61,6 +65,13 @@ public class EmptyBudgetFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_empty_budget, container, false);
+        View view = inflater.inflate(R.layout.fragment_empty_budget, container, false);
+        ExtendedFloatingActionButton efabAddBudget = view.findViewById(R.id.efabAddBudget);
+
+        efabAddBudget.setOnClickListener(v -> {
+            BudgetBottomSheet addBudgetBottomSheet = new BudgetBottomSheet();
+            addBudgetBottomSheet.show(getParentFragmentManager(), addBudgetBottomSheet.getTag());
+        });
+        return view;
     }
 }

@@ -41,5 +41,14 @@
     <string name="vi_t_nam_ng_vnd">Việt Nam Đồng VND</string>
     <string name="dollar_m_usd">Dollar Mỹ USD</string>
     <string name="y_n_nh_t">Yên Nhật</string>
+    <string name="th_m">Thêm</string>
+    <string name="label">textView</string>
+    <string name="sotien">Số tiền</string>
+    <string name="tenBudget">Tên Budget</string>
+    <string name="luongBudget">Số tiền</string>
+    <string name="ch_n_n_v_ti_n_t">Chọn đơn vị tiền tệ</string>
+    <string name="ngayBD">Ngày bắt đầu</string>
+    <string name="ngayKT">Ngày kết thúc</string>
+    <string name="ghichu">Ghi chú</string>
 
 </resources>

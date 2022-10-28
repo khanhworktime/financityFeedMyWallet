@@ -1,4 +1,4 @@
-package com.financity.feedmywallet;
+package com.financity.feedmywallet.budget;
 
 import com.financity.feedmywallet.WalletCard.Wallet;
 
@@ -8,31 +8,30 @@ import java.util.Date;
 public class Budget {
     int total;
     String name;
-    ArrayList<String> groups;
     String note;
     boolean isStarted;
     Wallet wallet;
-    Date startDate;
-    String currency;
+    Date startDate, endDate;
 
-    public Budget(String currency,int total, String name, ArrayList<String> groups, String note, boolean isStarted, Wallet wallet, Date startDate) {
+    public Budget(int total, String name, String note, boolean isStarted, Wallet wallet, Date startDate, Date endDate) {
         this.total = total;
         this.name = name;
-        this.groups = groups;
         this.note = note;
         this.isStarted = isStarted;
         this.wallet = wallet;
         this.startDate = startDate;
-        this.currency = currency;
+        this.endDate = endDate;
     }
 
-    public String getCurrency() {
-        return currency;
+    public Date getEndDate() {
+        return endDate;
     }
 
-    public void setCurrency(String currency) {
-        this.currency = currency;
+    public void setEndDate(Date endDate) {
+        this.endDate = endDate;
     }
+
+
 
     public int getTotal() {
         return total;
@@ -48,14 +47,6 @@ public class Budget {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public ArrayList<String> getGroups() {
-        return groups;
-    }
-
-    public void setGroups(ArrayList<String> groups) {
-        this.groups = groups;
     }
 
     public String getNote() {

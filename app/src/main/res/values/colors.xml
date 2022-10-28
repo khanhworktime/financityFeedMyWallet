@@ -10,4 +10,5 @@
     <color name="statusBarColor">#000000FF</color>
     <color name="navigationBarColor">#000000FF</color>
     <color name="dark_card">#332D41</color>
+    <color name="secondary_card">#4A4458</color>
 </resources>
