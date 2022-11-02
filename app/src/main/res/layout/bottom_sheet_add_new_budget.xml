@@ -81,11 +81,12 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/textField2"
+        android:id="@+id/inpBudgetStartDateBox"
         android:layout_width="0dp"
         android:layout_height="57dp"
         android:layout_marginTop="16dp"
         android:hint="@string/ngayBD"
+        app:startIconDrawable="@drawable/ic_baseline_calendar_month_24"
         app:layout_constraintEnd_toEndOf="@+id/textField"
         app:layout_constraintStart_toStartOf="@+id/textField"
         app:layout_constraintTop_toBottomOf="@+id/textField1">
@@ -100,14 +101,15 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/textField3"
+        android:id="@+id/inpBudgetEndDateBox"
         android:layout_width="0dp"
         android:layout_height="57dp"
         android:layout_marginTop="16dp"
         android:hint="@string/ngayKT"
+        app:startIconDrawable="@drawable/ic_baseline_calendar_month_24"
         app:layout_constraintEnd_toEndOf="@+id/textField"
         app:layout_constraintStart_toStartOf="@+id/textField"
-        app:layout_constraintTop_toBottomOf="@+id/textField2">
+        app:layout_constraintTop_toBottomOf="@+id/inpBudgetStartDateBox">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/inpBudgetEndDate"
@@ -129,7 +131,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/textField"
         app:layout_constraintStart_toStartOf="@+id/textField"
-        app:layout_constraintTop_toBottomOf="@+id/textField3"
+        app:layout_constraintTop_toBottomOf="@+id/inpBudgetEndDateBox"
         app:layout_constraintVertical_bias="1.0">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -141,6 +143,7 @@
             android:textColorHint="#546E7A"
             tools:ignore="TextContrastCheck" />
     </com.google.android.material.textfield.TextInputLayout>
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

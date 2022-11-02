@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "253649491795",
+    "project_id": "feedmywallet-c2835",
+    "storage_bucket": "feedmywallet-c2835.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:253649491795:android:552e96afa807880bc0f3a6",
+        "android_client_info": {
+          "package_name": "com.financity.feedmywallet"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "253649491795-sc8uv0nhmmhjaoqvitdals0abq3093qa.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDwewG1nyyeGTfjkENiSWPCqcFpXeS0aBA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "253649491795-sc8uv0nhmmhjaoqvitdals0abq3093qa.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

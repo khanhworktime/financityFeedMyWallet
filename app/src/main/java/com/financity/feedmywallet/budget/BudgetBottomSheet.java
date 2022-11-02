@@ -5,6 +5,7 @@ import static com.financity.feedmywallet.App.wallet;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.text.Editable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,7 +16,9 @@ import androidx.annotation.Nullable;
 import com.financity.feedmywallet.R;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
+import com.google.android.material.datepicker.MaterialDatePicker;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.Date;
 
@@ -38,18 +41,29 @@ public class BudgetBottomSheet extends BottomSheetDialogFragment {
 
         TextInputEditText inpBudgetName = view.findViewById(R.id.inpBudgetName);
         TextInputEditText inpBudgetAmount = view.findViewById(R.id.inpBudgetAmount);
-        TextInputEditText inpBudgetStartDate = view.findViewById(R.id.inpBudgetStartDate);
-        TextInputEditText inpBudgetEndDate = view.findViewById(R.id.inpBudgetEndDate);
+        TextInputLayout inpBudgetStartDateBox = view.findViewById(R.id.inpBudgetStartDateBox);
+        TextInputLayout inpBudgetEndDateBox = view.findViewById(R.id.inpBudgetEndDateBox);
         TextInputEditText inpBudgetNote = view.findViewById(R.id.inpBudgetNote);
 
         MaterialToolbar topAppBar = view.findViewById(R.id.topAppBar);
 
+//        Top bar add button
         topAppBar.setOnMenuItemClickListener(item -> {
-            if (item.getItemId() == R.id.mItemAddBudget) {
-//                budgets.add(new Budget(inpBudgetAmount, inpBudgetName.toString(), inpBudgetNote.toString(), false, wallet, Date.parse(inpBudgetStartDate.toString())))
-                return true;
-            }
-            return false;
+            //                budgets.add(new Budget(inpBudgetAmount, inpBudgetName.toString(), inpBudgetNote.toString(), false, wallet, Date.parse(inpBudgetStartDate.toString())))
+            return item.getItemId() == R.id.mItemAddBudget;
+        });
+
+//        inpBudgetStartDate and inpBudgetEndDate handlers
+
+        inpBudgetStartDateBox.setOnClickListener(v -> {
+            MaterialDatePicker.Builder<Long> datePickerBuilder = MaterialDatePicker.Builder.datePicker();
+            MaterialDatePicker<Long> datePicker = datePickerBuilder.setTitleText("Ngày bắt đầu")
+                    .setSelection(MaterialDatePicker.todayInUtcMilliseconds())
+                    .setPositiveButtonText("OK")
+                    .setNegativeButtonText("Hủy")
+                    .build();
+
+            datePicker.show(getParentFragmentManager(), "DatePickerForStartDate");
         });
 
         return view;
