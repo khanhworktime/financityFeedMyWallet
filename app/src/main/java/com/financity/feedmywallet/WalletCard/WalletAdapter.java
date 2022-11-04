@@ -45,7 +45,7 @@ public class WalletAdapter extends RecyclerView.Adapter<WalletAdapter.WalletVH> 
         holder.txBalance.setText(walletBalance);
     }
 
-    class WalletVH extends RecyclerView.ViewHolder{
+    static class WalletVH extends RecyclerView.ViewHolder{
         TextView txWalletName, txBalance;
 
         public WalletVH(@NonNull View itemView) {

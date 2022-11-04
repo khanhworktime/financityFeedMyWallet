@@ -2,6 +2,7 @@ package com.financity.feedmywallet;
 
 
 import static com.financity.feedmywallet.App.wallet;
+import static com.financity.feedmywallet.App.wallets;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -15,6 +16,7 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.financity.feedmywallet.WalletCard.Wallet;
 import com.google.android.material.textfield.TextInputEditText;
 
 public class CreateNewWallet extends AppCompatActivity implements AdapterView.OnItemClickListener {
@@ -24,6 +26,7 @@ public class CreateNewWallet extends AppCompatActivity implements AdapterView.On
     Button btn_create;
     AutoCompleteTextView currencyUnit;
     TextInputEditText txName, txInitBalance;
+    Wallet newWallet = new Wallet();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,9 +43,15 @@ public class CreateNewWallet extends AppCompatActivity implements AdapterView.On
 
         btn_create = findViewById(R.id.btn_create);
 
+
         btn_create.setOnClickListener(view -> {
-            wallet.setName(txName.getText().toString());
-            wallet.setBalance(Integer.parseInt(txInitBalance.getText().toString()));
+
+            newWallet.setName(txName.getText().toString());
+            newWallet.setBalance(Integer.parseInt(txInitBalance.getText().toString()));
+
+            wallet = newWallet;
+            wallets.add(newWallet);
+
             Intent i = new Intent(getApplicationContext(), App.class);
             startActivity(i);
             finish();
@@ -53,12 +62,12 @@ public class CreateNewWallet extends AppCompatActivity implements AdapterView.On
     {
         // fetch the user selected value
         String item = currencyLables[position];
-        wallet.setCurrency(item);
+        newWallet.setCurrency(item);
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.bottom_nav_menu, menu);
+        getMenuInflater().inflate(R.menu.option_menu, menu);
         return super.onCreateOptionsMenu(menu);
     }
 

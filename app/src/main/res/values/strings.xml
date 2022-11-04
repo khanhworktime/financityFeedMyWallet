@@ -50,5 +50,8 @@
     <string name="ngayBD">Ngày bắt đầu</string>
     <string name="ngayKT">Ngày kết thúc</string>
     <string name="ghichu">Ghi chú</string>
+    <string name="v_ti_n">Ví tiền</string>
+    <string name="textview">TextView</string>
+    <string name="qu_n_l_budget">Quản lí Budget</string>
 
 </resources>

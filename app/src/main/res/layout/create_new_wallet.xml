@@ -67,7 +67,7 @@
         app:layout_constraintStart_toStartOf="@+id/ip7"
         app:layout_constraintTop_toBottomOf="@+id/ip7">
 
-        <AutoCompleteTextView
+        <com.google.android.material.textfield.MaterialAutoCompleteTextView
             android:id="@+id/txCurrencyUnit"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

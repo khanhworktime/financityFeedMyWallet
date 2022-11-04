@@ -2,19 +2,20 @@ package com.financity.feedmywallet.budget;
 
 import com.financity.feedmywallet.WalletCard.Wallet;
 
-import java.util.ArrayList;
-import java.util.Date;
-
 public class Budget {
-    int total;
+    int amount;
     String name;
     String note;
     boolean isStarted;
     Wallet wallet;
-    Date startDate, endDate;
+    String startDate;
+    String endDate;
 
-    public Budget(int total, String name, String note, boolean isStarted, Wallet wallet, Date startDate, Date endDate) {
-        this.total = total;
+    public Budget() {
+    }
+
+    public Budget(int amount, String name, String note, boolean isStarted, Wallet wallet, String startDate, String endDate) {
+        this.amount = amount;
         this.name = name;
         this.note = note;
         this.isStarted = isStarted;
@@ -23,22 +24,22 @@ public class Budget {
         this.endDate = endDate;
     }
 
-    public Date getEndDate() {
+    public String getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(Date endDate) {
+    public void setEndDate(String endDate) {
         this.endDate = endDate;
     }
 
 
 
-    public int getTotal() {
-        return total;
+    public int getAmount() {
+        return amount;
     }
 
-    public void setTotal(int total) {
-        this.total = total;
+    public void setAmount(int amount) {
+        this.amount = amount;
     }
 
     public String getName() {
@@ -73,11 +74,15 @@ public class Budget {
         this.wallet = wallet;
     }
 
-    public Date getStartDate() {
+    public String getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(Date startDate) {
+    public void setStartDate(String startDate) {
         this.startDate = startDate;
+    }
+
+    public String getDuration(){
+        return this.startDate + " - " + this.endDate;
     }
 }

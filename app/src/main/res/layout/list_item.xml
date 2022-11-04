@@ -5,6 +5,7 @@
     android:layout_height="wrap_content"
     android:padding="16dp"
     android:ellipsize="end"
+    android:backgroundTint="@color/cardview_light_background"
     android:maxLines="1"
     android:textAppearance="?attr/textAppearanceBodyLarge"
     />

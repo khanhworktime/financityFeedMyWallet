@@ -81,20 +81,40 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tlWallet"
+        style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="@+id/textField1"
+        app:layout_constraintStart_toStartOf="@+id/textField1"
+        app:layout_constraintTop_toBottomOf="@+id/textField1">
+
+        <com.google.android.material.textfield.MaterialAutoCompleteTextView
+            android:id="@+id/inpWallet"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:focusableInTouchMode="false"
+            android:hint="@string/v_ti_n"
+            android:inputType="none" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/inpBudgetStartDateBox"
         android:layout_width="0dp"
         android:layout_height="57dp"
         android:layout_marginTop="16dp"
         android:hint="@string/ngayBD"
-        app:startIconDrawable="@drawable/ic_baseline_calendar_month_24"
         app:layout_constraintEnd_toEndOf="@+id/textField"
         app:layout_constraintStart_toStartOf="@+id/textField"
-        app:layout_constraintTop_toBottomOf="@+id/textField1">
+        app:layout_constraintTop_toBottomOf="@+id/tlWallet"
+        app:startIconDrawable="@drawable/ic_baseline_calendar_month_24">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/inpBudgetStartDate"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:focusableInTouchMode="false"
             android:layout_marginTop="80dp"
             android:textColorHint="#546E7A"
             tools:ignore="TextContrastCheck" />
@@ -115,6 +135,7 @@
             android:id="@+id/inpBudgetEndDate"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:focusableInTouchMode="false"
             android:layout_marginTop="80dp"
             android:textColorHint="#546E7A"
             tools:ignore="TextContrastCheck" />
@@ -143,7 +164,6 @@
             android:textColorHint="#546E7A"
             tools:ignore="TextContrastCheck" />
     </com.google.android.material.textfield.TextInputLayout>
-
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
