@@ -8,10 +8,15 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.google.firebase.auth.FirebaseAuth;
+
 public class LogIn extends AppCompatActivity {
 
     Button btn_login;
     TextView to_signup;
+    protected FirebaseAuth mFirebaseAuth = FirebaseAuth.getInstance();
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
