@@ -1,4 +1,4 @@
-package com.financity.feedmywallet;
+package com.financity.feedmywallet.intro_slider;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -6,6 +6,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+
+import com.financity.feedmywallet.CreateNewWallet;
+import com.financity.feedmywallet.R;
 
 public class Slider_3 extends AppCompatActivity {
 

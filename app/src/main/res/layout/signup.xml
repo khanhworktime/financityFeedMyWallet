@@ -7,7 +7,7 @@
     android:foregroundTintMode="src_over">
 
     <TextView
-        android:id="@+id/tv_signup"
+        android:id="@+id/txSignUp"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="48dp"
@@ -25,45 +25,22 @@
         android:id="@+id/tv_3"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
         android:text="Đăng kí ngay để chủ động quản lý ví tiền của bạn"
-        app:layout_constraintEnd_toEndOf="@+id/tv_signup"
+        app:layout_constraintEnd_toEndOf="@+id/txSignUp"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/tv_signup"
-        app:layout_constraintTop_toBottomOf="@+id/tv_signup" />
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/ip1"
-        android:layout_width="312dp"
-        android:layout_height="60dp"
-        android:layout_marginTop="20dp"
-        app:layout_constraintEnd_toEndOf="@+id/tv_3"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/tv_3"
-        app:layout_constraintTop_toBottomOf="@+id/tv_3">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/txt_username_signup"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:hint="Tài khoản"
-            android:lineSpacingExtra="16sp"
-            android:minHeight="48dp"
-            android:textSize="16sp" />
-    </com.google.android.material.textfield.TextInputLayout>
+        app:layout_constraintStart_toStartOf="@+id/txSignUp"
+        app:layout_constraintTop_toBottomOf="@+id/txSignUp" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/ip2"
         android:layout_width="312dp"
         android:layout_height="60dp"
-        android:layout_marginTop="10dp"
-        app:layout_constraintEnd_toEndOf="@+id/ip1"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/ip1"
-        app:layout_constraintTop_toBottomOf="@+id/ip1">
+        android:layout_marginTop="32dp"
+        app:layout_constraintStart_toStartOf="@+id/tv_3"
+        app:layout_constraintTop_toBottomOf="@+id/tv_3">
 
-        <EditText
-            android:id="@+id/txt_email"
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/txEmailReg"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="0"
@@ -85,10 +62,11 @@
         app:layout_constraintTop_toBottomOf="@+id/ip2">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/txt_pass"
+            android:id="@+id/txPwdReg"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:hint="Mật khẩu"
+            android:inputType="textPassword"
             android:lineSpacingExtra="16sp" />
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -104,15 +82,16 @@
         app:layout_constraintTop_toBottomOf="@+id/ip3">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/txt_repass"
+            android:id="@+id/txRePwdReg"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:hint="Nhập lại mật khẩu"
+            android:inputType="textPassword"
             android:lineSpacingExtra="16sp" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <Button
-        android:id="@+id/btn_signup"
+        android:id="@+id/btnSignUp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
@@ -121,7 +100,8 @@
         app:layout_constraintEnd_toEndOf="@+id/ip4"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/ip4"
-        app:layout_constraintTop_toBottomOf="@+id/ip4" />
+        app:layout_constraintTop_toBottomOf="@+id/ip4"
+        tools:ignore="DuplicateSpeakableTextCheck" />
 
     <TextView
         android:id="@+id/tv_4"
@@ -132,12 +112,12 @@
         android:text="Đã có tài khoản?"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/btn_signup"
-        app:layout_constraintTop_toBottomOf="@+id/btn_signup"
+        app:layout_constraintStart_toStartOf="@+id/btnSignUp"
+        app:layout_constraintTop_toBottomOf="@+id/btnSignUp"
         app:layout_constraintVertical_bias="0.0" />
 
     <TextView
-        android:id="@+id/tv_login"
+        android:id="@+id/txLogin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
@@ -149,7 +129,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/tv_4"
-        app:layout_constraintTop_toBottomOf="@+id/btn_signup" />
+        app:layout_constraintTop_toBottomOf="@+id/btnSignUp" />
 
     <ImageView
         android:id="@+id/iv_logo"

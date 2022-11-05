@@ -7,6 +7,10 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.ktx.Firebase;
+
 public class SplashScreen extends AppCompatActivity {
 
     @Override
@@ -24,5 +28,18 @@ public class SplashScreen extends AppCompatActivity {
             }
         }, 3000);
 
+    }
+
+    private void beforeStart(){
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+        Intent intent;
+        if(user != null){
+            intent = new Intent(SplashScreen.this, LogIn.class);
+        } else {
+            intent = new Intent(SplashScreen.this, App.class);
+        }
+        startActivity(intent);
+        finish();
     }
 }

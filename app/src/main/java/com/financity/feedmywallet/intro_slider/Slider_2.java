@@ -1,4 +1,4 @@
-package com.financity.feedmywallet;
+package com.financity.feedmywallet.intro_slider;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -7,20 +7,22 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-public class Slider_1 extends AppCompatActivity {
+import com.financity.feedmywallet.R;
 
-    Button to_slider_2;
+public class Slider_2 extends AppCompatActivity {
+
+    Button to_slider_3;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_slider1);
+        setContentView(R.layout.activity_slider2);
 
-        to_slider_2 = findViewById(R.id.btn_slide1);
-        to_slider_2.setOnClickListener(new View.OnClickListener() {
+        to_slider_3 = findViewById(R.id.btn_slide2);
+        to_slider_3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(getApplicationContext(), Slider_2.class);
+                Intent i = new Intent(getApplicationContext(), Slider_3.class);
                 startActivity(i);
             }
         });

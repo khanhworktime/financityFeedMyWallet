@@ -57,12 +57,12 @@
         android:text="Chưa có tài khoản?"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/btn_login"
-        app:layout_constraintTop_toBottomOf="@+id/btn_login"
+        app:layout_constraintStart_toStartOf="@+id/btnLogin"
+        app:layout_constraintTop_toBottomOf="@+id/btnLogin"
         app:layout_constraintVertical_bias="0.011" />
 
     <TextView
-        android:id="@+id/tv_signup"
+        android:id="@+id/txSignUp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Đăng kí ngay"
@@ -76,7 +76,7 @@
         app:layout_constraintVertical_bias="1.0" />
 
     <CheckBox
-        android:id="@+id/ck_rememberacc"
+        android:id="@+id/ckRememberAccount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Nhớ tài khoản"
@@ -87,15 +87,15 @@
         app:layout_constraintTop_toBottomOf="@+id/ip6" />
 
     <Button
-        android:id="@+id/btn_login"
+        android:id="@+id/btnLogin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Đăng nhập"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/ck_rememberacc"
-        app:layout_constraintTop_toBottomOf="@+id/ck_rememberacc" />
+        app:layout_constraintStart_toStartOf="@+id/ckRememberAccount"
+        app:layout_constraintTop_toBottomOf="@+id/ckRememberAccount" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/ip5"
@@ -126,16 +126,17 @@
             android:id="@+id/txPwd"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:hint="Mật khẩu" />
+            android:hint="Mật khẩu"
+            android:inputType="textPassword" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.gms.common.SignInButton
         android:id="@+id/btnGoogleSignIn"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="@+id/btn_login"
+        app:layout_constraintBottom_toBottomOf="@+id/btnLogin"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/btn_login"
-        app:layout_constraintTop_toTopOf="@+id/btn_login" />
+        app:layout_constraintStart_toEndOf="@+id/btnLogin"
+        app:layout_constraintTop_toTopOf="@+id/btnLogin" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

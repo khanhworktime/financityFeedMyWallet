@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Slider_3">
+    tools:context=".intro_slider.Slider_3">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="wrap_content"
