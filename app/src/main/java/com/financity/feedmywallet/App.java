@@ -6,20 +6,19 @@ import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Bundle;
 
-import com.financity.feedmywallet.WalletCard.Wallet;
+import com.financity.feedmywallet.walletCard.Wallet;
 import com.financity.feedmywallet.budget.Budget;
 import com.financity.feedmywallet.fragment.BudgetFragment;
 import com.financity.feedmywallet.fragment.HomepageFragment;
 import com.google.android.material.navigation.NavigationBarView;
 
 import java.util.ArrayList;
-import java.util.concurrent.atomic.AtomicReference;
 
 public class App extends AppCompatActivity{
 
-    public static ArrayList<Wallet> wallets = new ArrayList<>();
+    public static final ArrayList<Wallet> wallets = new ArrayList<>();
     public static Wallet wallet = new Wallet();
-    public static ArrayList<Budget> budgets = new ArrayList<>();
+    public static final ArrayList<Budget> budgets = new ArrayList<>();
     NavigationBarView navigationBar;
 
     @Override

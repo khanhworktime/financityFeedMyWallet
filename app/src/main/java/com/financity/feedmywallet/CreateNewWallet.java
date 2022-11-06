@@ -14,19 +14,18 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
-import android.widget.Toast;
 
-import com.financity.feedmywallet.WalletCard.Wallet;
+import com.financity.feedmywallet.walletCard.Wallet;
 import com.google.android.material.textfield.TextInputEditText;
 
 public class CreateNewWallet extends AppCompatActivity implements AdapterView.OnItemClickListener {
 
-    String[] currencyUnits = {"Vietnamese Dong ₫", "US Dollar $", "Euro €", "British Pound £", "Japanese Yen ¥", "Chinese Yuan Renminbi ¥", "South Korean Won ₩"};
-    String[] currencyLables = {"₫", "$", "€", "£", "¥", "¥", "₩"};
+    final String[] currencyUnits = {"Vietnamese Dong ₫", "US Dollar $", "Euro €", "British Pound £", "Japanese Yen ¥", "Chinese Yuan Renminbi ¥", "South Korean Won ₩"};
+    final String[] currencyLables = {"₫", "$", "€", "£", "¥", "¥", "₩"};
     Button btn_create;
     AutoCompleteTextView currencyUnit;
     TextInputEditText txName, txInitBalance;
-    Wallet newWallet = new Wallet();
+    final Wallet newWallet = new Wallet();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

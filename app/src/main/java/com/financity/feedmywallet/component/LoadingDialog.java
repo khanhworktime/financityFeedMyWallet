@@ -1,4 +1,4 @@
-package com.financity.feedmywallet.Component;
+package com.financity.feedmywallet.component;
 
 import android.app.Dialog;
 import android.content.Context;
@@ -9,7 +9,7 @@ import android.widget.TextView;
 import com.financity.feedmywallet.R;
 
 public class LoadingDialog {
-    Context context;
+    final Context context;
     Dialog dialog;
 
     public LoadingDialog(Context context) {

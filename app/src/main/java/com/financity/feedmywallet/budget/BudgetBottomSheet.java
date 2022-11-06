@@ -29,9 +29,9 @@ import java.util.Locale;
 
 public class BudgetBottomSheet extends BottomSheetDialogFragment {
 
-    UpdateData updateData;
+    final UpdateData updateData;
 
-    int selectedPosition;
+    final int selectedPosition;
     public BudgetBottomSheet(UpdateData updateData) {
         this.updateData = updateData;
         selectedPosition = -1;
@@ -89,10 +89,7 @@ public class BudgetBottomSheet extends BottomSheetDialogFragment {
             SimpleDateFormat dateFormat = new SimpleDateFormat("MMM dd, yyyy", Locale.getDefault());
             Date now = new Date();
             try {
-                if (dateFormat.parse(String.valueOf(now)) == dateFormat.parse(finalBudgetEdit.getStartDate())) {
-                    finalBudgetEdit.setStarted(true);
-                }
-                else finalBudgetEdit.setStarted(false);
+                finalBudgetEdit.setStarted(dateFormat.parse(String.valueOf(now)) == dateFormat.parse(finalBudgetEdit.getStartDate()));
             } catch (ParseException e) {
                 e.printStackTrace();
             }

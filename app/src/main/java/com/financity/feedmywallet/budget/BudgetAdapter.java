@@ -43,8 +43,11 @@ public class BudgetAdapter extends RecyclerView.Adapter<BudgetAdapter.BudgetVH>{
 
     static class BudgetVH extends RecyclerView.ViewHolder{
 
-        TextView txBudgetName, txBudgetWallet, txAmount, txDuration;
-        ProgressBar prgBudget;
+        final TextView txBudgetName;
+        final TextView txBudgetWallet;
+        final TextView txAmount;
+        final TextView txDuration;
+        final ProgressBar prgBudget;
 
         public BudgetVH(@NonNull View itemView) {
             super(itemView);

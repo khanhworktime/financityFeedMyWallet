@@ -1,6 +1,5 @@
-package com.financity.feedmywallet.WalletCard;
+package com.financity.feedmywallet.walletCard;
 
-import android.icu.number.NumberFormatter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,7 +9,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.financity.feedmywallet.R;
-import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.ArrayList;
 
@@ -19,8 +17,8 @@ public class WalletAdapter extends RecyclerView.Adapter<WalletAdapter.WalletVH> 
         void onItemClicked(Wallet wallet);
     }
 
-    Wallet wallet;
-    ArrayList<Wallet> wallets;
+    final Wallet wallet;
+    final ArrayList<Wallet> wallets;
 
     public WalletAdapter(Wallet wallet) {
         this.wallet = wallet;
@@ -46,7 +44,8 @@ public class WalletAdapter extends RecyclerView.Adapter<WalletAdapter.WalletVH> 
     }
 
     static class WalletVH extends RecyclerView.ViewHolder{
-        TextView txWalletName, txBalance;
+        final TextView txWalletName;
+        final TextView txBalance;
 
         public WalletVH(@NonNull View itemView) {
             super(itemView);

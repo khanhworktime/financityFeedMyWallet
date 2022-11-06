@@ -1,6 +1,6 @@
 package com.financity.feedmywallet.budget;
 
-import com.financity.feedmywallet.WalletCard.Wallet;
+import com.financity.feedmywallet.walletCard.Wallet;
 
 public class Budget {
     int amount;
