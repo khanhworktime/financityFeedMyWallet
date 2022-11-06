@@ -53,5 +53,6 @@
     <string name="v_ti_n">Ví tiền</string>
     <string name="textview">TextView</string>
     <string name="qu_n_l_budget">Quản lí Budget</string>
+    <string name="loading">Loading</string>
 
 </resources>

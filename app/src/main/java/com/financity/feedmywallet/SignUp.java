@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.financity.feedmywallet.Component.LoadingDialog;
 import com.financity.feedmywallet.intro_slider.Slider_1;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -28,6 +29,7 @@ public class SignUp extends AppCompatActivity {
     Button btnSignUp;
     TextView txLogin;
     TextInputEditText txEmailReg, txPwdReg, txRePwdReg;
+    LoadingDialog loadingDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,10 +59,15 @@ public class SignUp extends AppCompatActivity {
                         Toast.LENGTH_SHORT).show();
 
                 FirebaseAuth mAuth = FirebaseAuth.getInstance();
+
+                loadingDialog = new LoadingDialog(SignUp.this);
+                loadingDialog.ShowDialog("Signing Up...");
+
                 mAuth.createUserWithEmailAndPassword(email, password)
                         .addOnCompleteListener(SignUp.this, new OnCompleteListener<AuthResult>() {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
+                                loadingDialog.HideDialog();
                                 if (task.isSuccessful()) {
                                     // Sign in success, update UI with the signed-in user's information
                                     Log.d(TAG, "signInWithEmail:success");
