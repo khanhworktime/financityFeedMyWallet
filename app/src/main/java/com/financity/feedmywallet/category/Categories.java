@@ -3,8 +3,8 @@ package com.financity.feedmywallet.category;
 import java.util.ArrayList;
 
 public class Categories {
-    ArrayList<IncomeCategory> incomeCategories;
-    ArrayList<OutcomeCategory> outcomeCategories;
+    ArrayList<Category> incomeCategories;
+    ArrayList<Category> outcomeCategories;
 
     public Categories() {
         incomeCategories = new ArrayList<>();
@@ -13,51 +13,51 @@ public class Categories {
         initCategories();
     }
 
-    public Categories(ArrayList<IncomeCategory> incomeCategories, ArrayList<OutcomeCategory> outcomeCategories) {
+    public Categories(ArrayList<Category> incomeCategories, ArrayList<Category> outcomeCategories) {
         this.incomeCategories = incomeCategories;
         this.outcomeCategories = outcomeCategories;
     }
 
     private void initCategories(){
 //        Add income
-        incomeCategories.add(new IncomeCategory("Salary"));
-        incomeCategories.add(new IncomeCategory("Gifted"));
-        incomeCategories.add(new IncomeCategory("Business"));
-        incomeCategories.add(new IncomeCategory("Extra income"));
-        incomeCategories.add(new IncomeCategory("Loan"));
+        incomeCategories.add(new Category("Salary", "Income"));
+        incomeCategories.add(new Category("Gifted", "Income"));
+        incomeCategories.add(new Category("Business", "Income"));
+        incomeCategories.add(new Category("Extra income", "Income"));
+        incomeCategories.add(new Category("Loan", "Income"));
 //        Add outcome
-        outcomeCategories.add(new OutcomeCategory("Food & Drink"));
-        outcomeCategories.add(new OutcomeCategory("Shopping"));
-        outcomeCategories.add(new OutcomeCategory("Transport"));
-        outcomeCategories.add(new OutcomeCategory("Home"));
-        outcomeCategories.add(new OutcomeCategory("Bills & Fees"));
-        outcomeCategories.add(new OutcomeCategory("Entertainment"));
-        outcomeCategories.add(new OutcomeCategory("Car"));
-        outcomeCategories.add(new OutcomeCategory("Travel"));
-        outcomeCategories.add(new OutcomeCategory("Family"));
-        outcomeCategories.add(new OutcomeCategory("Healthcare"));
-        outcomeCategories.add(new OutcomeCategory("Education"));
-        outcomeCategories.add(new OutcomeCategory("Groceries"));
-        outcomeCategories.add(new OutcomeCategory("Gift"));
+        outcomeCategories.add(new Category("Food & Drink", "Outcome"));
+        outcomeCategories.add(new Category("Shopping", "Outcome"));
+        outcomeCategories.add(new Category("Transport", "Outcome"));
+        outcomeCategories.add(new Category("Home", "Outcome"));
+        outcomeCategories.add(new Category("Bills & Fees", "Outcome"));
+        outcomeCategories.add(new Category("Entertainment", "Outcome"));
+        outcomeCategories.add(new Category("Car", "Outcome"));
+        outcomeCategories.add(new Category("Travel", "Outcome"));
+        outcomeCategories.add(new Category("Family", "Outcome"));
+        outcomeCategories.add(new Category("Healthcare", "Outcome"));
+        outcomeCategories.add(new Category("Education", "Outcome"));
+        outcomeCategories.add(new Category("Groceries", "Outcome"));
+        outcomeCategories.add(new Category("Gift", "Outcome"));
     }
 
-    public ArrayList<IncomeCategory> getIncomeCategories() {
+    public ArrayList<Category> getIncomeCategories() {
         return incomeCategories;
     }
 
-    public void setIncomeCategories(ArrayList<IncomeCategory> incomeCategories) {
+    public void setIncomeCategories(ArrayList<Category> incomeCategories) {
         this.incomeCategories = incomeCategories;
     }
 
-    public ArrayList<OutcomeCategory> getOutcomeCategories() {
+    public ArrayList<Category> getOutcomeCategories() {
         return outcomeCategories;
     }
 
-    public void setOutcomeCategories(ArrayList<OutcomeCategory> outcomeCategories) {
+    public void setOutcomeCategories(ArrayList<Category> outcomeCategories) {
         this.outcomeCategories = outcomeCategories;
     }
 
-    public OutcomeCategory getOutcomeCategory(String name) {
+    public Category getOutcomeCategory(String name) {
         for (int i = 0; i < outcomeCategories.size(); i++) {
             if (outcomeCategories.get(i).getValue().equals(name)) {
                 return outcomeCategories.get(i);
@@ -66,7 +66,7 @@ public class Categories {
         return null;
     }
 
-    public IncomeCategory getIncomeCategory(String name) {
+    public Category getIncomeCategory(String name) {
         for (int i = 0; i < incomeCategories.size(); i++) {
             if (incomeCategories.get(i).getValue().equals(name)) {
                 return incomeCategories.get(i);

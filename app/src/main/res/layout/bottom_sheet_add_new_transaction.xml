@@ -173,14 +173,13 @@
         android:id="@+id/textField4"
         android:layout_width="0dp"
         android:layout_height="150dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
+        android:layout_marginTop="16dp"
         android:layout_marginBottom="24dp"
         android:hint="@string/ghichu"
         android:minHeight="150dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/textField"
-        app:layout_constraintStart_toStartOf="@+id/textField"
+        app:layout_constraintEnd_toEndOf="@+id/inpTransStartDateBox"
+        app:layout_constraintStart_toStartOf="@+id/inpTransStartDateBox"
         app:layout_constraintTop_toBottomOf="@+id/inpTransStartDateBox">
 
         <com.google.android.material.textfield.TextInputEditText

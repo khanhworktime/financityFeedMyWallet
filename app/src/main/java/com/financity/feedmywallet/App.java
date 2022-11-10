@@ -7,28 +7,34 @@ import androidx.fragment.app.FragmentTransaction;
 import android.os.Bundle;
 
 import com.financity.feedmywallet.category.Categories;
-import com.financity.feedmywallet.category.Category;
 import com.financity.feedmywallet.transaction.Transaction;
-import com.financity.feedmywallet.walletCard.Wallet;
+import com.financity.feedmywallet.wallet.Wallet;
 import com.financity.feedmywallet.budget.Budget;
 import com.financity.feedmywallet.fragment.BudgetFragment;
 import com.financity.feedmywallet.fragment.HomepageFragment;
 import com.google.android.material.navigation.NavigationBarView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class App extends AppCompatActivity{
 
-    public static final ArrayList<Budget> budgets = new ArrayList<>();
-    public static final ArrayList<Wallet> wallets = new ArrayList<>();
-    public static final Categories categories = new Categories();
-    public static final ArrayList<Transaction> transactions = new ArrayList<>();
+    public static ArrayList<Budget> budgets = new ArrayList<>();
+    public static ArrayList<Wallet> wallets = new ArrayList<>();
+    public static Categories categories = new Categories();
+    public static ArrayList<Transaction> transactions = new ArrayList<>();
     NavigationBarView navigationBar;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_app);
+
 
         HomepageFragment homepageFragment = new HomepageFragment();
         BudgetFragment budgetFragment = new BudgetFragment();

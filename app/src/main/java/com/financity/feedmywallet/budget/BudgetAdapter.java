@@ -13,10 +13,13 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.financity.feedmywallet.R;
 
+import java.util.ArrayList;
+
 public class BudgetAdapter extends RecyclerView.Adapter<BudgetAdapter.BudgetVH>{
 
-    public BudgetAdapter() {
-    }
+    ArrayList<Budget> budgets;
+
+    public BudgetAdapter(ArrayList<Budget> budgets) { this.budgets = budgets; }
 
     @NonNull
     @Override

@@ -13,7 +13,7 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 
-import com.financity.feedmywallet.walletCard.Wallet;
+import com.financity.feedmywallet.wallet.Wallet;
 import com.google.android.material.textfield.TextInputEditText;
 
 public class CreateNewWallet extends AppCompatActivity implements AdapterView.OnItemClickListener {

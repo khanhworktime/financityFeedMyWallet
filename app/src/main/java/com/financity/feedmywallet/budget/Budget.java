@@ -2,7 +2,7 @@ package com.financity.feedmywallet.budget;
 
 import com.financity.feedmywallet.category.Category;
 import com.financity.feedmywallet.category.OutcomeCategory;
-import com.financity.feedmywallet.walletCard.Wallet;
+import com.financity.feedmywallet.wallet.Wallet;
 
 public class Budget {
     int amount;
@@ -12,12 +12,12 @@ public class Budget {
     Wallet wallet;
     String startDate;
     String endDate;
-    OutcomeCategory category;
+    Category category;
 
     public Budget() {
     }
 
-    public Budget(int amount, String name, String note, boolean isStarted, Wallet wallet, String startDate, String endDate, OutcomeCategory category) {
+    public Budget(int amount, String name, String note, boolean isStarted, Wallet wallet, String startDate, String endDate, Category category) {
         this.amount = amount;
         this.name = name;
         this.note = note;
@@ -90,11 +90,11 @@ public class Budget {
         return this.startDate + " - " + this.endDate;
     }
 
-    public OutcomeCategory getCategory() {
+    public Category getCategory() {
         return category;
     }
 
-    public void setCategory(OutcomeCategory category) {
+    public void setCategory(Category category) {
         this.category = category;
     }
 }

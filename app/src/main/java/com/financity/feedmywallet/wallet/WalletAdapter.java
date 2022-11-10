@@ -1,4 +1,4 @@
-package com.financity.feedmywallet.walletCard;
+package com.financity.feedmywallet.wallet;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,13 +17,10 @@ public class WalletAdapter extends RecyclerView.Adapter<WalletAdapter.WalletVH> 
         void onItemClicked(Wallet wallet);
     }
 
-    final Wallet wallet;
     final ArrayList<Wallet> wallets;
 
-    public WalletAdapter(Wallet wallet) {
-        this.wallet = wallet;
-        wallets = new ArrayList<>();
-        wallets.add(wallet);
+    public WalletAdapter(ArrayList<Wallet> wallets) {
+        this.wallets = wallets;
     }
 
     @NonNull

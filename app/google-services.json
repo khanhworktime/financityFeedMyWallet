@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "253649491795",
+    "firebase_url": "https://feedmywallet-c2835-default-rtdb.asia-southeast1.firebasedatabase.app",
     "project_id": "feedmywallet-c2835",
     "storage_bucket": "feedmywallet-c2835.appspot.com"
   },
@@ -13,6 +14,14 @@
         }
       },
       "oauth_client": [
+        {
+          "client_id": "253649491795-73cgjdk7uei4b5a1mhsvma9k4p52sh9m.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.financity.feedmywallet",
+            "certificate_hash": "8bb3cb163aa9a3c916e7b2edb562bd04222fb4ca"
+          }
+        },
         {
           "client_id": "253649491795-sc8uv0nhmmhjaoqvitdals0abq3093qa.apps.googleusercontent.com",
           "client_type": 3

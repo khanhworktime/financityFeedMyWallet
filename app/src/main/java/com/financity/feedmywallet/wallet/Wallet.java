@@ -1,4 +1,4 @@
-package com.financity.feedmywallet.walletCard;
+package com.financity.feedmywallet.wallet;
 
 public class Wallet {
     String name;
@@ -7,7 +7,7 @@ public class Wallet {
 
     public Wallet() {
         name = "";
-        currency = "VND";
+        currency = "đ";
         balance = 0;
     }
 

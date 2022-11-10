@@ -1,7 +1,7 @@
 package com.financity.feedmywallet.transaction;
 
 import com.financity.feedmywallet.category.Category;
-import com.financity.feedmywallet.walletCard.Wallet;
+import com.financity.feedmywallet.wallet.Wallet;
 
 public class Transaction {
 

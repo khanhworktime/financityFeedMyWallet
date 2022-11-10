@@ -21,25 +21,26 @@ import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.google.android.material.datepicker.MaterialDatePicker;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
+import java.util.Objects;
 
 public class BudgetBottomSheet extends BottomSheetDialogFragment {
 
-    final UpdateData updateData;
 
     final int selectedPosition;
-    public BudgetBottomSheet(UpdateData updateData) {
-        this.updateData = updateData;
+    public BudgetBottomSheet() {
         selectedPosition = -1;
     }
 
-    public BudgetBottomSheet(int position, UpdateData updateData) {
+    public BudgetBottomSheet(int position) {
         selectedPosition = position;
-        this.updateData = updateData;
     }
 
     @Override
@@ -79,6 +80,7 @@ public class BudgetBottomSheet extends BottomSheetDialogFragment {
         }
 
         Budget finalBudgetEdit = budgetEdit;
+        Budget finalBudgetEdit2 = budgetEdit;
         topAppBar.setOnMenuItemClickListener(item -> {
             finalBudgetEdit.setAmount(
                     Integer.parseInt(String.valueOf(inpBudgetAmount.getText()))
@@ -96,8 +98,11 @@ public class BudgetBottomSheet extends BottomSheetDialogFragment {
                 e.printStackTrace();
             }
 
-            budgets.add(finalBudgetEdit);
-            updateData.setUpdateData();
+            DatabaseReference mRef = FirebaseDatabase.getInstance().getReference("users_data")
+                    .child(Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid())
+                    .child("budgets").child(String.valueOf(budgets.size()));
+
+            mRef.setValue(finalBudgetEdit2);
             dismiss();
             return item.getItemId() == R.id.mItemAddBudget;
         });
@@ -149,9 +154,5 @@ public class BudgetBottomSheet extends BottomSheetDialogFragment {
         inpCategory.setOnItemClickListener((parent, view1, position, id) -> finalBudgetEdit1.setCategory(categories.getOutcomeCategories().get(position)));
 
         return view;
-    }
-
-    public interface UpdateData{
-        void setUpdateData();
     }
 }

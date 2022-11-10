@@ -6,6 +6,7 @@ import static com.financity.feedmywallet.App.wallets;
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -15,11 +16,24 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.financity.feedmywallet.App;
 import com.financity.feedmywallet.R;
 import com.financity.feedmywallet.transaction.TransactionAdapter;
 import com.financity.feedmywallet.transaction.TransactionBottomSheet;
-import com.financity.feedmywallet.walletCard.WalletAdapter;
+import com.financity.feedmywallet.wallet.Wallet;
+import com.financity.feedmywallet.wallet.WalletAdapter;
 import com.google.android.material.card.MaterialCardView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -51,6 +65,9 @@ public class HomepageFragment extends Fragment {
     TextView txWalletCurrency;
     MaterialCardView addNewTransView;
 
+    FirebaseDatabase mDatabase;
+
+
     // TODO: Rename and change types and number of parameters
     public static HomepageFragment newInstance(String param1, String param2) {
         HomepageFragment fragment = new HomepageFragment();
@@ -77,16 +94,39 @@ public class HomepageFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_homepage, container, false);
 
-        txWalletCurrency = view.findViewById(R.id.txWalletCurrency);
-        addNewTransView = view.findViewById(R.id.addNewTransView);
-
-        txWalletCurrency.setText(wallets.get(0).getCurrency());
-        walletAdapter = new WalletAdapter(wallets.get(0));
+        mDatabase = FirebaseDatabase.getInstance();
+        DatabaseReference getWallets = mDatabase.getReference("users_data")
+                .child(Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid())
+                .child("wallets");
 
         cardWallet =  view.findViewById(R.id.rvCardWallet);
 
-        cardWallet.setAdapter(walletAdapter);
+        getWallets.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                ArrayList<Wallet> tempWallet = new ArrayList<Wallet>();
+                snapshot.getChildren().forEach(child -> {
+                    tempWallet.add(child.getValue(Wallet.class));
+                });
+
+                wallets = tempWallet;
+
+                txWalletCurrency.setText(wallets.get(0).getCurrency());
+                walletAdapter = new WalletAdapter(wallets);
+                walletAdapter.notifyDataSetChanged();
+                cardWallet.setAdapter(walletAdapter);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
         cardWallet.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
+        txWalletCurrency = view.findViewById(R.id.txWalletCurrency);
+        addNewTransView = view.findViewById(R.id.addNewTransView);
+
 
         addNewTransView.setOnClickListener(new View.OnClickListener() {
             @Override

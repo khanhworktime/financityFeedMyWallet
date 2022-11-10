@@ -11,6 +11,9 @@ public class Category {
     String value;
     String type;
 
+    public Category() {
+    }
+
     public Category(String value, String type) {
         this.value = value;
         this.type = type;

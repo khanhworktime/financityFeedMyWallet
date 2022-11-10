@@ -62,5 +62,6 @@
     <string name="transnote">TransNote</string>
     <string name="ch_a_c_giao_d_ch_n_o_c">Chưa có giao dịch nào cả!</string>
     <string name="giao_d_ch">Giao dịch</string>
+    <string name="_100">100%</string>
 
 </resources>

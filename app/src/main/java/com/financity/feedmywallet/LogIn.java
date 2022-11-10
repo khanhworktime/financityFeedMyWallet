@@ -34,7 +34,6 @@ public class LogIn extends AppCompatActivity {
         setContentView(R.layout.login);
         initUI();
         initListener();
-
     }
 
     private void initUI(){
@@ -81,7 +80,7 @@ public class LogIn extends AppCompatActivity {
                                     // Sign in success, update UI with the signed-in user's information
                                     Log.d(TAG, "signInWithEmail:success");
                                     FirebaseUser user = mAuth.getCurrentUser();
-                                    Intent i = new Intent(getApplicationContext(), CreateNewWallet.class);
+                                    Intent i = new Intent(getApplicationContext(), App.class);
                                     startActivity(i);
                                     finishAffinity();
                                 } else {
