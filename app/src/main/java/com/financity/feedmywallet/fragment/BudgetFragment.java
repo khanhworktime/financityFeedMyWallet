@@ -95,6 +95,6 @@ public class BudgetFragment extends Fragment implements BudgetBottomSheet.Update
 
     @Override
     public void setUpdateData() {
-        getParentFragmentManager().beginTransaction().detach(this).attach(this).commit();
+        requireActivity().getSupportFragmentManager().beginTransaction().detach(this).attach(this).commit();
     }
 }

@@ -6,6 +6,9 @@ import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Bundle;
 
+import com.financity.feedmywallet.category.Categories;
+import com.financity.feedmywallet.category.Category;
+import com.financity.feedmywallet.transaction.Transaction;
 import com.financity.feedmywallet.walletCard.Wallet;
 import com.financity.feedmywallet.budget.Budget;
 import com.financity.feedmywallet.fragment.BudgetFragment;
@@ -16,9 +19,10 @@ import java.util.ArrayList;
 
 public class App extends AppCompatActivity{
 
-    public static final ArrayList<Wallet> wallets = new ArrayList<>();
-    public static Wallet wallet = new Wallet();
     public static final ArrayList<Budget> budgets = new ArrayList<>();
+    public static final ArrayList<Wallet> wallets = new ArrayList<>();
+    public static final Categories categories = new Categories();
+    public static final ArrayList<Transaction> transactions = new ArrayList<>();
     NavigationBarView navigationBar;
 
     @Override

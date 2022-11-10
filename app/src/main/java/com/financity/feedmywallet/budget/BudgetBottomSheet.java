@@ -1,6 +1,7 @@
 package com.financity.feedmywallet.budget;
 
 import static com.financity.feedmywallet.App.budgets;
+import static com.financity.feedmywallet.App.categories;
 import static com.financity.feedmywallet.App.wallets;
 
 import android.annotation.SuppressLint;
@@ -8,15 +9,14 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.financity.feedmywallet.App;
 import com.financity.feedmywallet.R;
-import com.financity.feedmywallet.fragment.BudgetFragment;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.google.android.material.datepicker.MaterialDatePicker;
@@ -62,7 +62,8 @@ public class BudgetBottomSheet extends BottomSheetDialogFragment {
         TextInputEditText inpBudgetStartDate = view.findViewById(R.id.inpBudgetStartDate);
         TextInputEditText inpBudgetEndDate = view.findViewById(R.id.inpBudgetEndDate);
         TextInputEditText inpBudgetNote = view.findViewById(R.id.inpBudgetNote);
-        AutoCompleteTextView inpWallet = view.findViewById(R.id.inpWallet);
+        AutoCompleteTextView inpWallet = view.findViewById(R.id.inpBudgetWallet);
+        AutoCompleteTextView inpCategory = view.findViewById(R.id.inpBudgetCategory);
         MaterialToolbar topAppBar = view.findViewById(R.id.topAppBar);
 
         Budget budgetEdit = new Budget();
@@ -74,6 +75,7 @@ public class BudgetBottomSheet extends BottomSheetDialogFragment {
             inpBudgetEndDate.setText(budgetEdit.getEndDate());
             inpBudgetNote.setText(budgetEdit.getNote());
             inpWallet.setText(budgetEdit.getWallet().getName());
+            inpCategory.setText(budgetEdit.getCategory().getValue());
         }
 
         Budget finalBudgetEdit = budgetEdit;
@@ -127,20 +129,24 @@ public class BudgetBottomSheet extends BottomSheetDialogFragment {
         });
 
         String[] walletNames = new String[wallets.size()];
+        String[] outcomeNames = new String[App.categories.getOutcomeCategories().size()];
 
         for (int i = 0 ; i < wallets.size() ; i++) {
             walletNames[i] = wallets.get(i).getName();
         }
+        for (int i = 0 ; i < outcomeNames.length ; i++) {
+            outcomeNames[i] = App.categories.getOutcomeCategories().get(i).getValue();
+        }
+
+        Budget finalBudgetEdit1 = budgetEdit;
 
         ArrayAdapter<String> walletsAdapter = new ArrayAdapter<>(getContext(), R.layout.list_item, walletNames);
         inpWallet.setAdapter(walletsAdapter);
-        Budget finalBudgetEdit1 = budgetEdit;
-        inpWallet.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                finalBudgetEdit1.setWallet(wallets.get(position));
-            }
-        });
+        inpWallet.setOnItemClickListener((parent, view1, position, id) -> finalBudgetEdit1.setWallet(wallets.get(position)));
+
+        ArrayAdapter<String> categoriesAdapter = new ArrayAdapter<>(getContext(), R.layout.list_item, outcomeNames);
+        inpCategory.setAdapter(categoriesAdapter);
+        inpCategory.setOnItemClickListener((parent, view1, position, id) -> finalBudgetEdit1.setCategory(categories.getOutcomeCategories().get(position)));
 
         return view;
     }

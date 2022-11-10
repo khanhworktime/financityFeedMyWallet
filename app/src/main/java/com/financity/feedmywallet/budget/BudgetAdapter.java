@@ -33,6 +33,7 @@ public class BudgetAdapter extends RecyclerView.Adapter<BudgetAdapter.BudgetVH>{
         holder.txBudgetName.setText(budget.getName());
         holder.txDuration.setText(budget.getDuration());
         holder.txAmount.setText(String.valueOf(budget.getAmount()));
+        holder.txBudgetCategory.setText(budget.getCategory().getValue());
 //        holder.prgBudget
     }
 
@@ -47,6 +48,7 @@ public class BudgetAdapter extends RecyclerView.Adapter<BudgetAdapter.BudgetVH>{
         final TextView txBudgetWallet;
         final TextView txAmount;
         final TextView txDuration;
+        final TextView txBudgetCategory;
         final ProgressBar prgBudget;
 
         public BudgetVH(@NonNull View itemView) {
@@ -56,6 +58,7 @@ public class BudgetAdapter extends RecyclerView.Adapter<BudgetAdapter.BudgetVH>{
             txBudgetWallet = itemView.findViewById(R.id.txBudgetWallet);
             txDuration = itemView.findViewById(R.id.txDuration);
             prgBudget = itemView.findViewById(R.id.prgBudget);
+            txBudgetCategory = itemView.findViewById(R.id.txBudgetCategory);
         }
     }
 }

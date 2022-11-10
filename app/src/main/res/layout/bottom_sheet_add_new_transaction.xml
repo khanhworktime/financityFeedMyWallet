@@ -2,7 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/addBudgetBottomSheet"
+    android:id="@+id/addTransactionBottomSheet"
     style="@style/Widget.Material3.BottomSheet"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -35,7 +35,7 @@
             android:layout_height="?attr/actionBarSize"
             app:menu="@menu/add_budget_menu"
             app:srcCompat="@drawable/ic_baseline_add_24"
-            app:title="Thêm budget mới" />
+            app:title="Thêm giao dịch mới" />
 
     </com.google.android.material.appbar.AppBarLayout>
 
@@ -46,13 +46,13 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
-        android:hint="@string/tenBudget"
-        app:layout_constraintEnd_toEndOf="@+id/appBarLayout"
-        app:layout_constraintStart_toStartOf="@+id/appBarLayout"
+        android:hint="@string/t_n_giao_d_ch"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/appBarLayout">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/inpBudgetName"
+            android:id="@+id/inpTransName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="80dp"
@@ -61,17 +61,40 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tlType"
+        style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textField">
+
+        <com.google.android.material.textfield.MaterialAutoCompleteTextView
+            android:id="@+id/inpTransType"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:focusableInTouchMode="false"
+            android:hint="@string/lo_i_giao_d_ch"
+            android:inputType="none" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/textField1"
         android:layout_width="0dp"
         android:layout_height="57dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
         android:hint="@string/sotien"
-        app:layout_constraintEnd_toEndOf="@+id/textField"
-        app:layout_constraintStart_toStartOf="@+id/textField"
-        app:layout_constraintTop_toBottomOf="@+id/textField">
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tlCategory">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/inpBudgetAmount"
+            android:id="@+id/inpTransAmount"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="80dp"
@@ -85,13 +108,15 @@
         style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        app:layout_constraintEnd_toEndOf="@+id/textField1"
-        app:layout_constraintStart_toStartOf="@+id/textField1"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textField1">
 
         <com.google.android.material.textfield.MaterialAutoCompleteTextView
-            android:id="@+id/inpBudgetWallet"
+            android:id="@+id/inpTransWallet"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:focusableInTouchMode="false"
@@ -104,14 +129,16 @@
         style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        app:layout_constraintEnd_toEndOf="@+id/tlWallet"
-        app:layout_constraintStart_toStartOf="@+id/tlWallet"
-        app:startIconDrawable="@drawable/ic_catagory"
-        app:layout_constraintTop_toBottomOf="@+id/tlWallet">
+        android:layout_marginEnd="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tlType"
+        app:startIconDrawable="@drawable/ic_catagory">
 
         <com.google.android.material.textfield.MaterialAutoCompleteTextView
-            android:id="@+id/inpBudgetCategory"
+            android:id="@+id/inpTransCategory"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:focusableInTouchMode="false"
@@ -120,43 +147,24 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/inpBudgetStartDateBox"
+        android:id="@+id/inpTransStartDateBox"
         android:layout_width="0dp"
         android:layout_height="57dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        android:hint="@string/ngayBD"
-        app:layout_constraintEnd_toEndOf="@+id/textField"
-        app:layout_constraintStart_toStartOf="@+id/textField"
-        app:layout_constraintTop_toBottomOf="@+id/tlCategory"
+        android:layout_marginEnd="16dp"
+        android:hint="@string/transDate"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tlWallet"
         app:startIconDrawable="@drawable/ic_baseline_calendar_month_24">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/inpBudgetStartDate"
+            android:id="@+id/inpTransDate"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="80dp"
             android:focusableInTouchMode="false"
-            android:textColorHint="#546E7A"
-            tools:ignore="TextContrastCheck" />
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/inpBudgetEndDateBox"
-        android:layout_width="0dp"
-        android:layout_height="57dp"
-        android:layout_marginTop="16dp"
-        android:hint="@string/ngayKT"
-        app:startIconDrawable="@drawable/ic_baseline_calendar_month_24"
-        app:layout_constraintEnd_toEndOf="@+id/textField"
-        app:layout_constraintStart_toStartOf="@+id/textField"
-        app:layout_constraintTop_toBottomOf="@+id/inpBudgetStartDateBox">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/inpBudgetEndDate"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:focusableInTouchMode="false"
-            android:layout_marginTop="80dp"
             android:textColorHint="#546E7A"
             tools:ignore="TextContrastCheck" />
     </com.google.android.material.textfield.TextInputLayout>
@@ -165,17 +173,18 @@
         android:id="@+id/textField4"
         android:layout_width="0dp"
         android:layout_height="150dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
         android:layout_marginBottom="24dp"
         android:hint="@string/ghichu"
         android:minHeight="150dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/textField"
         app:layout_constraintStart_toStartOf="@+id/textField"
-        app:layout_constraintTop_toBottomOf="@+id/inpBudgetEndDateBox">
+        app:layout_constraintTop_toBottomOf="@+id/inpTransStartDateBox">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/inpBudgetNote"
+            android:id="@+id/inpTransNote"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="80dp"

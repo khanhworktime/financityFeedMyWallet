@@ -1,7 +1,5 @@
 package com.financity.feedmywallet;
 
-
-import static com.financity.feedmywallet.App.wallet;
 import static com.financity.feedmywallet.App.wallets;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -48,7 +46,6 @@ public class CreateNewWallet extends AppCompatActivity implements AdapterView.On
             newWallet.setName(txName.getText().toString());
             newWallet.setBalance(Integer.parseInt(txInitBalance.getText().toString()));
 
-            wallet = newWallet;
             wallets.add(newWallet);
 
             Intent i = new Intent(getApplicationContext(), App.class);

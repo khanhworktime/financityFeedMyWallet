@@ -1,4 +1,4 @@
-package com.financity.feedmywallet.intro_slider;
+package com.financity.feedmywallet.introSlider;
 
 import androidx.appcompat.app.AppCompatActivity;
 

@@ -54,5 +54,13 @@
     <string name="textview">TextView</string>
     <string name="qu_n_l_budget">Quản lí Budget</string>
     <string name="loading">Loading</string>
+    <string name="category">Category</string>
+    <string name="t_n_giao_d_ch">Tên giao dịch</string>
+    <string name="lo_i_giao_d_ch">Loại giao dịch</string>
+    <string name="transDate">Ngày giao dịch</string>
+    <string name="transname">TransName</string>
+    <string name="transnote">TransNote</string>
+    <string name="ch_a_c_giao_d_ch_n_o_c">Chưa có giao dịch nào cả!</string>
+    <string name="giao_d_ch">Giao dịch</string>
 
 </resources>

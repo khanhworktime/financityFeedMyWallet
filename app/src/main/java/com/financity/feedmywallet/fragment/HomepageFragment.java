@@ -1,7 +1,9 @@
 package com.financity.feedmywallet.fragment;
 
-import static com.financity.feedmywallet.App.wallet;
 
+import static com.financity.feedmywallet.App.wallets;
+
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -14,7 +16,10 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.financity.feedmywallet.R;
+import com.financity.feedmywallet.transaction.TransactionAdapter;
+import com.financity.feedmywallet.transaction.TransactionBottomSheet;
 import com.financity.feedmywallet.walletCard.WalletAdapter;
+import com.google.android.material.card.MaterialCardView;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -41,9 +46,10 @@ public class HomepageFragment extends Fragment {
      * @return A new instance of fragment HomepageFragment.
      */
 
-    RecyclerView cardWallet;
+    RecyclerView cardWallet, rvTrans;
     WalletAdapter walletAdapter;
     TextView txWalletCurrency;
+    MaterialCardView addNewTransView;
 
     // TODO: Rename and change types and number of parameters
     public static HomepageFragment newInstance(String param1, String param2) {
@@ -65,19 +71,37 @@ public class HomepageFragment extends Fragment {
         }
     }
 
+    @SuppressLint({"MissingInflatedId", "NotifyDataSetChanged"})
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_homepage, container, false);
 
         txWalletCurrency = view.findViewById(R.id.txWalletCurrency);
-        txWalletCurrency.setText(wallet.getCurrency());
-        walletAdapter = new WalletAdapter(wallet);
+        addNewTransView = view.findViewById(R.id.addNewTransView);
+
+        txWalletCurrency.setText(wallets.get(0).getCurrency());
+        walletAdapter = new WalletAdapter(wallets.get(0));
 
         cardWallet =  view.findViewById(R.id.rvCardWallet);
 
         cardWallet.setAdapter(walletAdapter);
         cardWallet.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
+
+        addNewTransView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                TransactionBottomSheet addBudgetBottomSheet = new TransactionBottomSheet();
+                addBudgetBottomSheet.show(HomepageFragment.this.getParentFragmentManager(), "Add new transaction");
+            }
+        });
+
+        rvTrans = view.findViewById(R.id.rvTrans);
+        TransactionAdapter transactionAdapter = new TransactionAdapter();
+        rvTrans.setAdapter(transactionAdapter);
+        transactionAdapter.notifyDataSetChanged();
+        rvTrans.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
+
         return view;
     }
 }
