@@ -3,15 +3,12 @@ package com.financity.feedmywallet.wallet;
 public class Wallet {
     String name;
     String currency;
-    Integer balance;
+    Float balance;
 
     public Wallet() {
-        name = "";
-        currency = "đ";
-        balance = 0;
     }
 
-    public Wallet(String name, String currency, Integer balance) {
+    public Wallet(String name, String currency, Float balance) {
         this.name = name;
         this.currency = currency;
         this.balance = balance;
@@ -33,11 +30,11 @@ public class Wallet {
         this.currency = currency;
     }
 
-    public Integer getBalance() {
+    public Float getBalance() {
         return balance;
     }
 
-    public void setBalance(Integer balance) {
+    public void setBalance(Float balance) {
         this.balance = balance;
     }
 }

@@ -1,9 +1,12 @@
 package com.financity.feedmywallet.fragment;
 
 
+import static com.financity.feedmywallet.App.totalBalance;
+import static com.financity.feedmywallet.App.transactions;
 import static com.financity.feedmywallet.App.wallets;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -16,13 +19,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.financity.feedmywallet.AllTransactions;
 import com.financity.feedmywallet.App;
+import com.financity.feedmywallet.CreateNewWallet;
 import com.financity.feedmywallet.R;
+import com.financity.feedmywallet.transaction.Transaction;
 import com.financity.feedmywallet.transaction.TransactionAdapter;
 import com.financity.feedmywallet.transaction.TransactionBottomSheet;
 import com.financity.feedmywallet.wallet.Wallet;
 import com.financity.feedmywallet.wallet.WalletAdapter;
 import com.google.android.material.card.MaterialCardView;
+import com.google.android.material.progressindicator.LinearProgressIndicator;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -30,62 +37,30 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.Date;
+import java.util.Locale;
 import java.util.Objects;
+import java.util.concurrent.atomic.AtomicReference;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link HomepageFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class HomepageFragment extends Fragment {
-
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
 
     public HomepageFragment() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment HomepageFragment.
-     */
-
     RecyclerView cardWallet, rvTrans;
     WalletAdapter walletAdapter;
-    TextView txWalletCurrency;
+    TransactionAdapter transactionAdapter;
+    TextView txWalletCurrency, txEmptyTrans, txAllTrans, txPercentageOutcome, txPercentageIncome, txReportMonthOutcome, txReportMonthIncome;
     MaterialCardView addNewTransView;
-
+    LinearProgressIndicator prgIncome, prgOutcome;
     FirebaseDatabase mDatabase;
-
-
-    // TODO: Rename and change types and number of parameters
-    public static HomepageFragment newInstance(String param1, String param2) {
-        HomepageFragment fragment = new HomepageFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            // TODO: Rename and change types of parameters
-            String mParam1 = getArguments().getString(ARG_PARAM1);
-            String mParam2 = getArguments().getString(ARG_PARAM2);
-        }
     }
 
     @SuppressLint({"MissingInflatedId", "NotifyDataSetChanged"})
@@ -93,6 +68,13 @@ public class HomepageFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_homepage, container, false);
+
+        if (wallets.isEmpty()) {
+            Intent intent = new Intent(requireActivity(), CreateNewWallet.class);
+            startActivity(intent);
+            requireActivity().finishAffinity();
+            return null;
+        }
 
         mDatabase = FirebaseDatabase.getInstance();
         DatabaseReference getWallets = mDatabase.getReference("users_data")
@@ -124,9 +106,9 @@ public class HomepageFragment extends Fragment {
         });
 
         cardWallet.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
+
         txWalletCurrency = view.findViewById(R.id.txWalletCurrency);
         addNewTransView = view.findViewById(R.id.addNewTransView);
-
 
         addNewTransView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -136,11 +118,97 @@ public class HomepageFragment extends Fragment {
             }
         });
 
+        DatabaseReference getTrans = FirebaseDatabase.getInstance().getReference("users_data")
+                .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                .child("transactions");
+
         rvTrans = view.findViewById(R.id.rvTrans);
-        TransactionAdapter transactionAdapter = new TransactionAdapter();
-        rvTrans.setAdapter(transactionAdapter);
-        transactionAdapter.notifyDataSetChanged();
+        txEmptyTrans = view.findViewById(R.id.txEmptyTrans);
+
+        prgIncome = view.findViewById(R.id.prgIncome);
+        prgIncome.setIndeterminate(true);
+        prgOutcome = view.findViewById(R.id.prgOutcome);
+        prgOutcome.setIndeterminate(true);
+
+        txPercentageIncome = view.findViewById(R.id.txPercentageIncome);
+        txPercentageOutcome = view.findViewById(R.id.txPercentageOutcome);
+
+        txReportMonthIncome = view.findViewById(R.id.txReportMonthIncome);
+        txReportMonthOutcome = view.findViewById(R.id.txReportMonthOutcome);
+
+        getTrans.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                ArrayList<Transaction> tempTrans = new ArrayList<Transaction>();
+                ArrayList<Transaction> tempToday = new ArrayList<Transaction>();
+
+                ArrayList<Transaction> incomeTemp = new ArrayList<Transaction>();
+                ArrayList<Transaction> outcomeTemp = new ArrayList<Transaction>();
+                snapshot.getChildren().forEach(child -> {
+                    SimpleDateFormat formaterDate = new SimpleDateFormat("MMM dd, yyyy", Locale.getDefault());
+                    tempTrans.add(child.getValue(Transaction.class));
+                    if (Objects.equals(child.getValue(Transaction.class).getDate(), formaterDate.format(new Date())))
+                        tempToday.add(child.getValue(Transaction.class));
+
+                    if (child.getValue(Transaction.class).getType().equals(Transaction.TRANSACTION_TYPE_INCOME))
+                        incomeTemp.add(child.getValue(Transaction.class));
+                    if (child.getValue(Transaction.class).getType().equals(Transaction.TRANSACTION_TYPE_OUTCOME))
+                        outcomeTemp.add(child.getValue(Transaction.class));
+                });
+
+                App.incomeTransactions = incomeTemp;
+                App.outcomeTransactions = outcomeTemp;
+
+                transactions = tempTrans;
+                transactionAdapter = new TransactionAdapter(tempToday);
+                rvTrans.setAdapter(transactionAdapter);
+                transactionAdapter.notifyDataSetChanged();
+
+                if(transactionAdapter.getTransactions().size() > 0) {
+                    rvTrans.setVisibility(View.VISIBLE);
+                    txEmptyTrans.setVisibility(View.GONE);
+                } else {
+                    rvTrans.setVisibility(View.GONE);
+                    txEmptyTrans.setVisibility(View.VISIBLE);
+                }
+
+//                Income and Outcome filter
+
+                AtomicReference<Float> totalIncome = new AtomicReference<>(0F);
+                AtomicReference<Float> totalOutcome = new AtomicReference<>(0F);
+
+                App.incomeTransactions.forEach(transaction -> {
+                    totalIncome.set(totalIncome.get() + transaction.getAmount());
+                });
+                App.outcomeTransactions.forEach(transaction->{
+                    totalOutcome.set(totalOutcome.get() + transaction.getAmount());
+                });
+
+                int incomeProgress =(int) Math.round(Math.ceil(totalIncome.get() / totalBalance * 100));
+                int outcomeProgress =(int) Math.round(Math.ceil( totalOutcome.get() / totalBalance *100));
+                prgIncome.setProgressCompat( incomeProgress, true);
+                prgOutcome.setProgressCompat( outcomeProgress, true);
+
+                txPercentageIncome.setText(String.format(Locale.getDefault(), "%d%%", incomeProgress));
+                txPercentageOutcome.setText(String.format(Locale.getDefault(), "%d%%", outcomeProgress));
+
+                txReportMonthIncome.setText(String.format(Locale.getDefault(), "+%,.2f", totalIncome.get()));
+                txReportMonthOutcome.setText(String.format(Locale.getDefault(), "-%,.2f", totalOutcome.get()));
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
         rvTrans.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
+
+        txAllTrans = view.findViewById(R.id.txAllTrans);
+        txAllTrans.setOnClickListener(view1 -> {
+            Intent i = new Intent(requireActivity(), AllTransactions.class);
+            startActivity(i);
+        });
 
         return view;
     }

@@ -13,15 +13,23 @@ import androidx.annotation.Nullable;
 import com.financity.feedmywallet.App;
 import com.financity.feedmywallet.R;
 import com.financity.feedmywallet.category.Category;
+import com.financity.feedmywallet.utils.DateFormater;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.google.android.material.datepicker.MaterialDatePicker;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.Objects;
-import java.util.concurrent.atomic.AtomicReference;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class TransactionBottomSheet extends BottomSheetDialogFragment {
 
@@ -52,6 +60,8 @@ public class TransactionBottomSheet extends BottomSheetDialogFragment {
         inpTransWallet = view.findViewById(R.id.inpTransWallet);
         inpTransType = view.findViewById(R.id.inpTransType);
         inpTransCategory = view.findViewById(R.id.inpTransCategory);
+
+        inpTransDate.setText(DateFormater.defaultFormater.format(new Date()));
 
 //        ArrayAdapter
         ArrayAdapter<String> TransTypeAdapter = new ArrayAdapter<String>(this.getContext(), R.layout.list_item, Transaction.TRANSACTION_TYPE);
@@ -86,8 +96,13 @@ public class TransactionBottomSheet extends BottomSheetDialogFragment {
             walletNames[i] = App.wallets.get(i).getName();
         }
 
+        AtomicInteger walletIndex = new AtomicInteger();
         ArrayAdapter<String> TransWalletAdapter = new ArrayAdapter<>(this.getContext(), R.layout.list_item, walletNames);
         inpTransWallet.setAdapter(TransWalletAdapter);
+        inpTransWallet.setOnItemClickListener((parent, view1, position, id)->{
+            transactionEdit.setWallet(App.wallets.get(position));
+            walletIndex.set(position);
+        });
 
         inpTransDate.setOnClickListener(v -> {
             MaterialDatePicker.Builder<Long> datePickerBuilder = MaterialDatePicker.Builder.datePicker();
@@ -111,8 +126,22 @@ public class TransactionBottomSheet extends BottomSheetDialogFragment {
             transactionEdit.setDate(String.valueOf(inpTransDate.getText()));
 
             App.transactions.add(transactionEdit);
+            DatabaseReference setTrans = FirebaseDatabase.getInstance().getReference("users_data")
+                    .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                    .child("transactions").child(String.valueOf(App.transactions.size()));
+
+            setTrans.setValue(transactionEdit);
+            DatabaseReference setWallet = FirebaseDatabase.getInstance().getReference("users_data")
+                    .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                    .child("wallets").child(String.valueOf(walletIndex.get())).child("balance");
+            Float balance = transactionEdit.getWallet().getBalance();
+
+            balance = (transactionEdit.getType().equals(Transaction.TRANSACTION_TYPE_INCOME)) ?
+                    balance + transactionEdit.getAmount() : balance - transactionEdit.getAmount();
+
+            setWallet.setValue(balance);
             dismiss();
-            return true;
+            return item.getItemId() == R.id.mItemAdd;
         });
         return view;
     }

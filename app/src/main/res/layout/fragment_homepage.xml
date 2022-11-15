@@ -1,358 +1,372 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     tools:context=".App">
 
-    <ScrollView
-        android:id="@+id/scrollView2"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/container"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_height="wrap_content">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/container"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:alpha=".75"
+            android:fontFamily="sans-serif-medium"
+            android:text="@string/t_ng_s_d_kh_d_ng"
+            android:textFontWeight="500"
+            android:textSize="14sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:id="@+id/textView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="8dp"
-                android:alpha=".75"
-                android:fontFamily="sans-serif-medium"
-                android:text="@string/t_ng_s_d_kh_d_ng"
-                android:textFontWeight="500"
-                android:textSize="14sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+        <TextView
+            android:id="@+id/txWalletCurrency"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-medium"
+            android:includeFontPadding="true"
+            android:text="@string/vnd"
+            android:textFontWeight="500"
+            android:textSize="28sp"
+            app:layout_constraintStart_toStartOf="@+id/textView"
+            app:layout_constraintTop_toBottomOf="@+id/textView" />
 
-            <TextView
-                android:id="@+id/txWalletCurrency"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="sans-serif-medium"
-                android:includeFontPadding="true"
-                android:text="@string/vnd"
-                android:textFontWeight="500"
-                android:textSize="28sp"
-                app:layout_constraintStart_toStartOf="@+id/textView"
-                app:layout_constraintTop_toBottomOf="@+id/textView" />
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvTrans"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:layout_marginBottom="24dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/reportOutcome"
+            app:layout_constraintStart_toStartOf="@+id/reportOutcome"
+            app:layout_constraintTop_toBottomOf="@+id/textView11" />
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rvTrans"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:layout_marginBottom="24dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="@+id/reportOutcome"
-                app:layout_constraintStart_toStartOf="@+id/reportOutcome"
-                app:layout_constraintTop_toBottomOf="@+id/textView11" />
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/reportIncome"
+            style="?attr/materialCardViewElevatedStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:backgroundTint="@color/secondary_card"
+            android:checkable="true"
+            android:clickable="true"
+            android:focusable="true"
+            app:layout_constraintEnd_toEndOf="@+id/addNewTransView"
+            app:layout_constraintStart_toStartOf="@+id/textView5"
+            app:layout_constraintTop_toBottomOf="@+id/textView5"
+            tools:ignore="DuplicateSpeakableTextCheck">
 
-            <com.google.android.material.card.MaterialCardView
-                android:id="@+id/reportIncome"
-                style="?attr/materialCardViewElevatedStyle"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:backgroundTint="@color/secondary_card"
-                android:checkable="true"
-                android:clickable="true"
-                android:focusable="true"
-                app:layout_constraintEnd_toEndOf="@+id/addNewTransView"
-                app:layout_constraintStart_toStartOf="@+id/textView5"
-                app:layout_constraintTop_toBottomOf="@+id/textView5"
-                tools:ignore="DuplicateSpeakableTextCheck">
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/containerReportUsed"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/containerReportUsed"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/reportDownIcon"
+                    style="@style/Widget.App.Button.FilledTonal.IconOnly"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginBottom="16dp"
+                    android:contentDescription="@string/downloadIcon"
+                    app:backgroundTint="?attr/colorErrorContainer"
+                    app:icon="@drawable/ic_download"
+                    app:iconPadding='0dp'
+                    app:iconSize="24dp"
+                    app:iconTint="?attr/colorOnSurface"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:ignore="DuplicateSpeakableTextCheck" />
 
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/reportDownIcon"
-                        style="@style/Widget.App.Button.FilledTonal.IconOnly"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="16dp"
-                        android:layout_marginEnd="16dp"
-                        android:layout_marginBottom="16dp"
-                        android:contentDescription="@string/downloadIcon"
-                        app:backgroundTint="?attr/colorErrorContainer"
-                        app:icon="@drawable/ic_download"
-                        app:iconPadding='0dp'
-                        app:iconSize="24dp"
-                        app:iconTint="?attr/colorOnSurface"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        tools:ignore="DuplicateSpeakableTextCheck" />
+                <TextView
+                    android:id="@+id/textView6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:text="@string/thu_nh_p"
+                    android:textColor="@color/white"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-                    <TextView
-                        android:id="@+id/textView6"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="16dp"
-                        android:layout_marginTop="16dp"
-                        android:text="@string/thu_nh_p"
-                        android:textColor="@color/white"
-                        android:textStyle="bold"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                <TextView
+                    android:id="@+id/txReportMonthIncome"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:text="@string/defaultIncome"
+                    android:textColor="@color/white"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toStartOf="@+id/txPercentageIncome"
+                    app:layout_constraintStart_toEndOf="@+id/textView6"
+                    app:layout_constraintTop_toTopOf="@+id/textView6" />
 
-                    <TextView
-                        android:id="@+id/txReportMonthIncome"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="8dp"
-                        android:layout_marginEnd="8dp"
-                        android:text="@string/defaultIncome"
-                        android:textColor="@color/white"
-                        android:textStyle="bold"
-                        app:layout_constraintEnd_toStartOf="@+id/txPercentageIncome"
-                        app:layout_constraintStart_toEndOf="@+id/textView6"
-                        app:layout_constraintTop_toTopOf="@+id/textView6" />
+                <TextView
+                    android:id="@+id/txPercentageIncome"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="32dp"
+                    android:text="@string/percentage"
+                    android:textColor="#B8B6BD"
+                    app:layout_constraintEnd_toStartOf="@+id/reportDownIcon"
+                    app:layout_constraintTop_toTopOf="@+id/txReportMonthIncome" />
 
-                    <TextView
-                        android:id="@+id/txPercentageIncome"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="32dp"
-                        android:text="@string/percentage"
-                        android:textColor="#B8B6BD"
-                        app:layout_constraintEnd_toStartOf="@+id/reportDownIcon"
-                        app:layout_constraintTop_toTopOf="@+id/txReportMonthIncome" />
+                <com.google.android.material.progressindicator.LinearProgressIndicator
+                    android:id="@+id/prgIncome"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:progress="65"
+                    app:indicatorColor="@color/material_dynamic_primary95"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="@+id/txPercentageIncome"
+                    app:layout_constraintStart_toStartOf="@+id/textView6"
+                    app:layout_constraintTop_toBottomOf="@+id/textView6"
+                    app:trackColor="@color/material_dynamic_tertiary40"
+                    app:trackCornerRadius="4dp" />
 
-                    <com.google.android.material.progressindicator.LinearProgressIndicator
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:progress="60"
-                        app:indicatorColor="@color/material_dynamic_primary95"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="@+id/txPercentageIncome"
-                        app:layout_constraintStart_toStartOf="@+id/textView6"
-                        app:layout_constraintTop_toBottomOf="@+id/textView6"
-                        app:trackColor="@color/material_dynamic_tertiary40"
-                        app:trackCornerRadius="4dp" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
-                </androidx.constraintlayout.widget.ConstraintLayout>
+        </com.google.android.material.card.MaterialCardView>
 
-            </com.google.android.material.card.MaterialCardView>
+        <TextView
+            android:id="@+id/txTotalCredit2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:fontFamily="sans-serif-medium"
+            android:includeFontPadding="true"
+            android:text="@string/moneyHolder"
+            android:textFontWeight="500"
+            android:textSize="28sp"
+            app:layout_constraintStart_toEndOf="@+id/txWalletCurrency"
+            app:layout_constraintTop_toTopOf="@+id/txWalletCurrency" />
 
-            <TextView
-                android:id="@+id/txTotalCredit2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:fontFamily="sans-serif-medium"
-                android:includeFontPadding="true"
-                android:text="@string/moneyHolder"
-                android:textFontWeight="500"
-                android:textSize="28sp"
-                app:layout_constraintStart_toEndOf="@+id/txWalletCurrency"
-                app:layout_constraintTop_toTopOf="@+id/txWalletCurrency" />
+        <TextView
+            android:id="@+id/textView11"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="@string/giao_d_ch"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="@+id/reportOutcome"
+            app:layout_constraintTop_toBottomOf="@+id/reportOutcome" />
 
-            <TextView
-                android:id="@+id/textView11"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:text="@string/giao_d_ch"
-                android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="@+id/reportOutcome"
-                app:layout_constraintTop_toBottomOf="@+id/reportOutcome" />
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvCardWallet"
+            android:layout_width="0dp"
+            android:layout_height="150dp"
+            android:layout_marginTop="16dp"
+            app:layout_constraintEnd_toEndOf="@+id/accountIcon"
+            app:layout_constraintStart_toStartOf="@+id/txWalletCurrency"
+            app:layout_constraintTop_toBottomOf="@+id/txWalletCurrency" />
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rvCardWallet"
-                android:layout_width="0dp"
-                android:layout_height="150dp"
-                android:layout_marginTop="16dp"
-                app:layout_constraintEnd_toEndOf="@+id/accountIcon"
-                app:layout_constraintStart_toStartOf="@+id/txWalletCurrency"
-                app:layout_constraintTop_toBottomOf="@+id/txWalletCurrency" />
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/addNewTransView"
+            style="?attr/materialCardViewElevatedStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:backgroundTint="@color/secondary_card"
+            android:checkable="true"
+            android:clickable="true"
+            android:focusable="true"
+            app:layout_constraintEnd_toEndOf="@+id/rvCardWallet"
+            app:layout_constraintStart_toStartOf="@+id/rvCardWallet"
+            app:layout_constraintTop_toBottomOf="@+id/rvCardWallet">
 
-            <com.google.android.material.card.MaterialCardView
-                android:id="@+id/addNewTransView"
-                style="?attr/materialCardViewElevatedStyle"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:backgroundTint="@color/secondary_card"
-                android:checkable="true"
-                android:clickable="true"
-                android:focusable="true"
-                app:layout_constraintEnd_toEndOf="@+id/rvCardWallet"
-                app:layout_constraintStart_toStartOf="@+id/rvCardWallet"
-                app:layout_constraintTop_toBottomOf="@+id/rvCardWallet">
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/containerAddNewTrans"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/containerAddNewTrans"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/iconButton"
+                    style="@style/Widget.App.Button.FilledTonal.IconOnly"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginBottom="16dp"
+                    android:contentDescription="@string/addNewTrans"
+                    app:backgroundTint="@color/material_dynamic_primary70"
+                    app:icon="@drawable/ic_baseline_add_24"
+                    app:iconPadding='0dp'
+                    app:iconSize="24dp"
+                    app:iconTint="?attr/colorOnSurface"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/iconButton"
-                        style="@style/Widget.App.Button.FilledTonal.IconOnly"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="16dp"
-                        android:layout_marginTop="16dp"
-                        android:layout_marginBottom="16dp"
-                        android:contentDescription="@string/addNewTrans"
-                        app:backgroundTint="@color/material_dynamic_primary70"
-                        app:icon="@drawable/ic_baseline_add_24"
-                        app:iconPadding='0dp'
-                        app:iconSize="24dp"
-                        app:iconTint="?attr/colorOnSurface"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                <TextView
+                    android:id="@+id/textView2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="32dp"
+                    android:text="@string/t_o_m_i_m_t_giao_d_ch"
+                    android:textColor="@color/material_dynamic_neutral100"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toEndOf="@+id/iconButton"
+                    app:layout_constraintTop_toTopOf="@+id/iconButton" />
 
-                    <TextView
-                        android:id="@+id/textView2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="32dp"
-                        android:text="@string/t_o_m_i_m_t_giao_d_ch"
-                        android:textColor="@color/material_dynamic_neutral100"
-                        android:textStyle="bold"
-                        app:layout_constraintStart_toEndOf="@+id/iconButton"
-                        app:layout_constraintTop_toTopOf="@+id/iconButton" />
+                <TextView
+                    android:id="@+id/textView4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="@string/download"
+                    android:textColor="@color/white"
+                    app:layout_constraintStart_toEndOf="@+id/iconButton"
+                    app:layout_constraintStart_toStartOf="@+id/textView2"
+                    app:layout_constraintTop_toBottomOf="@+id/textView2" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </com.google.android.material.card.MaterialCardView>
 
-                    <TextView
-                        android:id="@+id/textView4"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:text="@string/download"
-                        android:textColor="@color/white"
-                        app:layout_constraintStart_toEndOf="@+id/iconButton"
-                        app:layout_constraintStart_toStartOf="@+id/textView2"
-                        app:layout_constraintTop_toBottomOf="@+id/textView2" />
-                </androidx.constraintlayout.widget.ConstraintLayout>
-            </com.google.android.material.card.MaterialCardView>
+        <TextView
+            android:id="@+id/textView5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="@string/thu_chi_th_ng"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="@+id/addNewTransView"
+            app:layout_constraintTop_toBottomOf="@+id/addNewTransView" />
 
-            <TextView
-                android:id="@+id/textView5"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:text="@string/thu_chi_th_ng"
-                android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="@+id/addNewTransView"
-                app:layout_constraintTop_toBottomOf="@+id/addNewTransView" />
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/accountIcon"
+            style="?attr/materialIconButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:contentDescription="@string/action_settings"
+            app:icon="@drawable/ic_account"
+            app:iconPadding='0dp'
+            app:iconSize="24dp"
+            app:iconTint="?attr/colorOnSurface"
+            app:layout_constraintBottom_toBottomOf="@+id/txTotalCredit2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/textView" />
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/accountIcon"
-                style="?attr/materialIconButtonStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="16dp"
-                android:contentDescription="@string/action_settings"
-                app:icon="@drawable/ic_account"
-                app:iconPadding='0dp'
-                app:iconSize="24dp"
-                app:iconTint="?attr/colorOnSurface"
-                app:layout_constraintBottom_toBottomOf="@+id/txTotalCredit2"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/textView" />
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/reportOutcome"
+            style="?attr/materialCardViewElevatedStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:backgroundTint="@color/secondary_card"
+            android:checkable="true"
+            android:clickable="true"
+            android:focusable="true"
+            app:layout_constraintEnd_toEndOf="@+id/reportIncome"
+            app:layout_constraintStart_toStartOf="@+id/reportIncome"
+            app:layout_constraintTop_toBottomOf="@+id/reportIncome">
 
-            <com.google.android.material.card.MaterialCardView
-                android:id="@+id/reportOutcome"
-                style="?attr/materialCardViewElevatedStyle"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:backgroundTint="@color/secondary_card"
-                android:checkable="true"
-                android:clickable="true"
-                android:focusable="true"
-                app:layout_constraintEnd_toEndOf="@+id/reportIncome"
-                app:layout_constraintStart_toStartOf="@+id/reportIncome"
-                app:layout_constraintTop_toBottomOf="@+id/reportIncome">
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/containerReportOutcome"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/containerReportOutcome"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/reportUpIcon"
+                    style="@style/Widget.App.Button.FilledTonal.IconOnly"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginBottom="16dp"
+                    android:contentDescription="@string/downloadIcon"
+                    app:backgroundTint="?attr/colorPrimaryContainer"
+                    app:icon="@drawable/ic_upload"
+                    app:iconPadding='0dp'
+                    app:iconSize="24dp"
+                    app:iconTint="?attr/colorOnSurface"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/reportUpIcon"
-                        style="@style/Widget.App.Button.FilledTonal.IconOnly"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="16dp"
-                        android:layout_marginEnd="16dp"
-                        android:layout_marginBottom="16dp"
-                        android:contentDescription="@string/downloadIcon"
-                        app:backgroundTint="?attr/colorPrimaryContainer"
-                        app:icon="@drawable/ic_upload"
-                        app:iconPadding='0dp'
-                        app:iconSize="24dp"
-                        app:iconTint="?attr/colorOnSurface"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                <TextView
+                    android:id="@+id/textView7"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:text="@string/s_d_ng"
+                    android:textColor="@color/white"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-                    <TextView
-                        android:id="@+id/textView7"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="16dp"
-                        android:layout_marginTop="16dp"
-                        android:text="@string/s_d_ng"
-                        android:textColor="@color/white"
-                        android:textStyle="bold"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                <TextView
+                    android:id="@+id/txReportMonthOutcome"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:text="@string/defaultOutcome"
+                    android:textColor="@color/white"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toStartOf="@+id/txPercentageOutcome"
+                    app:layout_constraintStart_toEndOf="@+id/textView7"
+                    app:layout_constraintTop_toTopOf="@+id/textView7" />
 
-                    <TextView
-                        android:id="@+id/txReportMonthOutcome"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="8dp"
-                        android:layout_marginEnd="8dp"
-                        android:text="@string/defaultOutcome"
-                        android:textColor="@color/white"
-                        android:textStyle="bold"
-                        app:layout_constraintEnd_toStartOf="@+id/txPercentageOutcome"
-                        app:layout_constraintStart_toEndOf="@+id/textView7"
-                        app:layout_constraintTop_toTopOf="@+id/textView7" />
+                <TextView
+                    android:id="@+id/txPercentageOutcome"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="32dp"
+                    android:text="@string/defaultPercentageOutcome"
+                    android:textColor="#B8B6BD"
+                    app:layout_constraintEnd_toStartOf="@+id/reportUpIcon"
+                    app:layout_constraintTop_toTopOf="@+id/txReportMonthOutcome" />
 
-                    <TextView
-                        android:id="@+id/txPercentageOutcome"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="32dp"
-                        android:text="@string/defaultPercentageOutcome"
-                        android:textColor="#B8B6BD"
-                        app:layout_constraintEnd_toStartOf="@+id/reportUpIcon"
-                        app:layout_constraintTop_toTopOf="@+id/txReportMonthOutcome" />
+                <com.google.android.material.progressindicator.LinearProgressIndicator
+                    android:id="@+id/prgOutcome"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:progress="25"
+                    app:indicatorColor="@color/material_dynamic_primary95"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="@+id/txPercentageOutcome"
+                    app:layout_constraintStart_toStartOf="@+id/textView7"
+                    app:layout_constraintTop_toBottomOf="@+id/textView7"
+                    app:trackColor="@color/material_dynamic_tertiary40"
+                    app:trackCornerRadius="4dp" />
 
-                    <com.google.android.material.progressindicator.LinearProgressIndicator
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:progress="25"
-                        app:indicatorColor="@color/material_dynamic_primary95"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="@+id/txPercentageOutcome"
-                        app:layout_constraintStart_toStartOf="@+id/textView7"
-                        app:layout_constraintTop_toBottomOf="@+id/textView7"
-                        app:trackColor="@color/material_dynamic_tertiary40"
-                        app:trackCornerRadius="4dp" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
-                </androidx.constraintlayout.widget.ConstraintLayout>
+        </com.google.android.material.card.MaterialCardView>
 
-            </com.google.android.material.card.MaterialCardView>
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </ScrollView>
+        <TextView
+            android:id="@+id/txEmptyTrans"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="150dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="171dp"
+            android:text="@string/ch_a_c_giao_d_ch_n_o"
+            app:layout_constraintEnd_toEndOf="@+id/rvTrans"
+            app:layout_constraintStart_toStartOf="@+id/rvTrans"
+            app:layout_constraintTop_toBottomOf="@+id/textView11" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <TextView
+            android:id="@+id/txAllTrans"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:text="@string/t_t_c"
+            app:layout_constraintBottom_toBottomOf="@+id/textView11"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/textView11" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>

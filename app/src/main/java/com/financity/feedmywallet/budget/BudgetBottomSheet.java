@@ -104,7 +104,7 @@ public class BudgetBottomSheet extends BottomSheetDialogFragment {
 
             mRef.setValue(finalBudgetEdit2);
             dismiss();
-            return item.getItemId() == R.id.mItemAddBudget;
+            return item.getItemId() == R.id.mItemAdd;
         });
 
         inpBudgetStartDate.setOnClickListener(v -> {

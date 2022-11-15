@@ -8,6 +8,7 @@ public class Category {
     public static final String[] CATEGORIES_INCOME = {"Salary", "Gifted", "Business" , "Extra income" , "Loan"};
     public static final String[] CATEGORIES_OUTCOME = {"Food & Drink", "Shopping", "Transport", "Home", "Bill & Fees", "Entertainment", "Car", "Travel", "Family", "Healthcare", "Education", "Groceries", "Gift"};
     public static final String[] CATEGORIES_TYPE = {"Income", "Outcome"};
+    public static final Category CATEGORY_INITWALLET = new Category("Init wallet", "Income");
     String value;
     String type;
 

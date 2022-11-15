@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.financity.feedmywallet.R;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 public class WalletAdapter extends RecyclerView.Adapter<WalletAdapter.WalletVH> {
     interface Listener{
@@ -34,7 +35,7 @@ public class WalletAdapter extends RecyclerView.Adapter<WalletAdapter.WalletVH> 
     public void onBindViewHolder(@NonNull WalletVH holder, int position) {
         String name = wallets.get(position).getName();
         String currency = wallets.get(position).getCurrency();
-        String walletBalance = currency.concat(" " + wallets.get(position).getBalance().toString());
+        String walletBalance = currency.concat(" " + String.format(Locale.getDefault(), "%,.2f", wallets.get(position).getBalance()));
 
         holder.txWalletName.setText(name);
         holder.txBalance.setText(walletBalance);
