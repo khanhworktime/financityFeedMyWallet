@@ -105,7 +105,7 @@ public class BudgetFragment extends Fragment {
                 });
 
                 budgets = tempBudgets;
-                budgetAdapter = new BudgetAdapter(budgets);
+                budgetAdapter = new BudgetAdapter(budgets, getParentFragmentManager());
                 budgetAdapter.notifyDataSetChanged();
                 rvBudget.setAdapter(budgetAdapter);
                 layoutNoBudget = view.findViewById(R.id.layoutNoBudget);
