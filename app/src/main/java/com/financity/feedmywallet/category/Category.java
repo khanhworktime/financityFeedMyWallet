@@ -32,7 +32,4 @@ public class Category {
     interface Type {
         String getType();
     }
-
-
-
 }

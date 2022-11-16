@@ -9,17 +9,24 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.financity.feedmywallet.R;
+import com.google.android.material.card.MaterialCardView;
 
 import java.util.ArrayList;
 
 public class BudgetAdapter extends RecyclerView.Adapter<BudgetAdapter.BudgetVH>{
 
     ArrayList<Budget> budgets;
+    FragmentManager fm;
 
-    public BudgetAdapter(ArrayList<Budget> budgets) { this.budgets = budgets; }
+    public interface Listener{
+        void onItemClicked(View v, int position);
+    }
+
+    public BudgetAdapter(ArrayList<Budget> budgets, FragmentManager fm) { this.budgets = budgets; this.fm = fm;}
 
     @NonNull
     @Override
@@ -37,7 +44,13 @@ public class BudgetAdapter extends RecyclerView.Adapter<BudgetAdapter.BudgetVH>{
         holder.txDuration.setText(budget.getDuration());
         holder.txAmount.setText(String.valueOf(budget.getAmount()));
         holder.txBudgetCategory.setText(budget.getCategory().getValue());
-//        holder.prgBudget
+        holder.setItemOnClick(new Listener() {
+            @Override
+            public void onItemClicked(View v, int position) {
+                BudgetBottomSheet bgBottomSheet = new BudgetBottomSheet(position);
+                bgBottomSheet.show(fm, "Budget bottom sheet");
+            }
+        });
     }
 
     @Override
@@ -45,7 +58,7 @@ public class BudgetAdapter extends RecyclerView.Adapter<BudgetAdapter.BudgetVH>{
         return budgets.size();
     }
 
-    static class BudgetVH extends RecyclerView.ViewHolder{
+     class BudgetVH extends RecyclerView.ViewHolder implements View.OnClickListener{
 
         final TextView txBudgetName;
         final TextView txBudgetWallet;
@@ -53,6 +66,9 @@ public class BudgetAdapter extends RecyclerView.Adapter<BudgetAdapter.BudgetVH>{
         final TextView txDuration;
         final TextView txBudgetCategory;
         final ProgressBar prgBudget;
+        MaterialCardView cardBudget;
+        Listener onItemClicked;
+
 
         public BudgetVH(@NonNull View itemView) {
             super(itemView);
@@ -62,6 +78,18 @@ public class BudgetAdapter extends RecyclerView.Adapter<BudgetAdapter.BudgetVH>{
             txDuration = itemView.findViewById(R.id.txDuration);
             prgBudget = itemView.findViewById(R.id.prgBudget);
             txBudgetCategory = itemView.findViewById(R.id.txBudgetCategory);
+            cardBudget = itemView.findViewById(R.id.cardBudget);
         }
-    }
+
+        public void setItemOnClick(Listener onItemClicked){
+            this.onItemClicked = onItemClicked;
+            cardBudget.setOnClickListener(this);
+        }
+
+         @Override
+         public void onClick(View v) {
+            onItemClicked.onItemClicked(v, getAdapterPosition());
+         }
+     }
+
 }

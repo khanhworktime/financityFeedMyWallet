@@ -80,6 +80,7 @@ public class AllTransactions extends AppCompatActivity {
         txWalletFilter.setAdapter(walletsAdapter);
         txWalletFilter.setOnItemClickListener((parent, view1, position, id)->{
             walletFilter = walletsName.get(position);
+            txWalletFilter.setText(walletFilter);
         });
 
 

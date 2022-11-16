@@ -22,7 +22,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:text="Tạo mới ví đầu tiên của bạn"
+        android:text="Tạo ra vi tiền mới"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="@+id/tv_7"
         app:layout_constraintStart_toStartOf="@+id/tv_7"

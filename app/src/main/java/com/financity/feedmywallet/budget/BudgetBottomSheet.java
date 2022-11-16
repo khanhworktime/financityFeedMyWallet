@@ -30,11 +30,12 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 import java.util.Objects;
+import java.util.UUID;
 
 public class BudgetBottomSheet extends BottomSheetDialogFragment {
 
 
-    final int selectedPosition;
+    int selectedPosition;
     public BudgetBottomSheet() {
         selectedPosition = -1;
     }
@@ -68,6 +69,7 @@ public class BudgetBottomSheet extends BottomSheetDialogFragment {
         MaterialToolbar topAppBar = view.findViewById(R.id.topAppBar);
 
         Budget budgetEdit = new Budget();
+        budgetEdit.setId(UUID.randomUUID().toString());
         if (selectedPosition != -1){
             budgetEdit = budgets.get(selectedPosition);
             inpBudgetName.setText(budgetEdit.getName());
@@ -109,7 +111,7 @@ public class BudgetBottomSheet extends BottomSheetDialogFragment {
 
         inpBudgetStartDate.setOnClickListener(v -> {
             MaterialDatePicker.Builder<Long> datePickerBuilder = MaterialDatePicker.Builder.datePicker();
-            MaterialDatePicker<Long> datePicker = datePickerBuilder.setTitleText("Ngày bắt đầu")
+            MaterialDatePicker<Long> datePicker = datePickerBuilder
                     .setSelection(MaterialDatePicker.todayInUtcMilliseconds())
                     .setPositiveButtonText("OK")
                     .setNegativeButtonText("Hủy")

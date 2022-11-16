@@ -218,6 +218,4 @@ public class TransactionBottomSheet extends BottomSheetDialogFragment {
 
         return view;
     }
-
-
 }

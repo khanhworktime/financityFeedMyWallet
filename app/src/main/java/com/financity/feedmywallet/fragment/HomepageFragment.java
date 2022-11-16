@@ -11,6 +11,7 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -57,6 +58,7 @@ public class HomepageFragment extends Fragment{
     TextView txWalletCurrency, txEmptyTrans, txAllTrans, txPercentageOutcome, txPercentageIncome, txReportMonthOutcome, txReportMonthIncome, txTotalBalance;
     MaterialCardView addNewTransView;
     LinearProgressIndicator prgIncome, prgOutcome;
+    ConstraintLayout layoutAddWallet;
     FirebaseDatabase mDatabase;
 
     @Override
@@ -223,6 +225,14 @@ public class HomepageFragment extends Fragment{
         txAllTrans.setOnClickListener(view1 -> {
             Intent i = new Intent(requireActivity(), AllTransactions.class);
             startActivity(i);
+        });
+
+        layoutAddWallet = view.findViewById(R.id.layoutAddWallet);
+        layoutAddWallet.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(requireActivity(), CreateNewWallet.class));
+            }
         });
 
         return view;
