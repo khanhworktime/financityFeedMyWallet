@@ -121,7 +121,7 @@ public class AllTransactions extends AppCompatActivity {
                 sections = tempSections;
 
                 rvTransSections = findViewById(R.id.rvTransSections);
-                transactionSectionAdapter = new TransactionSectionAdapter(sections);
+                transactionSectionAdapter = new TransactionSectionAdapter(sections, getSupportFragmentManager());
 
                 rvTransSections.setAdapter(transactionSectionAdapter);
                 rvTransSections.setLayoutManager(new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false));

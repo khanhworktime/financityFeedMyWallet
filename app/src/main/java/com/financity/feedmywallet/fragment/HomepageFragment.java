@@ -54,7 +54,7 @@ public class HomepageFragment extends Fragment{
     RecyclerView cardWallet, rvTrans;
     WalletAdapter walletAdapter;
     TransactionAdapter transactionAdapter;
-    TextView txWalletCurrency, txEmptyTrans, txAllTrans, txPercentageOutcome, txPercentageIncome, txReportMonthOutcome, txReportMonthIncome;
+    TextView txWalletCurrency, txEmptyTrans, txAllTrans, txPercentageOutcome, txPercentageIncome, txReportMonthOutcome, txReportMonthIncome, txTotalBalance;
     MaterialCardView addNewTransView;
     LinearProgressIndicator prgIncome, prgOutcome;
     FirebaseDatabase mDatabase;
@@ -84,6 +84,8 @@ public class HomepageFragment extends Fragment{
 
         cardWallet =  view.findViewById(R.id.rvCardWallet);
 
+        txTotalBalance = view.findViewById(R.id.txTotalBalance);
+
         getWallets.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -97,6 +99,7 @@ public class HomepageFragment extends Fragment{
                 wallets = tempWallet;
 
                 totalBalance = tempBalance.get();
+                txTotalBalance.setText(String.format(Locale.getDefault(), "%,.2f", totalBalance));
 
                 txWalletCurrency.setText(wallets.get(0).getCurrency());
                 walletAdapter = new WalletAdapter(wallets);
@@ -172,7 +175,7 @@ public class HomepageFragment extends Fragment{
                 App.outcomeTransactions = outcomeTemp;
 
                 transactions = tempTrans;
-                transactionAdapter = new TransactionAdapter(tempToday);
+                transactionAdapter = new TransactionAdapter(tempToday, getParentFragmentManager());
                 rvTrans.setAdapter(transactionAdapter);
                 transactionAdapter.notifyDataSetChanged();
 

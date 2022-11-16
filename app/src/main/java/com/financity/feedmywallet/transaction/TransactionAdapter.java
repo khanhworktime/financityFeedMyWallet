@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -22,6 +23,7 @@ import java.util.Locale;
 public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.TransactionVH>{
 
     ArrayList<Transaction> transactions;
+    FragmentManager fm;
 
     public interface Listener {
         void itemOnClick(View view, int position);
@@ -31,8 +33,9 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
         return transactions;
     }
 
-    public TransactionAdapter(ArrayList<Transaction> transactions) {
+    public TransactionAdapter(ArrayList<Transaction> transactions,@Nullable FragmentManager fm) {
         this.transactions = transactions;
+        this.fm = fm;
     }
 
     MaterialCardView cardTrans;
@@ -70,7 +73,7 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
             @Override
             public void itemOnClick(View view, int position) {
                 TransactionBottomSheet editTrans = new TransactionBottomSheet(transactions.get(position));
-                editTrans.show(editTrans.getParentFragmentManager(), "Edit Transaction");
+                editTrans.show(fm, "Edit Transaction");
             }
         });
 
@@ -102,10 +105,10 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
             txTransCurrency = (TextView) itemView.findViewById(R.id.txTransCurrency);
             txTransNote = (TextView) itemView.findViewById(R.id.txTransNote);
 
-            cardTrans.setOnClickListener(this);
         }
         public void setItemOnClick(Listener onItemClick){
             this.onItemClick = onItemClick;
+            cardTrans.setOnClickListener(this);
         }
 
         @Override

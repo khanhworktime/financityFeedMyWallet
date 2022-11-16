@@ -13,11 +13,12 @@ public class Budget {
     String startDate;
     String endDate;
     Category category;
+    String id;
 
     public Budget() {
     }
 
-    public Budget(int amount, String name, String note, boolean isStarted, Wallet wallet, String startDate, String endDate, Category category) {
+    public Budget(int amount, String name, String note, boolean isStarted, Wallet wallet, String startDate, String endDate, Category category, String id) {
         this.amount = amount;
         this.name = name;
         this.note = note;
@@ -26,6 +27,15 @@ public class Budget {
         this.startDate = startDate;
         this.endDate = endDate;
         this.category = category;
+        this.id = id;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getEndDate() {

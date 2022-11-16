@@ -118,7 +118,9 @@ public class TransactionBottomSheet extends BottomSheetDialogFragment {
             inpTransCategory.setText(transactionEdit.getType());
 
 //            Edit a transaction
-            topAppBar.inflateMenu(R.menu.edit_menu);
+
+            if(transactionEdit.getId().equals("0")) topAppBar.inflateMenu(R.menu.check_menu);
+            else topAppBar.inflateMenu(R.menu.edit_menu);
             topAppBar.setOnMenuItemClickListener(item -> {
 
                 if(item.getItemId() == R.id.mSave){
@@ -152,9 +154,8 @@ public class TransactionBottomSheet extends BottomSheetDialogFragment {
 
                     DatabaseReference setTrans = FirebaseDatabase.getInstance().getReference("users_data")
                             .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
-                            .child("transactions").child(String.valueOf(App.transactions.indexOf(transactionEdit)));
+                            .child("transactions").child(transactionEdit.getId());
 
-                    setTrans.setValue(null);
                     DatabaseReference setWallet = FirebaseDatabase.getInstance().getReference("users_data")
                             .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
                             .child("wallets").child(String.valueOf(walletIndex.get())).child("balance");
@@ -164,6 +165,7 @@ public class TransactionBottomSheet extends BottomSheetDialogFragment {
                             balance - transactionEdit.getAmount() : balance + transactionEdit.getAmount();
 
                     setWallet.setValue(balance);
+                    setTrans.removeValue();
 
                     dismiss();
                     return item.getItemId() == R.id.mDelete;

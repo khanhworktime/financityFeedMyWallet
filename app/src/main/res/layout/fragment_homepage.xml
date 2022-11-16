@@ -140,7 +140,7 @@
         </com.google.android.material.card.MaterialCardView>
 
         <TextView
-            android:id="@+id/txTotalCredit2"
+            android:id="@+id/txTotalBalance"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -253,7 +253,7 @@
             app:iconPadding='0dp'
             app:iconSize="24dp"
             app:iconTint="?attr/colorOnSurface"
-            app:layout_constraintBottom_toBottomOf="@+id/txTotalCredit2"
+            app:layout_constraintBottom_toBottomOf="@+id/txTotalBalance"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/textView" />
 
