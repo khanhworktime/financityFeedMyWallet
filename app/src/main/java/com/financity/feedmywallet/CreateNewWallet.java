@@ -23,6 +23,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.Date;
+import java.util.UUID;
 
 public class CreateNewWallet extends AppCompatActivity implements AdapterView.OnItemClickListener {
 
@@ -63,7 +64,7 @@ public class CreateNewWallet extends AppCompatActivity implements AdapterView.On
                     .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
                     .child("transactions").child(String.valueOf(App.transactions.size()));
 
-            setFirstTrans.setValue(new Transaction("Khởi tạo ví", Transaction.TRANSACTION_TYPE_INCOME, Category.CATEGORY_INITWALLET, newWallet.getBalance(), newWallet, DateFormater.defaultFormater.format(new Date()), "Khởi tạo ví"));
+            setFirstTrans.setValue(new Transaction("Khởi tạo ví", Transaction.TRANSACTION_TYPE_INCOME, Category.CATEGORY_INITWALLET, newWallet.getBalance(), newWallet, DateFormater.defaultFormater.format(new Date()), "Khởi tạo ví", UUID.randomUUID().toString()));
 
             Intent i = new Intent(getApplicationContext(), App.class);
             startActivity(i);

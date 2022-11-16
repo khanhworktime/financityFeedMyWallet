@@ -34,6 +34,7 @@ public class App extends AppCompatActivity{
     public static ArrayList<Transaction> incomeTransactions = new ArrayList<>();
     public static ArrayList<Transaction> outcomeTransactions = new ArrayList<>();
     public static Float totalBalance = 0F;
+    public static Float totalTransactions = 0F;
 
     public boolean FIRST_LOAD = true;
     NavigationBarView navigationBar;

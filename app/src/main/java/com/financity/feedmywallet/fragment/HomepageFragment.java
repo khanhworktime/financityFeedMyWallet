@@ -2,6 +2,7 @@ package com.financity.feedmywallet.fragment;
 
 
 import static com.financity.feedmywallet.App.totalBalance;
+import static com.financity.feedmywallet.App.totalTransactions;
 import static com.financity.feedmywallet.App.transactions;
 import static com.financity.feedmywallet.App.wallets;
 
@@ -44,7 +45,7 @@ import java.util.Locale;
 import java.util.Objects;
 import java.util.concurrent.atomic.AtomicReference;
 
-public class HomepageFragment extends Fragment {
+public class HomepageFragment extends Fragment{
 
     public HomepageFragment() {
         // Required empty public constructor
@@ -87,11 +88,15 @@ public class HomepageFragment extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 ArrayList<Wallet> tempWallet = new ArrayList<Wallet>();
+                AtomicReference<Float> tempBalance = new AtomicReference<>(0F);
                 snapshot.getChildren().forEach(child -> {
                     tempWallet.add(child.getValue(Wallet.class));
+                    tempBalance.updateAndGet(v -> v + child.getValue(Wallet.class).getBalance());
                 });
 
                 wallets = tempWallet;
+
+                totalBalance = tempBalance.get();
 
                 txWalletCurrency.setText(wallets.get(0).getCurrency());
                 walletAdapter = new WalletAdapter(wallets);
@@ -144,9 +149,14 @@ public class HomepageFragment extends Fragment {
 
                 ArrayList<Transaction> incomeTemp = new ArrayList<Transaction>();
                 ArrayList<Transaction> outcomeTemp = new ArrayList<Transaction>();
+
+                AtomicReference<Float> tempTransValue = new AtomicReference<>(0F);
                 snapshot.getChildren().forEach(child -> {
                     SimpleDateFormat formaterDate = new SimpleDateFormat("MMM dd, yyyy", Locale.getDefault());
                     tempTrans.add(child.getValue(Transaction.class));
+
+                    tempTransValue.updateAndGet(v -> v + child.getValue(Transaction.class).getAmount());
+
                     if (Objects.equals(child.getValue(Transaction.class).getDate(), formaterDate.format(new Date())))
                         tempToday.add(child.getValue(Transaction.class));
 
@@ -155,6 +165,8 @@ public class HomepageFragment extends Fragment {
                     if (child.getValue(Transaction.class).getType().equals(Transaction.TRANSACTION_TYPE_OUTCOME))
                         outcomeTemp.add(child.getValue(Transaction.class));
                 });
+
+                App.totalTransactions = tempTransValue.get();
 
                 App.incomeTransactions = incomeTemp;
                 App.outcomeTransactions = outcomeTemp;
@@ -184,8 +196,8 @@ public class HomepageFragment extends Fragment {
                     totalOutcome.set(totalOutcome.get() + transaction.getAmount());
                 });
 
-                int incomeProgress =(int) Math.round(Math.ceil(totalIncome.get() / totalBalance * 100));
-                int outcomeProgress =(int) Math.round(Math.ceil( totalOutcome.get() / totalBalance *100));
+                int incomeProgress =(int) Math.round(Math.ceil(totalIncome.get() / totalTransactions * 100));
+                int outcomeProgress =(int) Math.round(Math.ceil(totalOutcome.get() / totalTransactions *100));
                 prgIncome.setProgressCompat( incomeProgress, true);
                 prgOutcome.setProgressCompat( outcomeProgress, true);
 

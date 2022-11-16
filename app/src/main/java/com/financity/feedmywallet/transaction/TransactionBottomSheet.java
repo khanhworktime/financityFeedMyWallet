@@ -28,14 +28,21 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.Locale;
 import java.util.Objects;
+import java.util.UUID;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class TransactionBottomSheet extends BottomSheetDialogFragment {
-
-
-
+    Transaction transactionEdit;
+    boolean isCreate;
     public TransactionBottomSheet() {
+        isCreate = true;
+    }
+
+    public TransactionBottomSheet(Transaction transaction){
+        this.transactionEdit = transaction;
+        isCreate = false;
     }
 
     @Override
@@ -43,14 +50,12 @@ public class TransactionBottomSheet extends BottomSheetDialogFragment {
         super.onCreate(savedInstanceState);
     }
 
+    TextInputEditText inpTransName, inpTransAmount, inpTransDate, inpTransNote;
+    AutoCompleteTextView inpTransWallet, inpTransType, inpTransCategory;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        TextInputEditText inpTransName, inpTransAmount, inpTransDate, inpTransNote;
-        AutoCompleteTextView inpTransWallet, inpTransType, inpTransCategory;
         View view = inflater.inflate(R.layout.bottom_sheet_add_new_transaction, container, false);
-
-        Transaction transactionEdit = new Transaction();
 
 //        Init UI
         inpTransName = view.findViewById(R.id.inpTransName);
@@ -60,8 +65,113 @@ public class TransactionBottomSheet extends BottomSheetDialogFragment {
         inpTransWallet = view.findViewById(R.id.inpTransWallet);
         inpTransType = view.findViewById(R.id.inpTransType);
         inpTransCategory = view.findViewById(R.id.inpTransCategory);
-
         inpTransDate.setText(DateFormater.defaultFormater.format(new Date()));
+
+        AtomicInteger walletIndex = new AtomicInteger();
+        String[] walletNames =  new String[App.wallets.size()];
+        for (int i = 0; i < walletNames.length; i++) {
+            walletNames[i] = App.wallets.get(i).getName();
+        }
+        ArrayAdapter<String> TransWalletAdapter = new ArrayAdapter<String>(this.getContext(), R.layout.list_item, walletNames);
+        inpTransWallet.setAdapter(TransWalletAdapter);
+        inpTransWallet.setOnItemClickListener((parent, view1, position, id) -> {
+            transactionEdit.setWallet(App.wallets.get(position));
+            walletIndex.set(position);
+        });
+
+        MaterialToolbar topAppBar = view.findViewById(R.id.topAppBar);
+        if (isCreate) {
+            transactionEdit = new Transaction();
+            transactionEdit.setId(UUID.randomUUID().toString());
+//            Add new transaction
+            topAppBar.inflateMenu(R.menu.add_new_menu);
+            topAppBar.setOnMenuItemClickListener(item -> {
+                transactionEdit.setAmount(Float.parseFloat(Objects.requireNonNull(inpTransAmount.getText()).toString()));
+                transactionEdit.setNote(String.valueOf(inpTransNote.getText()));
+                transactionEdit.setName(String.valueOf(inpTransName.getText()));
+                transactionEdit.setDate(String.valueOf(inpTransDate.getText()));
+
+                DatabaseReference setTrans = FirebaseDatabase.getInstance().getReference("users_data")
+                        .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                        .child("transactions").child(transactionEdit.getId());
+
+                setTrans.setValue(transactionEdit);
+                DatabaseReference setWallet = FirebaseDatabase.getInstance().getReference("users_data")
+                        .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                        .child("wallets").child(String.valueOf(walletIndex.get())).child("balance");
+                Float balance = transactionEdit.getWallet().getBalance();
+
+                balance = (transactionEdit.getType().equals(Transaction.TRANSACTION_TYPE_INCOME)) ?
+                        balance + transactionEdit.getAmount() : balance - transactionEdit.getAmount();
+
+                setWallet.setValue(balance);
+                dismiss();
+                return item.getItemId() == R.id.mItemAdd;
+            });
+        } else {
+            inpTransName.setText(transactionEdit.getName());
+            inpTransAmount.setText(String.format(Locale.getDefault(), "%.2f", transactionEdit.getAmount()));
+            inpTransDate.setText(transactionEdit.getDate());
+            inpTransNote.setText(transactionEdit.getNote());
+            inpTransWallet.setText(transactionEdit.getWallet().getName());
+            inpTransType.setText(transactionEdit.getType());
+            inpTransCategory.setText(transactionEdit.getType());
+
+//            Edit a transaction
+            topAppBar.inflateMenu(R.menu.edit_menu);
+            topAppBar.setOnMenuItemClickListener(item -> {
+
+                if(item.getItemId() == R.id.mSave){
+                    transactionEdit.setAmount(Float.parseFloat(Objects.requireNonNull(inpTransAmount.getText()).toString()));
+                    transactionEdit.setNote(String.valueOf(inpTransNote.getText()));
+                    transactionEdit.setName(String.valueOf(inpTransName.getText()));
+                    transactionEdit.setDate(String.valueOf(inpTransDate.getText()));
+
+                    DatabaseReference setTrans = FirebaseDatabase.getInstance().getReference("users_data")
+                            .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                            .child("transactions").child(transactionEdit.getId());
+
+                    setTrans.setValue(transactionEdit);
+                    DatabaseReference setWallet = FirebaseDatabase.getInstance().getReference("users_data")
+                            .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                            .child("wallets").child(String.valueOf(walletIndex.get())).child("balance");
+                    Float balance = transactionEdit.getWallet().getBalance();
+
+                    balance = (transactionEdit.getType().equals(Transaction.TRANSACTION_TYPE_INCOME)) ?
+                            balance + transactionEdit.getAmount() : balance - transactionEdit.getAmount();
+
+                    setWallet.setValue(balance);
+                    dismiss();
+                    return item.getItemId() == R.id.mSave;
+                }
+                if(item.getItemId() == R.id.mDelete){
+                    transactionEdit.setAmount(Float.parseFloat(Objects.requireNonNull(inpTransAmount.getText()).toString()));
+                    transactionEdit.setNote(String.valueOf(inpTransNote.getText()));
+                    transactionEdit.setName(String.valueOf(inpTransName.getText()));
+                    transactionEdit.setDate(String.valueOf(inpTransDate.getText()));
+
+                    DatabaseReference setTrans = FirebaseDatabase.getInstance().getReference("users_data")
+                            .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                            .child("transactions").child(String.valueOf(App.transactions.indexOf(transactionEdit)));
+
+                    setTrans.setValue(null);
+                    DatabaseReference setWallet = FirebaseDatabase.getInstance().getReference("users_data")
+                            .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                            .child("wallets").child(String.valueOf(walletIndex.get())).child("balance");
+                    Float balance = transactionEdit.getWallet().getBalance();
+
+                    balance = (transactionEdit.getType().equals(Transaction.TRANSACTION_TYPE_INCOME)) ?
+                            balance - transactionEdit.getAmount() : balance + transactionEdit.getAmount();
+
+                    setWallet.setValue(balance);
+
+                    dismiss();
+                    return item.getItemId() == R.id.mDelete;
+                }
+                return false;
+            });
+
+        }
 
 //        ArrayAdapter
         ArrayAdapter<String> TransTypeAdapter = new ArrayAdapter<String>(this.getContext(), R.layout.list_item, Transaction.TRANSACTION_TYPE);
@@ -73,13 +183,11 @@ public class TransactionBottomSheet extends BottomSheetDialogFragment {
         TransTypeAdapter.notifyDataSetChanged();
         inpTransType.setOnItemClickListener((parent, view1, position, id) -> {
             transactionEdit.setType(TransTypeAdapter.getItem(position));
-            if (Objects.equals(transactionEdit.type, Transaction.TRANSACTION_TYPE_INCOME))
-            {
+            if (Objects.equals(transactionEdit.type, Transaction.TRANSACTION_TYPE_INCOME)) {
                 transCategoryList.clear();
                 transCategoryList.addAll(Arrays.asList(Category.CATEGORIES_INCOME));
             }
-            if (Objects.equals(transactionEdit.type, Transaction.TRANSACTION_TYPE_OUTCOME))
-            {
+            if (Objects.equals(transactionEdit.type, Transaction.TRANSACTION_TYPE_OUTCOME)) {
                 transCategoryList.clear();
                 transCategoryList.addAll(Arrays.asList(Category.CATEGORIES_OUTCOME));
             }
@@ -91,18 +199,7 @@ public class TransactionBottomSheet extends BottomSheetDialogFragment {
             transactionEdit.setCategory(new Category(TransCategoryAdapter.getItem(position), inpTransType.getText().toString()));
         });
 
-        String[] walletNames = new String[App.wallets.size()];
-        for(int i=0; i<walletNames.length; i++) {
-            walletNames[i] = App.wallets.get(i).getName();
-        }
 
-        AtomicInteger walletIndex = new AtomicInteger();
-        ArrayAdapter<String> TransWalletAdapter = new ArrayAdapter<>(this.getContext(), R.layout.list_item, walletNames);
-        inpTransWallet.setAdapter(TransWalletAdapter);
-        inpTransWallet.setOnItemClickListener((parent, view1, position, id)->{
-            transactionEdit.setWallet(App.wallets.get(position));
-            walletIndex.set(position);
-        });
 
         inpTransDate.setOnClickListener(v -> {
             MaterialDatePicker.Builder<Long> datePickerBuilder = MaterialDatePicker.Builder.datePicker();
@@ -117,35 +214,8 @@ public class TransactionBottomSheet extends BottomSheetDialogFragment {
             datePicker.show(getChildFragmentManager(), "DatePickerForStartDate");
         });
 
-//        Submit
-        MaterialToolbar topAppBar = view.findViewById(R.id.topAppBar);
-        topAppBar.setOnMenuItemClickListener(item -> {
-            transactionEdit.setAmount(Float.parseFloat(Objects.requireNonNull(inpTransAmount.getText()).toString()));
-            transactionEdit.setNote(String.valueOf(inpTransNote.getText()));
-            transactionEdit.setName(String.valueOf(inpTransName.getText()));
-            transactionEdit.setDate(String.valueOf(inpTransDate.getText()));
-
-            App.transactions.add(transactionEdit);
-            DatabaseReference setTrans = FirebaseDatabase.getInstance().getReference("users_data")
-                    .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
-                    .child("transactions").child(String.valueOf(App.transactions.size()));
-
-            setTrans.setValue(transactionEdit);
-            DatabaseReference setWallet = FirebaseDatabase.getInstance().getReference("users_data")
-                    .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
-                    .child("wallets").child(String.valueOf(walletIndex.get())).child("balance");
-            Float balance = transactionEdit.getWallet().getBalance();
-
-            balance = (transactionEdit.getType().equals(Transaction.TRANSACTION_TYPE_INCOME)) ?
-                    balance + transactionEdit.getAmount() : balance - transactionEdit.getAmount();
-
-            setWallet.setValue(balance);
-            dismiss();
-            return item.getItemId() == R.id.mItemAdd;
-        });
         return view;
     }
-
 
 
 }

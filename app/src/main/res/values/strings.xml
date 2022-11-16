@@ -32,7 +32,6 @@
     <string name="defaultOutcome">-2.500.000</string>
     <string name="defaultPercentageOutcome">35%</string>
     <string name="vnd">VND</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="emptywallet">emptyWallet</string>
     <string name="b_n_ch_a_t_budget_n_o_c">Bạn chưa đặt Budget nào cả !</string>
@@ -111,5 +110,8 @@
     </string>
     <string name="t_t_c_v">Tất cả ví</string>
     <string name="h_m_nay">Hôm nay</string>
+    <string name="save_edit">save_edit</string>
+    <string name="l_u">Lưu</string>
+    <string name="x_a">Xóa</string>
 
 </resources>

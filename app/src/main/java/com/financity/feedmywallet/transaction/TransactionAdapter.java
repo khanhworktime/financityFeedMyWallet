@@ -1,5 +1,6 @@
 package com.financity.feedmywallet.transaction;
 
+import android.app.Activity;
 import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +10,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.financity.feedmywallet.R;
@@ -21,6 +23,10 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
 
     ArrayList<Transaction> transactions;
 
+    public interface Listener {
+        void itemOnClick(View view, int position);
+    }
+
     public ArrayList<Transaction> getTransactions() {
         return transactions;
     }
@@ -28,6 +34,8 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
     public TransactionAdapter(ArrayList<Transaction> transactions) {
         this.transactions = transactions;
     }
+
+    MaterialCardView cardTrans;
 
     @NonNull
     @Override
@@ -58,6 +66,14 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
             holder.imgType.setImageResource(R.drawable.ic_out);
         }
 
+        holder.setItemOnClick(new Listener() {
+            @Override
+            public void itemOnClick(View view, int position) {
+                TransactionBottomSheet editTrans = new TransactionBottomSheet(transactions.get(position));
+                editTrans.show(editTrans.getParentFragmentManager(), "Edit Transaction");
+            }
+        });
+
     }
 
 
@@ -66,12 +82,14 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
         return transactions.size();
     }
 
-    class TransactionVH extends RecyclerView.ViewHolder{
+    class TransactionVH extends RecyclerView.ViewHolder implements View.OnClickListener{
 
         TextView txTransName, txTransNote, txTransDate, txTransCategory, txTransAmount, txTransCurrency;
         ImageView imgType;
         MaterialCardView cardTrans;
         ConstraintLayout layoutEmpty;
+
+        Listener onItemClick;
         public TransactionVH(@NonNull View itemView) {
             super(itemView);
             layoutEmpty = itemView.findViewById(R.id.layoutEmpty);
@@ -83,6 +101,16 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
             txTransDate = (TextView) itemView.findViewById(R.id.txTransSectionName);
             txTransCurrency = (TextView) itemView.findViewById(R.id.txTransCurrency);
             txTransNote = (TextView) itemView.findViewById(R.id.txTransNote);
+
+            cardTrans.setOnClickListener(this);
+        }
+        public void setItemOnClick(Listener onItemClick){
+            this.onItemClick = onItemClick;
+        }
+
+        @Override
+        public void onClick(View v) {
+            onItemClick.itemOnClick(v, getAdapterPosition());
         }
     }
 

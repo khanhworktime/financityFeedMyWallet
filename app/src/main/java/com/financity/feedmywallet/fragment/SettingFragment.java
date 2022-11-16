@@ -41,6 +41,8 @@ public class SettingFragment extends Fragment {
         layoutEditUser = view.findViewById(R.id.layoutEditUser);
         layoutLogout = view.findViewById(R.id.layoutLogout);
 
+        txUsername.setText(FirebaseAuth.getInstance().getCurrentUser().getEmail());
+
         layoutLogout.setOnClickListener(view1 -> {
             FirebaseAuth.getInstance().signOut();
             Intent i = new Intent(getActivity(), LogIn.class);

@@ -16,11 +16,12 @@ public class Transaction {
     Wallet wallet;
     String date;
     String note;
+    String id;
 
     public Transaction() {
     }
 
-    public Transaction(String name, String types, Category category, Float amount, Wallet wallet, String date, String note) {
+    public Transaction(String name, String types, Category category, Float amount, Wallet wallet, String date, String note, String id) {
         this.name = name;
         this.type = types;
         this.category = category;
@@ -28,6 +29,15 @@ public class Transaction {
         this.wallet = wallet;
         this.date = date;
         this.note = note;
+        this.id = id;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getName() {
