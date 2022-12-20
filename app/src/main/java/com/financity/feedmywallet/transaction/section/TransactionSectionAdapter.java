@@ -22,6 +22,8 @@ public class TransactionSectionAdapter extends RecyclerView.Adapter<TransactionS
     ArrayList<TransactionSection> sections;
     FragmentManager fm;
 
+
+
     public TransactionSectionAdapter(ArrayList<TransactionSection> sections, FragmentManager fm) {
         this.sections = sections;
         this.fm = fm;

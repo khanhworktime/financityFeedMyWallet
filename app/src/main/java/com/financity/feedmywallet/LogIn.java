@@ -17,6 +17,7 @@ import android.widget.Toast;
 import com.financity.feedmywallet.component.LoadingDialog;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -25,7 +26,6 @@ public class LogIn extends AppCompatActivity {
 
     Button btnLogin;
     TextView txSignUp, txUsername, txPwd;
-    CheckBox ckRememberAccount;
     protected FirebaseAuth mFirebaseAuth = FirebaseAuth.getInstance();
 
     @Override
@@ -41,7 +41,6 @@ public class LogIn extends AppCompatActivity {
         btnLogin = findViewById(R.id.btnLogin);
         txUsername = findViewById(R.id.txUsername);
         txPwd = findViewById(R.id.txPwd);
-        ckRememberAccount = findViewById(R.id.ckRememberAccount);
     }
 
     private void initListener(){
@@ -63,8 +62,8 @@ public class LogIn extends AppCompatActivity {
                 String password = txPwd.getText().toString().trim();
 
                 if(email.equals("") || password.equals("")) {
-                    Toast.makeText(LogIn.this, "Tài khoản hoặc mật khẩu trống !",
-                            Toast.LENGTH_SHORT).show();
+                    Snackbar.make(view, "Tài khoản hoặc mật khẩu trống !",
+                            Snackbar.LENGTH_SHORT).show();
                     return ;
                 }
 

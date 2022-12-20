@@ -15,6 +15,7 @@
         android:alpha="0.45"
         android:background="#FFFFFF"
         android:backgroundTint="#FFFFFF"
+        android:contentDescription="@string/logo"
         android:cropToPadding="false"
         android:tintMode="src_over"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -22,7 +23,7 @@
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="@+id/tv_2"
         app:srcCompat="@drawable/logo"
-        android:contentDescription="logo" />
+        tools:ignore="ImageContrastCheck" />
 
     <TextView
         android:id="@+id/tv_start"
@@ -31,7 +32,7 @@
         android:layout_marginStart="48dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="48dp"
-        android:text="Bắt đầu"
+        android:text="@string/b_t_u"
         android:textSize="34sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
@@ -44,7 +45,7 @@
         android:layout_width="0dp"
         android:layout_height="33dp"
         android:layout_marginTop="16dp"
-        android:text="Đăng nhập để có thể truy cập vào trình quản lý chi tiêu của bạn"
+        android:text="@string/ng_nh_p_c_th_truy_c_p_v_o_tr_nh_qu_n_l_chi_ti_u_c_a_b_n"
         app:layout_constraintEnd_toEndOf="@+id/tv_start"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/tv_start"
@@ -55,7 +56,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:text="Chưa có tài khoản?"
+        android:text="@string/ch_a_c_t_i_kho_n"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="@+id/btnLogin"
@@ -66,7 +67,7 @@
         android:id="@+id/txSignUp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Đăng kí ngay"
+        android:text="@string/ng_k_ngay"
         android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/tv_2"
@@ -76,28 +77,15 @@
         app:layout_constraintTop_toTopOf="@+id/tv_2"
         app:layout_constraintVertical_bias="1.0" />
 
-    <CheckBox
-        android:id="@+id/ckRememberAccount"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Nhớ tài khoản"
-        android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/ip6"
-        app:layout_constraintTop_toBottomOf="@+id/ip6" />
-
     <Button
         android:id="@+id/btnLogin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="48dp"
-        android:text="Đăng nhập"
+        android:layout_marginTop="52dp"
+        android:text="@string/ng_nh_p"
         android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/ckRememberAccount"
-        app:layout_constraintTop_toBottomOf="@+id/ckRememberAccount" />
+        app:layout_constraintStart_toStartOf="@+id/ip6"
+        app:layout_constraintTop_toBottomOf="@+id/ip6" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/ip5"
@@ -112,7 +100,8 @@
             android:id="@+id/txUsername"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:hint="Tài khoản" />
+            android:hint="@string/t_i_kho_n"
+            tools:ignore="TextContrastCheck" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -128,19 +117,9 @@
             android:id="@+id/txPwd"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:hint="Mật khẩu"
-            android:inputType="textPassword" />
+            android:hint="@string/m_t_kh_u"
+            android:inputType="textPassword"
+            tools:ignore="TextContrastCheck" />
     </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.gms.common.SignInButton
-        android:id="@+id/btnGoogleSignIn"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="@+id/btnLogin"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.175"
-        app:layout_constraintStart_toEndOf="@+id/btnLogin"
-        app:layout_constraintTop_toTopOf="@+id/btnLogin"
-        app:layout_constraintVertical_bias="0.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,5 +1,6 @@
 package com.financity.feedmywallet;
 
+import static com.financity.feedmywallet.App.navigationBar;
 import static com.financity.feedmywallet.App.wallets;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,18 +18,20 @@ import com.financity.feedmywallet.category.Category;
 import com.financity.feedmywallet.transaction.Transaction;
 import com.financity.feedmywallet.utils.DateFormater;
 import com.financity.feedmywallet.wallet.Wallet;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.Date;
+import java.util.Random;
 import java.util.UUID;
 
 public class CreateNewWallet extends AppCompatActivity implements AdapterView.OnItemClickListener {
 
-    final String[] currencyUnits = {"Vietnamese Dong ₫", "US Dollar $", "Euro €", "British Pound £", "Japanese Yen ¥", "Chinese Yuan Renminbi ¥", "South Korean Won ₩"};
-    final String[] currencyLables = {"VND", "USD", "EUR", "GBP", "YEN", "CNY", "WON"};
+    final String[] currencyUnits = {"Vietnamese Dong ₫"};
+    final String[] currencyLables = {"VND"};
     Button btn_create;
     AutoCompleteTextView currencyUnit;
     TextInputEditText txName, txInitBalance;
@@ -48,27 +51,38 @@ public class CreateNewWallet extends AppCompatActivity implements AdapterView.On
         currencyUnit.setOnItemClickListener(this);
 
         btn_create = findViewById(R.id.btn_create);
-
-
+        newWallet.setId(UUID.randomUUID().toString());
         btn_create.setOnClickListener(view -> {
+            boolean isErr = false;
+            if (txName.getText().toString().isEmpty()){
+                Snackbar.make(view, "Tên ví rỗng !", Snackbar.LENGTH_SHORT).setAnchorView(navigationBar).show();
+                isErr = true;
+            }
+            else newWallet.setName(txName.getText().toString());
 
-            newWallet.setName(txName.getText().toString());
-            newWallet.setBalance(Float.parseFloat(txInitBalance.getText().toString()));
+            if (!txInitBalance.getText().toString().isEmpty()) {
+                newWallet.setBalance(Float.parseFloat(txInitBalance.getText().toString()));
+            } else newWallet.setBalance(0F);
 
+            if (currencyUnit.getText().toString().isEmpty()){
+                newWallet.setCurrency("VND");
+            }
             DatabaseReference setWallet = FirebaseDatabase.getInstance().getReference("users_data")
                             .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
-                                    .child("wallets").child(String.valueOf(wallets.size()));
+                                    .child("wallets").child(String.valueOf(newWallet.getId()));
             setWallet.setValue(newWallet);
 
+            String newTransId = UUID.randomUUID().toString();
             DatabaseReference setFirstTrans = FirebaseDatabase.getInstance().getReference("users_data")
                     .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
-                    .child("transactions").child(String.valueOf(App.transactions.size()));
+                    .child("transactions").child(newTransId);
 
-            setFirstTrans.setValue(new Transaction("Khởi tạo ví", Transaction.TRANSACTION_TYPE_INCOME, Category.CATEGORY_INITWALLET, newWallet.getBalance(), newWallet, DateFormater.defaultFormater.format(new Date()), "Khởi tạo ví", UUID.randomUUID().toString()));
-
-            Intent i = new Intent(getApplicationContext(), App.class);
-            startActivity(i);
-            finish();
+            setFirstTrans.setValue(new Transaction("Khởi tạo ví", Transaction.TRANSACTION_TYPE_INCOME, Category.CATEGORY_INITWALLET, newWallet.getBalance(), newWallet, DateFormater.defaultFormater.format(new Date()), "Khởi tạo ví", newTransId));
+            if (!isErr){
+                Intent i = new Intent(getApplicationContext(), App.class);
+                startActivity(i);
+                finish();
+            }
         });
     }
 

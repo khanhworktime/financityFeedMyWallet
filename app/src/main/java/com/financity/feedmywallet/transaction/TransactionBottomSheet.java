@@ -13,17 +13,16 @@ import androidx.annotation.Nullable;
 import com.financity.feedmywallet.App;
 import com.financity.feedmywallet.R;
 import com.financity.feedmywallet.category.Category;
+import com.financity.feedmywallet.category.IncomeCategory;
 import com.financity.feedmywallet.utils.DateFormater;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.google.android.material.datepicker.MaterialDatePicker;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -65,7 +64,11 @@ public class TransactionBottomSheet extends BottomSheetDialogFragment {
         inpTransWallet = view.findViewById(R.id.inpTransWallet);
         inpTransType = view.findViewById(R.id.inpTransType);
         inpTransCategory = view.findViewById(R.id.inpTransCategory);
+
+
         inpTransDate.setText(DateFormater.defaultFormater.format(new Date()));
+        inpTransType.setText(Category.CATEGORIES_TYPE[0]);
+        inpTransCategory.setText(Category.CATEGORIES_INCOME[3]);
 
         AtomicInteger walletIndex = new AtomicInteger();
         String[] walletNames =  new String[App.wallets.size()];
@@ -79,13 +82,29 @@ public class TransactionBottomSheet extends BottomSheetDialogFragment {
             walletIndex.set(position);
         });
 
+        inpTransWallet.setText(App.wallets.get(0).getName());
+
         MaterialToolbar topAppBar = view.findViewById(R.id.topAppBar);
         if (isCreate) {
             transactionEdit = new Transaction();
+            transactionEdit.setType(Category.CATEGORIES_TYPE[0]);
+            transactionEdit.setCategory(new Category("Extra income" , "Income"));
+            transactionEdit.setWallet(App.wallets.get(0));
+
+            inpTransCategory.setText(transactionEdit.getType());
             transactionEdit.setId(UUID.randomUUID().toString());
 //            Add new transaction
             topAppBar.inflateMenu(R.menu.add_new_menu);
             topAppBar.setOnMenuItemClickListener(item -> {
+                if (inpTransAmount.getText().toString().isEmpty()) {
+                    Snackbar.make(view, "Chưa nhập số tiền !", Snackbar.LENGTH_SHORT).setAnchorView(container).show();
+                    return false;
+                }
+
+                if (inpTransType.getText().toString().isEmpty()) {
+                    Snackbar.make(view, "Chưa nhập số tiền !", Snackbar.LENGTH_SHORT).setAnchorView(container).show();
+                    return false;
+                }
                 transactionEdit.setAmount(Float.parseFloat(Objects.requireNonNull(inpTransAmount.getText()).toString()));
                 transactionEdit.setNote(String.valueOf(inpTransNote.getText()));
                 transactionEdit.setName(String.valueOf(inpTransName.getText()));
@@ -98,7 +117,7 @@ public class TransactionBottomSheet extends BottomSheetDialogFragment {
                 setTrans.setValue(transactionEdit);
                 DatabaseReference setWallet = FirebaseDatabase.getInstance().getReference("users_data")
                         .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
-                        .child("wallets").child(String.valueOf(walletIndex.get())).child("balance");
+                        .child("wallets").child(String.valueOf(transactionEdit.getWallet().getId())).child("balance");
                 Float balance = transactionEdit.getWallet().getBalance();
 
                 balance = (transactionEdit.getType().equals(Transaction.TRANSACTION_TYPE_INCOME)) ?
@@ -115,7 +134,7 @@ public class TransactionBottomSheet extends BottomSheetDialogFragment {
             inpTransNote.setText(transactionEdit.getNote());
             inpTransWallet.setText(transactionEdit.getWallet().getName());
             inpTransType.setText(transactionEdit.getType());
-            inpTransCategory.setText(transactionEdit.getType());
+            inpTransCategory.setText(transactionEdit.getCategory().getValue());
 
 //            Edit a transaction
 
@@ -124,6 +143,10 @@ public class TransactionBottomSheet extends BottomSheetDialogFragment {
             topAppBar.setOnMenuItemClickListener(item -> {
 
                 if(item.getItemId() == R.id.mSave){
+                    if (inpTransAmount.getText().toString().isEmpty()) {
+                        Snackbar.make(view, "Chưa nhập số tiền !", Snackbar.LENGTH_SHORT).setAnchorView(container).show();
+                        return false;
+                    }
                     transactionEdit.setAmount(Float.parseFloat(Objects.requireNonNull(inpTransAmount.getText()).toString()));
                     transactionEdit.setNote(String.valueOf(inpTransNote.getText()));
                     transactionEdit.setName(String.valueOf(inpTransName.getText()));
@@ -136,7 +159,7 @@ public class TransactionBottomSheet extends BottomSheetDialogFragment {
                     setTrans.setValue(transactionEdit);
                     DatabaseReference setWallet = FirebaseDatabase.getInstance().getReference("users_data")
                             .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
-                            .child("wallets").child(String.valueOf(walletIndex.get())).child("balance");
+                            .child("wallets").child(String.valueOf(transactionEdit.getWallet().getId())).child("balance");
                     Float balance = transactionEdit.getWallet().getBalance();
 
                     balance = (transactionEdit.getType().equals(Transaction.TRANSACTION_TYPE_INCOME)) ?
@@ -197,6 +220,8 @@ public class TransactionBottomSheet extends BottomSheetDialogFragment {
         });
 
         inpTransCategory.setAdapter(TransCategoryAdapter);
+        inpTransCategory.setText(transactionEdit.getCategory().getValue());
+
         inpTransCategory.setOnItemClickListener((parent, view1, position, id) -> {
             transactionEdit.setCategory(new Category(TransCategoryAdapter.getItem(position), inpTransType.getText().toString()));
         });

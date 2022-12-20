@@ -1,5 +1,7 @@
 package com.financity.feedmywallet.transaction;
 
+import static com.financity.feedmywallet.App.navigationBar;
+
 import android.app.Activity;
 import android.graphics.Color;
 import android.view.LayoutInflater;
@@ -16,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.financity.feedmywallet.R;
 import com.google.android.material.card.MaterialCardView;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
 import java.util.Locale;
@@ -72,8 +75,12 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
         holder.setItemOnClick(new Listener() {
             @Override
             public void itemOnClick(View view, int position) {
-                TransactionBottomSheet editTrans = new TransactionBottomSheet(transactions.get(position));
-                editTrans.show(fm, "Edit Transaction");
+                if (transactions.get(position).getCategory().getValue().equals("Init wallet")) {
+                    Snackbar.make(view, "Không thể chỉnh sửa giao dịch khởi tạo", Snackbar.LENGTH_SHORT).setAnchorView(navigationBar).show();
+                } else {
+                    TransactionBottomSheet editTrans = new TransactionBottomSheet(transactions.get(position));
+                    editTrans.show(fm, "Edit Transaction");
+                }
             }
         });
 

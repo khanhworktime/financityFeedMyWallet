@@ -8,6 +8,7 @@ import static com.financity.feedmywallet.App.wallets;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.graphics.Rect;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -30,7 +31,9 @@ import com.financity.feedmywallet.transaction.TransactionAdapter;
 import com.financity.feedmywallet.transaction.TransactionBottomSheet;
 import com.financity.feedmywallet.wallet.Wallet;
 import com.financity.feedmywallet.wallet.WalletAdapter;
+import com.google.android.material.button.MaterialButton;
 import com.google.android.material.card.MaterialCardView;
+import com.google.android.material.divider.MaterialDividerItemDecoration;
 import com.google.android.material.progressindicator.LinearProgressIndicator;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -39,6 +42,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -58,7 +62,7 @@ public class HomepageFragment extends Fragment{
     TextView txWalletCurrency, txEmptyTrans, txAllTrans, txPercentageOutcome, txPercentageIncome, txReportMonthOutcome, txReportMonthIncome, txTotalBalance;
     MaterialCardView addNewTransView;
     LinearProgressIndicator prgIncome, prgOutcome;
-    ConstraintLayout layoutAddWallet;
+    MaterialButton btnAddWallet;
     FirebaseDatabase mDatabase;
 
     @Override
@@ -107,6 +111,13 @@ public class HomepageFragment extends Fragment{
                 walletAdapter = new WalletAdapter(wallets);
                 walletAdapter.notifyDataSetChanged();
                 cardWallet.setAdapter(walletAdapter);
+                cardWallet.addItemDecoration(new RecyclerView.ItemDecoration() {
+                    @Override
+                    public void getItemOffsets(@NonNull Rect outRect, @NonNull View view, @NonNull RecyclerView parent, @NonNull RecyclerView.State state) {
+                        if (parent.getChildCount() != 0)
+                            outRect.right = 32;
+                    }
+                });
             }
 
             @Override
@@ -162,8 +173,21 @@ public class HomepageFragment extends Fragment{
 
                     tempTransValue.updateAndGet(v -> v + child.getValue(Transaction.class).getAmount());
 
-                    if (Objects.equals(child.getValue(Transaction.class).getDate(), formaterDate.format(new Date())))
+                    Date today = new Date();
+                    Date transDate;
+                    boolean isToday = false;
+
+                    try {
+                        transDate = formaterDate.parse(child.getValue(Transaction.class).getDate());
+                        today = formaterDate.parse(formaterDate.format(today));
+                        isToday = transDate.equals(today);
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+
+                    if (isToday)
                         tempToday.add(child.getValue(Transaction.class));
+
 
                     if (child.getValue(Transaction.class).getType().equals(Transaction.TRANSACTION_TYPE_INCOME))
                         incomeTemp.add(child.getValue(Transaction.class));
@@ -227,8 +251,8 @@ public class HomepageFragment extends Fragment{
             startActivity(i);
         });
 
-        layoutAddWallet = view.findViewById(R.id.layoutAddWallet);
-        layoutAddWallet.setOnClickListener(new View.OnClickListener() {
+        btnAddWallet = view.findViewById(R.id.btnAddWallet);
+        btnAddWallet.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(requireActivity(), CreateNewWallet.class));

@@ -114,5 +114,13 @@
     <string name="l_u">Lưu</string>
     <string name="x_a">Xóa</string>
     <string name="th_m_v">Thêm ví</string>
+    <string name="logo">logo</string>
+    <string name="b_t_u">Bắt đầu</string>
+    <string name="ng_nh_p_c_th_truy_c_p_v_o_tr_nh_qu_n_l_chi_ti_u_c_a_b_n">Đăng nhập để có thể truy cập vào trình quản lý chi tiêu của bạn</string>
+    <string name="ch_a_c_t_i_kho_n">Chưa có tài khoản?</string>
+    <string name="ng_k_ngay">Đăng kí ngay</string>
+    <string name="nh_t_i_kho_n">Nhớ tài khoản</string>
+    <string name="ng_nh_p">Đăng nhập</string>
+    <string name="m_t_kh_u">Mật khẩu</string>
 
 </resources>

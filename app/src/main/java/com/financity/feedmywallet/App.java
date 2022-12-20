@@ -37,7 +37,7 @@ public class App extends AppCompatActivity{
     public static Float totalTransactions = 0F;
 
     public boolean FIRST_LOAD = true;
-    NavigationBarView navigationBar;
+    public static NavigationBarView navigationBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
