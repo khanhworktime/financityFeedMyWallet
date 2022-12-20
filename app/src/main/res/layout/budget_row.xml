@@ -60,12 +60,12 @@
                 android:id="@+id/txAmount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="16dp"
+                android:layout_marginEnd="8dp"
                 android:layout_marginBottom="16dp"
                 android:text="@string/moneyHolder"
                 android:textColor="#FEFEFE"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent" />
+                app:layout_constraintEnd_toStartOf="@+id/txCurrency" />
 
             <TextView
                 android:id="@+id/txBudgetWallet"
@@ -110,6 +110,17 @@
                 app:layout_constraintEnd_toEndOf="@+id/prgBudget"
                 app:layout_constraintStart_toStartOf="@+id/prgBudget"
                 app:layout_constraintTop_toTopOf="@+id/prgBudget" />
+
+            <TextView
+                android:id="@+id/txCurrency"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="16dp"
+                android:text="TextView"
+                android:textColor="#FFFFFF"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </com.google.android.material.card.MaterialCardView>

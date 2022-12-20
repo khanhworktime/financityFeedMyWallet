@@ -26,6 +26,7 @@ import com.financity.feedmywallet.AllTransactions;
 import com.financity.feedmywallet.App;
 import com.financity.feedmywallet.CreateNewWallet;
 import com.financity.feedmywallet.R;
+import com.financity.feedmywallet.category.Category;
 import com.financity.feedmywallet.transaction.Transaction;
 import com.financity.feedmywallet.transaction.TransactionAdapter;
 import com.financity.feedmywallet.transaction.TransactionBottomSheet;
@@ -35,6 +36,7 @@ import com.google.android.material.button.MaterialButton;
 import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.divider.MaterialDividerItemDecoration;
 import com.google.android.material.progressindicator.LinearProgressIndicator;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -45,6 +47,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 import java.util.Objects;
@@ -103,11 +106,17 @@ public class HomepageFragment extends Fragment{
                 });
 
                 wallets = tempWallet;
+                if (wallets.size() == 0) {
+                    Intent i = new Intent(getContext(), App.class);
+                    startActivity(i);
+                    getActivity().finish();
+                }
 
                 totalBalance = tempBalance.get();
                 txTotalBalance.setText(String.format(Locale.getDefault(), "%,.2f", totalBalance));
 
-                txWalletCurrency.setText(wallets.get(0).getCurrency());
+//                @TODO default VND
+                txWalletCurrency.setText("VND");
                 walletAdapter = new WalletAdapter(wallets);
                 walletAdapter.notifyDataSetChanged();
                 cardWallet.setAdapter(walletAdapter);
@@ -169,29 +178,30 @@ public class HomepageFragment extends Fragment{
                 AtomicReference<Float> tempTransValue = new AtomicReference<>(0F);
                 snapshot.getChildren().forEach(child -> {
                     SimpleDateFormat formaterDate = new SimpleDateFormat("MMM dd, yyyy", Locale.getDefault());
+                    Transaction transaction = child.getValue(Transaction.class);
                     tempTrans.add(child.getValue(Transaction.class));
 
-                    tempTransValue.updateAndGet(v -> v + child.getValue(Transaction.class).getAmount());
-
-                    Date today = new Date();
-                    Date transDate;
-                    boolean isToday = false;
+                    tempTransValue.updateAndGet(v -> v + transaction.getAmount());
 
                     try {
-                        transDate = formaterDate.parse(child.getValue(Transaction.class).getDate());
-                        today = formaterDate.parse(formaterDate.format(today));
-                        isToday = transDate.equals(today);
+                        Date transDate = formaterDate.parse(transaction.getDate());
+
+                        Calendar transD = Calendar.getInstance();
+                        transD.setTimeInMillis(transDate.getTime());
+
+                        Calendar today = Calendar.getInstance();
+                        today.setTime(new Date());
+
+                        if (transD.get(Calendar.DAY_OF_YEAR) == today.get(Calendar.DAY_OF_YEAR) && transD.get(Calendar.YEAR) == today.get(Calendar.YEAR)) {
+                            tempToday.add(transaction);
+                        }
                     } catch (ParseException e) {
                         e.printStackTrace();
                     }
 
-                    if (isToday)
-                        tempToday.add(child.getValue(Transaction.class));
-
-
-                    if (child.getValue(Transaction.class).getType().equals(Transaction.TRANSACTION_TYPE_INCOME))
+                    if (!transaction.getCategory().getValue().equals(Category.CATEGORY_INITWALLET.getValue()) && transaction.getType().equals(Transaction.TRANSACTION_TYPE_INCOME))
                         incomeTemp.add(child.getValue(Transaction.class));
-                    if (child.getValue(Transaction.class).getType().equals(Transaction.TRANSACTION_TYPE_OUTCOME))
+                    if (!transaction.getCategory().getValue().equals(Category.CATEGORY_INITWALLET.getValue()) && transaction.getType().equals(Transaction.TRANSACTION_TYPE_OUTCOME))
                         outcomeTemp.add(child.getValue(Transaction.class));
                 });
 
@@ -225,8 +235,8 @@ public class HomepageFragment extends Fragment{
                     totalOutcome.set(totalOutcome.get() + transaction.getAmount());
                 });
 
-                int incomeProgress =(int) Math.round(Math.ceil(totalIncome.get() / totalTransactions * 100));
-                int outcomeProgress =(int) Math.round(Math.ceil(totalOutcome.get() / totalTransactions *100));
+                int incomeProgress =(int) Math.round(Math.ceil(totalIncome.get() / (totalIncome.get() + totalOutcome.get()) * 100));
+                int outcomeProgress =(int) Math.round(Math.ceil(totalOutcome.get() / (totalIncome.get() + totalOutcome.get()) *100));
                 prgIncome.setProgressCompat( incomeProgress, true);
                 prgOutcome.setProgressCompat( outcomeProgress, true);
 

@@ -1,28 +1,28 @@
 package com.financity.feedmywallet.budget;
 
 import com.financity.feedmywallet.category.Category;
-import com.financity.feedmywallet.category.OutcomeCategory;
 import com.financity.feedmywallet.wallet.Wallet;
 
 public class Budget {
-    int amount;
+    Float amount;
     String name;
     String note;
-    boolean isStarted;
+    String state;
     Wallet wallet;
     String startDate;
     String endDate;
     Category category;
     String id;
 
+
     public Budget() {
     }
 
-    public Budget(int amount, String name, String note, boolean isStarted, Wallet wallet, String startDate, String endDate, Category category, String id) {
+    public Budget(Float amount, String name, String note, String state, Wallet wallet, String startDate, String endDate, Category category, String id) {
         this.amount = amount;
         this.name = name;
         this.note = note;
-        this.isStarted = isStarted;
+        this.state = state;
         this.wallet = wallet;
         this.startDate = startDate;
         this.endDate = endDate;
@@ -48,11 +48,11 @@ public class Budget {
 
 
 
-    public int getAmount() {
+    public Float getAmount() {
         return amount;
     }
 
-    public void setAmount(int amount) {
+    public void setAmount(Float amount) {
         this.amount = amount;
     }
 
@@ -72,12 +72,12 @@ public class Budget {
         this.note = note;
     }
 
-    public boolean isStarted() {
-        return isStarted;
+    public String getState() {
+        return state;
     }
 
-    public void setStarted(boolean started) {
-        isStarted = started;
+    public void setState(String state) {
+        this.state = state;
     }
 
     public Wallet getWallet() {

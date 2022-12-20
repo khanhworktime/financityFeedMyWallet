@@ -5,11 +5,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 
 import com.financity.feedmywallet.category.Categories;
 import com.financity.feedmywallet.fragment.SettingFragment;
 import com.financity.feedmywallet.transaction.Transaction;
+import com.financity.feedmywallet.utils.DateFormater;
 import com.financity.feedmywallet.wallet.Wallet;
 import com.financity.feedmywallet.budget.Budget;
 import com.financity.feedmywallet.fragment.BudgetFragment;
@@ -22,8 +24,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.ParseException;
 import java.util.ArrayList;
-import java.util.Objects;
+import java.util.Date;
 
 public class App extends AppCompatActivity{
 
@@ -33,12 +36,18 @@ public class App extends AppCompatActivity{
     public static ArrayList<Transaction> transactions = new ArrayList<>();
     public static ArrayList<Transaction> incomeTransactions = new ArrayList<>();
     public static ArrayList<Transaction> outcomeTransactions = new ArrayList<>();
+
+    public static ArrayList<Budget> startedBudget = new ArrayList<>();
+    public static ArrayList<Budget> waitingBudget = new ArrayList<>();
+    public static ArrayList<Budget> finishedBudget = new ArrayList<>();
+
     public static Float totalBalance = 0F;
     public static Float totalTransactions = 0F;
 
     public boolean FIRST_LOAD = true;
     public static NavigationBarView navigationBar;
 
+    @SuppressLint("NonConstantResourceId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,6 +68,7 @@ public class App extends AppCompatActivity{
         DatabaseReference getWallets = user_data.child("wallets");
         DatabaseReference getBudgets = user_data.child("budgets");
         DatabaseReference getTransactions = user_data.child("transactions");
+
 
         getWallets.addValueEventListener(new ValueEventListener() {
             @Override
@@ -83,14 +93,39 @@ public class App extends AppCompatActivity{
             }
         });
 
+//        Functions to update budget state
+
         getBudgets.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 ArrayList<Budget> temp = new ArrayList<>();
                 snapshot.getChildren().forEach(child -> {
-                    temp.add(child.getValue(Budget.class));
-                });
+                    Budget getBudget = child.getValue(Budget.class);
+                    try {
+                        Date startDate = DateFormater.dateOnlyFormater.parse(getBudget.getStartDate());
+                        Date endDate = DateFormater.dateOnlyFormater.parse(getBudget.getEndDate());
+                        boolean reqUpdate = false;
 
+                        if(startDate.getTime() <= new Date().getTime() && !getBudget.getState().equals("running")){
+                            getBudget.setState("running");
+                            reqUpdate = true;
+                        }
+                        if(endDate.getTime() <= new Date().getTime() && !getBudget.getState().equals("finished")){
+                            getBudget.setState("finished");
+                            reqUpdate = true;
+                        }
+                        if (reqUpdate) child.getRef().setValue(getBudget);
+
+                        if (getBudget.getState().equals("init")) waitingBudget.add(getBudget);
+                        if (getBudget.getState().equals("finished")) finishedBudget.add(getBudget);
+                        if (getBudget.getState().equals("running")) startedBudget.add(getBudget);
+                    } catch (ParseException e) {
+
+                    }
+                });
+                temp.addAll(startedBudget);
+                temp.addAll(waitingBudget);
+                temp.addAll(finishedBudget);
                 budgets = temp;
             }
 

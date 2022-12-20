@@ -4,6 +4,7 @@ package com.financity.feedmywallet.fragment;
 
 import static com.financity.feedmywallet.App.budgets;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -15,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.financity.feedmywallet.R;
 import com.financity.feedmywallet.budget.Budget;
@@ -75,12 +77,14 @@ public class BudgetFragment extends Fragment {
         }
     }
 
-    RecyclerView rvBudget;
+    RecyclerView rvBudgetStarted, rvBudgetWaiting, rvBudgetFinished;
     ConstraintLayout layoutNoBudget, layoutBudgets;
-    BudgetAdapter budgetAdapter;
+    BudgetAdapter startedBudgetAdapter, waitingBudgetAdapter, finishedBudgetAdapter;
+    TextView txStarted, txWaiting, txFinished;
 
     FirebaseDatabase mDatabase;
 
+    @SuppressLint("MissingInflatedId")
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -91,32 +95,79 @@ public class BudgetFragment extends Fragment {
                 .child(Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid())
                 .child("budgets");
 
-
-        rvBudget = view.findViewById(R.id.rvBudget);
-
+        rvBudgetStarted = view.findViewById(R.id.rvBudgetStarted);
+        rvBudgetWaiting = view.findViewById(R.id.rvBudgetWaiting);
+        rvBudgetFinished = view.findViewById(R.id.rvBudgetFinished);
+        txFinished = view.findViewById(R.id.txFinished);
+        txStarted = view.findViewById(R.id.txStarted);
+        txWaiting = view.findViewById(R.id.txWaiting);
 
         getBudget.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                ArrayList<Budget> tempBudgets = new ArrayList<>();
+                ArrayList<Budget> startedBudget = new ArrayList<>();
+                ArrayList<Budget> waitingBudget = new ArrayList<>();
+                ArrayList<Budget> finishedBudget = new ArrayList<>();
+                ArrayList<Budget> allBudgets = new ArrayList<>();
+
 
                 snapshot.getChildren ().forEach(child ->{
-                    tempBudgets.add(child.getValue(Budget.class));
+                    Budget getBudget = child.getValue(Budget.class);
+                    if(getBudget.getState().equals("running"))
+                        startedBudget.add(child.getValue(Budget.class));
+                    if(getBudget.getState().equals("init"))
+                        waitingBudget.add(child.getValue(Budget.class));
+                    if(getBudget.getState().equals("finished"))
+                        finishedBudget.add(child.getValue(Budget.class));
+
+                    allBudgets.add(getBudget);
                 });
 
-                budgets = tempBudgets;
-                budgetAdapter = new BudgetAdapter(budgets, getParentFragmentManager());
-                budgetAdapter.notifyDataSetChanged();
-                rvBudget.setAdapter(budgetAdapter);
+                budgets = allBudgets;
+                startedBudgetAdapter = new BudgetAdapter(startedBudget,"started" , getChildFragmentManager());
+
+                waitingBudgetAdapter = new BudgetAdapter(waitingBudget,"waiting", getChildFragmentManager());
+
+                finishedBudgetAdapter = new BudgetAdapter(finishedBudget,"finished", getChildFragmentManager());
+
+                rvBudgetStarted.setAdapter(startedBudgetAdapter);
+
+                rvBudgetFinished.setAdapter(finishedBudgetAdapter);
+
+                rvBudgetWaiting.setAdapter(waitingBudgetAdapter);
+
                 layoutNoBudget = view.findViewById(R.id.layoutNoBudget);
                 layoutBudgets = view.findViewById(R.id.layoutBudgets);
+
                 if (budgets.size() == 0) {
                     layoutNoBudget.setVisibility(View.VISIBLE);
-                    layoutBudgets.setVisibility(View.INVISIBLE);
+                    layoutBudgets.setVisibility(View.GONE);
                 }
                 else {
-                    layoutNoBudget.setVisibility(View.INVISIBLE);
+                    layoutNoBudget.setVisibility(View.GONE);
                     layoutBudgets.setVisibility(View.VISIBLE);
+
+                    txStarted.setVisibility(View.VISIBLE);
+                    rvBudgetStarted.setVisibility(View.VISIBLE);
+
+                    txWaiting.setVisibility(View.VISIBLE);
+                    rvBudgetWaiting.setVisibility(View.VISIBLE);
+
+                    txFinished.setVisibility(View.VISIBLE);
+                    rvBudgetFinished.setVisibility(View.VISIBLE);
+
+                    if (startedBudget.size() == 0) {
+                        txStarted.setVisibility(View.GONE);
+                        rvBudgetStarted.setVisibility(View.GONE);
+                    }
+                    if (waitingBudget.size() == 0) {
+                        txWaiting.setVisibility(View.GONE);
+                        rvBudgetWaiting.setVisibility(View.GONE);
+                    }
+                    if (finishedBudget.size() == 0) {
+                        txFinished.setVisibility(View.GONE);
+                        rvBudgetFinished.setVisibility(View.GONE);
+                    }
                 }
             }
 
@@ -125,7 +176,9 @@ public class BudgetFragment extends Fragment {
 
             }
         });
-        rvBudget.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
+        rvBudgetStarted.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
+        rvBudgetWaiting.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
+        rvBudgetFinished.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
 
         ExtendedFloatingActionButton efabAddBudget = view.findViewById(R.id.efabAddBudget);
         efabAddBudget.setOnClickListener(v -> {

@@ -5,6 +5,7 @@ import static com.financity.feedmywallet.App.categories;
 import static com.financity.feedmywallet.App.wallets;
 
 import android.annotation.SuppressLint;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,16 +18,19 @@ import androidx.annotation.Nullable;
 
 import com.financity.feedmywallet.App;
 import com.financity.feedmywallet.R;
+import com.financity.feedmywallet.utils.DateFormater;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.google.android.material.datepicker.MaterialDatePicker;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 import java.util.Objects;
@@ -35,13 +39,15 @@ import java.util.UUID;
 public class BudgetBottomSheet extends BottomSheetDialogFragment {
 
 
-    int selectedPosition;
+    boolean editMode;
+    Budget selectedBudget;
     public BudgetBottomSheet() {
-        selectedPosition = -1;
+        editMode = false;
     }
 
-    public BudgetBottomSheet(int position) {
-        selectedPosition = position;
+    public BudgetBottomSheet(Budget selectedBudget, boolean editMode) {
+        this.selectedBudget = selectedBudget;
+        this.editMode = editMode;
     }
 
     @Override
@@ -70,10 +76,10 @@ public class BudgetBottomSheet extends BottomSheetDialogFragment {
 
         Budget budgetEdit = new Budget();
         budgetEdit.setId(UUID.randomUUID().toString());
-        if (selectedPosition != -1){
-            budgetEdit = budgets.get(selectedPosition);
+        if (editMode){
+            budgetEdit = selectedBudget;
             inpBudgetName.setText(budgetEdit.getName());
-            inpBudgetAmount.setText(String.valueOf(budgetEdit.getAmount()));
+            inpBudgetAmount.setText(String.format(Locale.getDefault(), "%.2f", budgetEdit.getAmount()));
             inpBudgetStartDate.setText(budgetEdit.getStartDate());
             inpBudgetEndDate.setText(budgetEdit.getEndDate());
             inpBudgetNote.setText(budgetEdit.getNote());
@@ -82,31 +88,100 @@ public class BudgetBottomSheet extends BottomSheetDialogFragment {
         }
 
         Budget finalBudgetEdit = budgetEdit;
-        Budget finalBudgetEdit2 = budgetEdit;
+
+        if (!editMode){
+            topAppBar.inflateMenu(R.menu.add_new_menu);
+        } else {
+            topAppBar.inflateMenu(R.menu.edit_menu);
+        }
+
         topAppBar.setOnMenuItemClickListener(item -> {
-            finalBudgetEdit.setAmount(
-                    Integer.parseInt(String.valueOf(inpBudgetAmount.getText()))
-            );
-            finalBudgetEdit.setName(String.valueOf(inpBudgetName.getText()));
-            finalBudgetEdit.setStartDate(String.valueOf(inpBudgetStartDate.getText()));
-            finalBudgetEdit.setEndDate(String.valueOf(inpBudgetEndDate.getText()));
-            finalBudgetEdit.setNote(String.valueOf(inpBudgetNote.getText()));
+            if (item.getItemId() == R.id.mItemAdd || item.getItemId() == R.id.mSave){
+                try {
+                    if (inpBudgetName.getText().length() == 0) {
+                        throw new RuntimeException("Chưa nhập tên Budget");
+                    }
+                    if (inpBudgetAmount.getText().length() == 0) {
+                        throw new RuntimeException("Chưa nhập số tiền cho Budget");
+                    }
+                    if (inpWallet.getText().length() == 0) {
+                        throw new RuntimeException("Chưa chọn ví");
+                    }
+                    if (inpCategory.getText().length() == 0) {
+                        throw new RuntimeException("Chưa chọn category");
+                    }
+                    if (inpBudgetStartDate.getText().length() == 0) {
+                        throw new RuntimeException("Chưa nhập ngày bắt đầu");
+                    }
+                    if (inpBudgetEndDate.getText().length() == 0) {
+                        throw new RuntimeException("Chưa nhập ngày kết thúc");
+                    }
 
-            SimpleDateFormat dateFormat = new SimpleDateFormat("MMM dd, yyyy", Locale.getDefault());
-            Date now = new Date();
-            try {
-                finalBudgetEdit.setStarted(dateFormat.parse(String.valueOf(now)) == dateFormat.parse(finalBudgetEdit.getStartDate()));
-            } catch (ParseException e) {
-                e.printStackTrace();
+                    Calendar startDate = Calendar.getInstance();
+                    startDate.setTime(DateFormater.dateOnlyFormater.parse(String.valueOf(inpBudgetStartDate.getText())));
+                    Calendar endDate = Calendar.getInstance();
+                    endDate.setTime(DateFormater.dateOnlyFormater.parse(String.valueOf(inpBudgetEndDate.getText())));
+
+                    if (startDate.getTimeInMillis() >= endDate.getTimeInMillis()){
+                        throw new RuntimeException("Ngày kết thúc phải sau ngày bắt đầu");
+                    }
+                    finalBudgetEdit.setAmount(
+                            Float.parseFloat(String.valueOf(inpBudgetAmount.getText()))
+                    );
+                    finalBudgetEdit.setName(String.valueOf(inpBudgetName.getText()));
+                    finalBudgetEdit.setStartDate(String.valueOf(inpBudgetStartDate.getText()));
+                    finalBudgetEdit.setEndDate(String.valueOf(inpBudgetEndDate.getText()));
+                    finalBudgetEdit.setNote(String.valueOf(inpBudgetNote.getText()));
+
+                    if (item.getItemId() == R.id.mItemAdd) finalBudgetEdit.setState("init");
+                    Date startDateD = DateFormater.dateOnlyFormater.parse(finalBudgetEdit.getStartDate());
+                    Date endDateD = DateFormater.dateOnlyFormater.parse(finalBudgetEdit.getEndDate());
+
+                    if(startDateD.getTime() <= new Date().getTime()){
+                        finalBudgetEdit.setState("running");
+                    }
+                    if(endDateD.getTime() <= new Date().getTime()){
+                        finalBudgetEdit.setState("finished");
+                    }
+                    DatabaseReference mRef = FirebaseDatabase.getInstance().getReference("users_data")
+                            .child(Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid())
+                            .child("budgets").child(finalBudgetEdit.getId());
+
+                    mRef.setValue(finalBudgetEdit);
+                    dismiss();
+                    } catch (RuntimeException e) {
+                    Snackbar.make(view ,e.getMessage(), Snackbar.LENGTH_SHORT).setAnimationMode(Snackbar.ANIMATION_MODE_SLIDE).show();
+                } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+                return item.getItemId() == R.id.mItemAdd;
             }
+            if (item.getItemId() == R.id.mDelete){
+                MaterialAlertDialogBuilder dialogBuilder = new MaterialAlertDialogBuilder(getContext())
+                        .setTitle("Xác nhận xóa Budget ?")
+                        .setMessage("Xóa luôn á nha!")
+                        .setNeutralButton("Không xóa", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        })
+                        .setPositiveButton("Xóa", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                DatabaseReference mRef = FirebaseDatabase.getInstance().getReference("users_data")
+                                        .child(Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid())
+                                        .child("budgets").child(finalBudgetEdit.getId());
 
-            DatabaseReference mRef = FirebaseDatabase.getInstance().getReference("users_data")
-                    .child(Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid())
-                    .child("budgets").child(String.valueOf(budgets.size()));
+                                mRef.removeValue();
+                                dismiss();
+                            }
+                        });
+                dialogBuilder.show();
 
-            mRef.setValue(finalBudgetEdit2);
-            dismiss();
-            return item.getItemId() == R.id.mItemAdd;
+                return item.getItemId() == R.id.mItemAdd;
+            }
+            return false;
         });
 
         inpBudgetStartDate.setOnClickListener(v -> {

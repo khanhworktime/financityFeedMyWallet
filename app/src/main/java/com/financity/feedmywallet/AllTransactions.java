@@ -18,6 +18,7 @@ import com.financity.feedmywallet.transaction.Transaction;
 import com.financity.feedmywallet.transaction.TransactionBottomSheet;
 import com.financity.feedmywallet.transaction.section.TransactionSection;
 import com.financity.feedmywallet.transaction.section.TransactionSectionAdapter;
+import com.financity.feedmywallet.utils.DateFormater;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.textfield.MaterialAutoCompleteTextView;
 import com.google.firebase.auth.FirebaseAuth;
@@ -31,6 +32,7 @@ import java.lang.reflect.Array;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 import java.util.Objects;
@@ -103,11 +105,23 @@ public class AllTransactions extends AppCompatActivity {
                 ArrayList<Transaction> elseTrans = new ArrayList<Transaction>();
 
                 snapshot.getChildren().forEach(child -> {
-                    Transaction tempTrans = child.getValue(Transaction.class);
-                    if (tempTrans.getDate().equals(todaySection.getTransDate())) {
-                        todayTrans.add(tempTrans);
-                    } else {
-                        elseTrans.add(tempTrans);
+
+                    try {
+                        Date transDate = DateFormater.defaultFormater.parse(child.getValue(Transaction.class).getDate());
+
+                        Calendar transD = Calendar.getInstance();
+                        transD.setTimeInMillis(transDate.getTime());
+
+                        Calendar today = Calendar.getInstance();
+                        today.setTime(new Date());
+
+                        if (transD.get(Calendar.DAY_OF_YEAR) == today.get(Calendar.DAY_OF_YEAR) && transD.get(Calendar.YEAR) == today.get(Calendar.YEAR))
+                            todayTrans.add(child.getValue(Transaction.class));
+                        else {
+                            elseTrans.add(child.getValue(Transaction.class));
+                        }
+                    } catch (ParseException e) {
+                        e.printStackTrace();
                     }
                 });
 

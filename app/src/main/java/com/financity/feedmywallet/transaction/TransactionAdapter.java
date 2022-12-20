@@ -17,6 +17,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.financity.feedmywallet.R;
+import com.financity.feedmywallet.category.Category;
 import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -62,8 +63,12 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
         holder.txTransNote.setText(transaction.getNote());
         holder.txTransDate.setText(transaction.getDate());
         holder.txTransCurrency.setText(transaction.getWallet().getCurrency());
+        holder.txWallet.setText(transaction.getWallet().getName());
 
-        if(transaction.getType().equals(Transaction.TRANSACTION_TYPE_INCOME)){
+        if (transaction.getCategory().getValue().equals(Category.CATEGORY_INITWALLET.getValue())){
+            holder.cardTrans.setCardBackgroundColor(Color.parseColor("#245356"));
+            holder.imgType.setImageResource(R.drawable.ic_in);
+        }else if(transaction.getType().equals(Transaction.TRANSACTION_TYPE_INCOME)){
             holder.cardTrans.setCardBackgroundColor(Color.parseColor("#318D56"));
             holder.imgType.setImageResource(R.drawable.ic_in);
         }
@@ -83,7 +88,6 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
                 }
             }
         });
-
     }
 
 
@@ -94,7 +98,7 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
 
     class TransactionVH extends RecyclerView.ViewHolder implements View.OnClickListener{
 
-        TextView txTransName, txTransNote, txTransDate, txTransCategory, txTransAmount, txTransCurrency;
+        TextView txTransName, txTransNote, txTransDate, txTransCategory, txTransAmount, txTransCurrency, txWallet;
         ImageView imgType;
         MaterialCardView cardTrans;
         ConstraintLayout layoutEmpty;
@@ -111,6 +115,7 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
             txTransDate = (TextView) itemView.findViewById(R.id.txTransSectionName);
             txTransCurrency = (TextView) itemView.findViewById(R.id.txTransCurrency);
             txTransNote = (TextView) itemView.findViewById(R.id.txTransNote);
+            txWallet = (TextView) itemView.findViewById(R.id.txWallet);
 
         }
         public void setItemOnClick(Listener onItemClick){

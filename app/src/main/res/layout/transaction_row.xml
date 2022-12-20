@@ -81,6 +81,8 @@
                 android:id="@+id/txTransAmount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="40dp"
                 android:text="TextView"
                 android:textColor="#FEFEFE"
                 app:layout_constraintEnd_toEndOf="@+id/txTransCategory"
@@ -90,11 +92,24 @@
                 android:id="@+id/txTransCurrency"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
                 android:text="TextView"
                 android:textColor="#FEFEFE"
                 android:textSize="12sp"
-                app:layout_constraintBottom_toBottomOf="@+id/imgType"
-                app:layout_constraintEnd_toEndOf="@+id/txTransAmount"
+                app:layout_constraintBottom_toBottomOf="@+id/txTransAmount"
+                app:layout_constraintEnd_toStartOf="@+id/imgType"
+                app:layout_constraintStart_toEndOf="@+id/txTransAmount"
+                app:layout_constraintTop_toTopOf="@+id/txTransAmount" />
+
+            <TextView
+                android:id="@+id/txWallet"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp"
+                android:text="TextView"
+                android:textColor="#FFFFFF"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/txTransCurrency"
                 app:layout_constraintTop_toBottomOf="@+id/txTransAmount"
                 app:layout_constraintVertical_bias="0.0" />
 

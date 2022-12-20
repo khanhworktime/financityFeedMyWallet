@@ -151,9 +151,8 @@
         android:layout_height="57dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
         android:hint="@string/transDate"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/tlWallet"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tlWallet"
         app:startIconDrawable="@drawable/ic_baseline_calendar_month_24">
